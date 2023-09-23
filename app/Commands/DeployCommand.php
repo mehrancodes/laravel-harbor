@@ -14,7 +14,6 @@ declare(strict_types=1);
 namespace App\Commands;
 
 use App\Http\Integrations\Forge\ForgeConnector;
-use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Validator;
 use LaravelZero\Framework\Commands\Command;
 use Throwable;
@@ -27,34 +26,42 @@ class DeployCommand extends Command
 
     public function handle(): int
     {
-        $config = Config::get('services.forge');
+        $config = config('services.forge');
 
-        $validator = Validator::make($config, [
-            'token' => ['required'],
-            'server' => ['required'],
-        ]);
-
-        if ($validator->fails()) {
+        if ($this->preflightFailed($config)) {
             $this->error('The required forge configuration is missing.');
 
             return 2;
         }
 
-        $connector = new ForgeConnector(
-            apiToken: $config['token']
-        );
+        $connector = new ForgeConnector($config['token']);
 
-        // find the server
         try {
             $server = $connector->server()
-                ->first($config['server'])
+                ->firstById($config['server'])
                 ->dtoOrFail();
         } catch (Throwable $throwable) {
-            $this->error('Unable to find the server.');
+            $this->error('Server not found.');
 
             return 2;
         }
 
+        $site = $connector->site()
+            ->firstOrCreate($server->id);
+
         return 0;
+    }
+
+    protected function preflightFailed(array $config): bool
+    {
+        $validator = Validator::make(
+            $config,
+            [
+                'token' => ['required'],
+                'server' => ['required'],
+            ]
+        );
+
+        return $validator->fails();
     }
 }
