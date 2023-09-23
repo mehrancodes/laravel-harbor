@@ -11,6 +11,8 @@
 |
 */
 
+use App\Http\Integrations\Forge\ForgeConnector;
+
 uses(Tests\TestCase::class)->in('Feature');
 
 /*
@@ -39,7 +41,7 @@ expect()->extend('toBeOne', function () {
 |
 */
 
-function something(): void
+function forgeConnector(string $token = 'TEST_TOKEN'): ForgeConnector
 {
-    // ..
+    return new ForgeConnector($token);
 }
