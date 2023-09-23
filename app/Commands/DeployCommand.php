@@ -28,7 +28,7 @@ class DeployCommand extends Command
     {
         $config = config('services.forge');
 
-        if ($this->preflightFailed($config)) {
+        if (! $this->passesPreflightValidation($config)) {
             $this->error('The required forge configuration is missing.');
 
             return 2;
@@ -52,16 +52,19 @@ class DeployCommand extends Command
         return 0;
     }
 
-    protected function preflightFailed(array $config): bool
+    protected function passesPreflightValidation(array $config): bool
     {
         $validator = Validator::make(
             $config,
             [
                 'token' => ['required'],
                 'server' => ['required'],
+                'domain' => ['required'],
+                'repository' => ['required'],
+                'branch' => ['required'],
             ]
         );
 
-        return $validator->fails();
+        return $validator->passes();
     }
 }
