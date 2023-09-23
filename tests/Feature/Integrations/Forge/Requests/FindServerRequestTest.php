@@ -1,17 +1,17 @@
 <?php
 
 use App\Http\Integrations\Forge\Data\ServerData;
-use App\Http\Integrations\Forge\Requests\FindServerRequest;
+use App\Http\Integrations\Forge\Requests\GetServerRequest;
 use Saloon\Http\Faking\MockResponse;
 use Saloon\Laravel\Facades\Saloon;
 
-test('it returns the server by given id', function ($payload) {
+test('GetServerRequest returns the server by given id', function ($serverData) {
     Saloon::fake([
-        FindServerRequest::class => MockResponse::make($payload),
+        GetServerRequest::class => MockResponse::make($serverData),
     ]);
 
     $res = forgeConnector()->send(
-        new FindServerRequest($payload['server']['id'])
+        new GetServerRequest($serverData['server']['id'])
     );
 
     expect($res->dto())
@@ -19,12 +19,12 @@ test('it returns the server by given id', function ($payload) {
 })
     ->with('server');
 
-test('it returns proper response fail status', function ($status) {
+test('GetServerRequest returns proper response fail status', function ($status) {
     Saloon::fake([
-        FindServerRequest::class => MockResponse::make([], $status),
+        GetServerRequest::class => MockResponse::make([], $status),
     ]);
 
-    $res = forgeConnector()->send(new FindServerRequest(1));
+    $res = forgeConnector()->send(new GetServerRequest(1));
 
     expect($res->status())
         ->toBe($status);

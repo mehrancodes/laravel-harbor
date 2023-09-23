@@ -13,15 +13,15 @@ declare(strict_types=1);
 
 namespace App\Http\Integrations\Forge\Resources;
 
-use App\Http\Integrations\Forge\Requests\FindServerRequest;
+use App\Http\Integrations\Forge\Requests\GetServerRequest;
 use Saloon\Contracts\Response;
 
 class ServerResource extends Resource
 {
-    public function first(string|int $id): Response
+    public function firstById($id): Response
     {
         return $this->connector->send(
-            new FindServerRequest($id)
+            new GetServerRequest($id)
         );
     }
 }

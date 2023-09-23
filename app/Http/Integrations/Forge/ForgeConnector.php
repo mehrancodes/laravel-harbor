@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace App\Http\Integrations\Forge;
 
 use App\Http\Integrations\Forge\Resources\ServerResource;
+use App\Http\Integrations\Forge\Resources\SiteResource;
 use Saloon\Http\Connector;
 use Saloon\Traits\Plugins\AcceptsJson;
 
@@ -23,25 +24,16 @@ class ForgeConnector extends Connector
 
     const API_URL = 'https://forge.laravel.com/api/v1';
 
-    public function __construct(
-        protected string $apiToken,
-    ) {
-        $this->withTokenAuth($this->apiToken);
+    public function __construct(string $token)
+    {
+        $this->withTokenAuth($token);
     }
 
-    /**
-     * The Base URL of the API
-     */
     public function resolveBaseUrl(): string
     {
         return self::API_URL;
     }
 
-    /**
-     * Default headers for every request
-     *
-     * @return string[]
-     */
     protected function defaultHeaders(): array
     {
         return [
@@ -50,11 +42,6 @@ class ForgeConnector extends Connector
         ];
     }
 
-    /**
-     * Default HTTP client options
-     *
-     * @return string[]
-     */
     protected function defaultConfig(): array
     {
         return [];
@@ -63,5 +50,10 @@ class ForgeConnector extends Connector
     public function server(): ServerResource
     {
         return new ServerResource($this);
+    }
+
+    public function site(): SiteResource
+    {
+        return new SiteResource($this);
     }
 }

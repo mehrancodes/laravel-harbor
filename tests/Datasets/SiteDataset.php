@@ -1,0 +1,95 @@
+<?php
+
+dataset('site', [
+    [
+        [
+            'site' => [
+                'id' => 2,
+                'name' => 'site.com',
+                'aliases' => [
+                    'alias1.com',
+                ],
+                'username' => 'laravel',
+                'directory' => '/test',
+                'wildcards' => false,
+                'status' => 'installing',
+                'repository' => null,
+                'repository_provider' => null,
+                'repository_branch' => null,
+                'repository_status' => null,
+                'quick_deploy' => false,
+                'project_type' => 'php',
+                'app' => null,
+                'php_version' => 'php81',
+                'app_status' => null,
+                'slack_channel' => null,
+                'telegram_chat_id' => null,
+                'telegram_chat_title' => null,
+                'deployment_url' => '...',
+                'created_at' => '2016-12-16 16:38:08',
+                'tags' => [],
+            ],
+        ],
+    ],
+]);
+
+dataset('sites_list', [
+    [
+        [
+            'sites' => [
+                [
+                    'id' => 1,
+                    'name' => 'mehran.com',
+                    'aliases' => [
+                        'alias1.com',
+                    ],
+                    'username' => 'laravel',
+                    'directory' => '/test',
+                    'wildcards' => false,
+                    'status' => 'installing',
+                    'repository' => null,
+                    'repository_provider' => null,
+                    'repository_branch' => null,
+                    'repository_status' => null,
+                    'quick_deploy' => false,
+                    'project_type' => 'php',
+                    'app' => null,
+                    'php_version' => 'php81',
+                    'app_status' => null,
+                    'slack_channel' => null,
+                    'telegram_chat_id' => null,
+                    'telegram_chat_title' => null,
+                    'deployment_url' => '...',
+                    'created_at' => '2016-12-16 16:38:08',
+                    'tags' => [],
+                ],
+                [
+                    'id' => 2,
+                    'name' => 'rasulian.com',
+                    'aliases' => [
+                        'alias2.com',
+                    ],
+                    'username' => 'laravel',
+                    'directory' => '/test',
+                    'wildcards' => false,
+                    'status' => 'installing',
+                    'repository' => null,
+                    'repository_provider' => null,
+                    'repository_branch' => null,
+                    'repository_status' => null,
+                    'quick_deploy' => false,
+                    'project_type' => 'php',
+                    'app' => null,
+                    'php_version' => 'php81',
+                    'app_status' => null,
+                    'slack_channel' => null,
+                    'telegram_chat_id' => null,
+                    'telegram_chat_title' => null,
+                    'deployment_url' => '...',
+                    'created_at' => '2016-12-16 16:38:08',
+                    'tags' => [],
+                ],
+            ],
+        ],
+    ],
+]);

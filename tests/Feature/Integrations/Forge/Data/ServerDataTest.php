@@ -2,7 +2,7 @@
 
 use App\Http\Integrations\Forge\Data\ServerData;
 
-test('it can transfer data', function ($data) {
+test('ServerData can transfer data', function ($data) {
     $dto = ServerData::fromResponse($data['server']);
 
     expect($dto)
