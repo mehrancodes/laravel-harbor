@@ -11,8 +11,6 @@
 |
 */
 
-use App\Http\Integrations\Forge\ForgeConnector;
-
 uses(Tests\TestCase::class)->in('Feature');
 
 /*
@@ -40,8 +38,3 @@ expect()->extend('toBeOne', function () {
 | global functions to help you to reduce the number of lines of code in your test files.
 |
 */
-
-function forgeConnector(string $token = 'TEST_TOKEN'): ForgeConnector
-{
-    return new ForgeConnector($token);
-}
