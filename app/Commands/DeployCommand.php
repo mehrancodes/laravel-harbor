@@ -60,8 +60,10 @@ class DeployCommand extends Command
                 'token' => ['required'],
                 'server' => ['required'],
                 'domain' => ['required'],
-                'repository' => ['required'],
-                'branch' => ['required'],
+                'git' => [
+                    'repository' => ['required'],
+                    'branch' => ['required'],
+                ],
             ]
         );
 

@@ -16,10 +16,10 @@ class GenerateDomain
      * @throws ReflectionException
      * @throws PendingRequestException
      */
-    public function handle(string $domain, string $branch): string
+    public function handle(): string
     {
-        return str($this->formatSubDomain(config('services.forge.branch')))
-            ->append('.', $domain)
+        return str($this->formatSubDomain(config('services.forge.git.branch')))
+            ->append('.', config('services.forge.domain'))
             ->toString();
     }
 

@@ -2,7 +2,6 @@
 
 use App\Http\Integrations\Forge\Data\SiteData;
 use App\Http\Integrations\Forge\Requests\CreateSiteRequest;
-use App\Http\Integrations\Forge\Requests\ListSitesRequest;
 use Saloon\Http\Faking\MockResponse;
 use Saloon\Laravel\Facades\Saloon;
 
@@ -22,10 +21,10 @@ test('CreateSiteRequest can return the available site', function ($siteData) {
 
 test('CreateSiteRequest returns proper response fail status', function ($status) {
     Saloon::fake([
-        ListSitesRequest::class => MockResponse::make([], $status),
+        CreateSiteRequest::class => MockResponse::make([], $status),
     ]);
 
-    $res = forgeConnector()->send(new ListSitesRequest(1));
+    $res = forgeConnector()->send(new CreateSiteRequest(1, 'int-12.hello.com'));
 
     expect($res->status())
         ->toBe($status);

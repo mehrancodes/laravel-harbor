@@ -15,6 +15,7 @@ namespace App\Http\Integrations\Forge\Resources;
 
 use App\Actions\FindSite;
 use App\Actions\GenerateDomain;
+use App\Actions\InstallGitRepository;
 use App\Http\Integrations\Forge\Data\SiteData;
 use App\Http\Integrations\Forge\Requests\CreateSiteRequest;
 
@@ -22,17 +23,16 @@ class SiteResource extends Resource
 {
     public function firstOrCreate(int $serverId): SiteData
     {
-        $domain = GenerateDomain::run(
-            config('services.forge.domain'),
-            config('services.forge.branch')
-        );
+        $domain = GenerateDomain::run();
 
         if ($site = FindSite::run($this->connector, $serverId, $domain)) {
             return $site;
         }
 
-        return $this->connector->send(
+        $site = $this->connector->send(
             new CreateSiteRequest($serverId, $domain)
         )->dtoOrFail();
+
+        return InstallGitRepository::run($this->connector, $serverId, $site->id);
     }
 }
