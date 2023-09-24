@@ -20,9 +20,9 @@
         "illuminate/log": "^10.0",
         "illuminate/validation": "^10.24",
         "laravel-zero/framework": "^10.0.2",
+        "laravel/forge-sdk": "^3.13",
         "lorisleiva/laravel-actions": "^2.7",
-        "nunomaduro/termwind": "^1.15.1",
-        "saloonphp/laravel-plugin": "^2.0"
+        "nunomaduro/termwind": "^1.15"
     },
     "require-dev": {
         "laravel/pint": "^1.8",

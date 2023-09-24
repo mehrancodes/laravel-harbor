@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7a1251dfaf410bdf5049ca6762ae69e7",
+    "content-hash": "3db3853384420676a7cb377cf9d0ec30",
     "packages": [
         {
             "name": "brick/math",
@@ -429,77 +429,6 @@
             "time": "2023-07-13T12:00:00+00:00"
         },
         {
-            "name": "fruitcake/php-cors",
-            "version": "v1.2.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/fruitcake/php-cors.git",
-                "reference": "58571acbaa5f9f462c9c77e911700ac66f446d4e"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/fruitcake/php-cors/zipball/58571acbaa5f9f462c9c77e911700ac66f446d4e",
-                "reference": "58571acbaa5f9f462c9c77e911700ac66f446d4e",
-                "shasum": ""
-            },
-            "require": {
-                "php": "^7.4|^8.0",
-                "symfony/http-foundation": "^4.4|^5.4|^6"
-            },
-            "require-dev": {
-                "phpstan/phpstan": "^1.4",
-                "phpunit/phpunit": "^9",
-                "squizlabs/php_codesniffer": "^3.5"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-main": "1.1-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Fruitcake\\Cors\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Fruitcake",
-                    "homepage": "https://fruitcake.nl"
-                },
-                {
-                    "name": "Barryvdh",
-                    "email": "barryvdh@gmail.com"
-                }
-            ],
-            "description": "Cross-origin resource sharing library for the Symfony HttpFoundation",
-            "homepage": "https://github.com/fruitcake/php-cors",
-            "keywords": [
-                "cors",
-                "laravel",
-                "symfony"
-            ],
-            "support": {
-                "issues": "https://github.com/fruitcake/php-cors/issues",
-                "source": "https://github.com/fruitcake/php-cors/tree/v1.2.0"
-            },
-            "funding": [
-                {
-                    "url": "https://fruitcake.nl",
-                    "type": "custom"
-                },
-                {
-                    "url": "https://github.com/barryvdh",
-                    "type": "github"
-                }
-            ],
-            "time": "2022-02-20T15:07:15+00:00"
-        },
-        {
             "name": "graham-campbell/result-type",
             "version": "v1.1.1",
             "source": {
@@ -885,86 +814,6 @@
                 }
             ],
             "time": "2023-08-27T10:13:57+00:00"
-        },
-        {
-            "name": "guzzlehttp/uri-template",
-            "version": "v1.0.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/guzzle/uri-template.git",
-                "reference": "61bf437fc2197f587f6857d3ff903a24f1731b5d"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/uri-template/zipball/61bf437fc2197f587f6857d3ff903a24f1731b5d",
-                "reference": "61bf437fc2197f587f6857d3ff903a24f1731b5d",
-                "shasum": ""
-            },
-            "require": {
-                "php": "^7.2.5 || ^8.0",
-                "symfony/polyfill-php80": "^1.17"
-            },
-            "require-dev": {
-                "bamarni/composer-bin-plugin": "^1.8.1",
-                "phpunit/phpunit": "^8.5.19 || ^9.5.8",
-                "uri-template/tests": "1.0.0"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "GuzzleHttp\\UriTemplate\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Graham Campbell",
-                    "email": "hello@gjcampbell.co.uk",
-                    "homepage": "https://github.com/GrahamCampbell"
-                },
-                {
-                    "name": "Michael Dowling",
-                    "email": "mtdowling@gmail.com",
-                    "homepage": "https://github.com/mtdowling"
-                },
-                {
-                    "name": "George Mponos",
-                    "email": "gmponos@gmail.com",
-                    "homepage": "https://github.com/gmponos"
-                },
-                {
-                    "name": "Tobias Nyholm",
-                    "email": "tobias.nyholm@gmail.com",
-                    "homepage": "https://github.com/Nyholm"
-                }
-            ],
-            "description": "A polyfill class for uri_template of PHP",
-            "keywords": [
-                "guzzlehttp",
-                "uri-template"
-            ],
-            "support": {
-                "issues": "https://github.com/guzzle/uri-template/issues",
-                "source": "https://github.com/guzzle/uri-template/tree/v1.0.2"
-            },
-            "funding": [
-                {
-                    "url": "https://github.com/GrahamCampbell",
-                    "type": "github"
-                },
-                {
-                    "url": "https://github.com/Nyholm",
-                    "type": "github"
-                },
-                {
-                    "url": "https://tidelift.com/funding/github/packagist/guzzlehttp/uri-template",
-                    "type": "tidelift"
-                }
-            ],
-            "time": "2023-08-27T10:19:19+00:00"
         },
         {
             "name": "illuminate/bus",
@@ -1514,66 +1363,6 @@
             "time": "2023-09-15T22:35:37+00:00"
         },
         {
-            "name": "illuminate/http",
-            "version": "v10.24.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/illuminate/http.git",
-                "reference": "0702292b644cf78122ed1b61d5dcc5e17ea4027f"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/http/zipball/0702292b644cf78122ed1b61d5dcc5e17ea4027f",
-                "reference": "0702292b644cf78122ed1b61d5dcc5e17ea4027f",
-                "shasum": ""
-            },
-            "require": {
-                "ext-filter": "*",
-                "fruitcake/php-cors": "^1.2",
-                "guzzlehttp/uri-template": "^1.0",
-                "illuminate/collections": "^10.0",
-                "illuminate/macroable": "^10.0",
-                "illuminate/session": "^10.0",
-                "illuminate/support": "^10.0",
-                "php": "^8.1",
-                "symfony/http-foundation": "^6.2",
-                "symfony/http-kernel": "^6.2",
-                "symfony/mime": "^6.2"
-            },
-            "suggest": {
-                "ext-gd": "Required to use Illuminate\\Http\\Testing\\FileFactory::image().",
-                "guzzlehttp/guzzle": "Required to use the HTTP Client (^7.5)."
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "10.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Illuminate\\Http\\": ""
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Taylor Otwell",
-                    "email": "taylor@laravel.com"
-                }
-            ],
-            "description": "The Illuminate Http package.",
-            "homepage": "https://laravel.com",
-            "support": {
-                "issues": "https://github.com/laravel/framework/issues",
-                "source": "https://github.com/laravel/framework"
-            },
-            "time": "2023-09-13T14:33:22+00:00"
-        },
-        {
             "name": "illuminate/log",
             "version": "v10.24.0",
             "source": {
@@ -1766,63 +1555,6 @@
                 "source": "https://github.com/laravel/framework"
             },
             "time": "2023-06-24T18:02:28+00:00"
-        },
-        {
-            "name": "illuminate/session",
-            "version": "v10.24.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/illuminate/session.git",
-                "reference": "f39be6b679781d5a7089c76965ed635491b4b5dd"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/session/zipball/f39be6b679781d5a7089c76965ed635491b4b5dd",
-                "reference": "f39be6b679781d5a7089c76965ed635491b4b5dd",
-                "shasum": ""
-            },
-            "require": {
-                "ext-ctype": "*",
-                "ext-session": "*",
-                "illuminate/collections": "^10.0",
-                "illuminate/contracts": "^10.0",
-                "illuminate/filesystem": "^10.0",
-                "illuminate/support": "^10.0",
-                "php": "^8.1",
-                "symfony/finder": "^6.2",
-                "symfony/http-foundation": "^6.2"
-            },
-            "suggest": {
-                "illuminate/console": "Required to use the session:table command (^10.0)."
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "10.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Illuminate\\Session\\": ""
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Taylor Otwell",
-                    "email": "taylor@laravel.com"
-                }
-            ],
-            "description": "The Illuminate Session package.",
-            "homepage": "https://laravel.com",
-            "support": {
-                "issues": "https://github.com/laravel/framework/issues",
-                "source": "https://github.com/laravel/framework"
-            },
-            "time": "2023-05-09T13:08:05+00:00"
         },
         {
             "name": "illuminate/support",
@@ -2333,6 +2065,74 @@
                 "source": "https://github.com/laravel-zero/laravel-zero"
             },
             "time": "2023-08-29T16:08:16+00:00"
+        },
+        {
+            "name": "laravel/forge-sdk",
+            "version": "v3.13.6",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/laravel/forge-sdk.git",
+                "reference": "a14bd4b81c3dacbe20f7606e96175007b0d00e0f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/laravel/forge-sdk/zipball/a14bd4b81c3dacbe20f7606e96175007b0d00e0f",
+                "reference": "a14bd4b81c3dacbe20f7606e96175007b0d00e0f",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "guzzlehttp/guzzle": "^6.3.1|^7.0",
+                "php": "^7.2|^8.0"
+            },
+            "require-dev": {
+                "mockery/mockery": "^1.3.1",
+                "phpstan/phpstan": "^1.10",
+                "phpunit/phpunit": "^8.4|^9.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Laravel\\Forge\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Taylor Otwell",
+                    "email": "taylor@laravel.com"
+                },
+                {
+                    "name": "Mohamed Said",
+                    "email": "mohamed@laravel.com"
+                },
+                {
+                    "name": "Dries Vints",
+                    "email": "dries@laravel.com"
+                },
+                {
+                    "name": "James Brooks",
+                    "email": "james@laravel.com"
+                }
+            ],
+            "description": "The official Laravel Forge PHP SDK.",
+            "keywords": [
+                "forge",
+                "laravel"
+            ],
+            "support": {
+                "issues": "https://github.com/laravel/forge-sdk/issues",
+                "source": "https://github.com/laravel/forge-sdk"
+            },
+            "time": "2023-07-07T08:27:51+00:00"
         },
         {
             "name": "laravel/prompts",
@@ -4028,150 +3828,6 @@
             "time": "2023-04-15T23:01:58+00:00"
         },
         {
-            "name": "saloonphp/laravel-plugin",
-            "version": "v2.1.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/saloonphp/laravel-plugin.git",
-                "reference": "82ed968641f429cd2a5a1972eb80ac8e29bb85a6"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/saloonphp/laravel-plugin/zipball/82ed968641f429cd2a5a1972eb80ac8e29bb85a6",
-                "reference": "82ed968641f429cd2a5a1972eb80ac8e29bb85a6",
-                "shasum": ""
-            },
-            "require": {
-                "illuminate/console": "^9.0 || ^10.0",
-                "illuminate/http": "^9.0 || ^10.0",
-                "illuminate/support": "^9.0 || ^10.0",
-                "php": "^8.1",
-                "saloonphp/saloon": "^2.0"
-            },
-            "require-dev": {
-                "friendsofphp/php-cs-fixer": "^3.5",
-                "orchestra/testbench": "^7.7 || ^8.0",
-                "pestphp/pest": "^1.21"
-            },
-            "type": "library",
-            "extra": {
-                "laravel": {
-                    "aliases": {
-                        "Saloon": "Saloon\\Laravel\\Facades\\Saloon"
-                    },
-                    "providers": [
-                        "Saloon\\Laravel\\SaloonServiceProvider"
-                    ]
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Saloon\\Laravel\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Sam Carré",
-                    "email": "29132017+Sammyjo20@users.noreply.github.com",
-                    "role": "Developer"
-                }
-            ],
-            "description": "Laravel plugin for Saloon",
-            "homepage": "https://github.com/saloonphp/laravel-plugin",
-            "keywords": [
-                "api",
-                "api-integrations",
-                "saloon",
-                "sammyjo20",
-                "sdk"
-            ],
-            "support": {
-                "issues": "https://github.com/saloonphp/laravel-plugin/issues",
-                "source": "https://github.com/saloonphp/laravel-plugin/tree/v2.1.0"
-            },
-            "time": "2023-09-17T11:20:48+00:00"
-        },
-        {
-            "name": "saloonphp/saloon",
-            "version": "v2.11.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/saloonphp/saloon.git",
-                "reference": "ee27b60ae5ea964d330060600320b8996c3344c6"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/saloonphp/saloon/zipball/ee27b60ae5ea964d330060600320b8996c3344c6",
-                "reference": "ee27b60ae5ea964d330060600320b8996c3344c6",
-                "shasum": ""
-            },
-            "require": {
-                "guzzlehttp/guzzle": "^7.5",
-                "guzzlehttp/promises": "^1.5 || ^2.0",
-                "php": "^8.1",
-                "psr/http-message": "^1.1 || ^2.0"
-            },
-            "require-dev": {
-                "ext-simplexml": "*",
-                "friendsofphp/php-cs-fixer": "^3.5",
-                "illuminate/collections": "^9.39 || ^10.0",
-                "league/flysystem": "^3.0",
-                "pestphp/pest": "^2.2.3",
-                "phpstan/phpstan": "^1.9",
-                "spatie/ray": "^1.33",
-                "symfony/dom-crawler": "^6.0"
-            },
-            "suggest": {
-                "illuminate/collections": "Required for the response collect() method.",
-                "symfony/dom-crawler": "Required for the response dom() method."
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Saloon\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Sam Carré",
-                    "email": "29132017+Sammyjo20@users.noreply.github.com",
-                    "role": "Developer"
-                }
-            ],
-            "description": "Build beautiful API integrations and SDKs with Saloon",
-            "homepage": "https://github.com/saloonphp/saloon",
-            "keywords": [
-                "api",
-                "api-integrations",
-                "saloon",
-                "sammyjo20",
-                "sdk"
-            ],
-            "support": {
-                "issues": "https://github.com/saloonphp/saloon/issues",
-                "source": "https://github.com/saloonphp/saloon/tree/v2.11.0"
-            },
-            "funding": [
-                {
-                    "url": "https://github.com/sammyjo20",
-                    "type": "github"
-                },
-                {
-                    "url": "https://ko-fi.com/sammyjo20",
-                    "type": "ko_fi"
-                }
-            ],
-            "time": "2023-09-20T17:02:17+00:00"
-        },
-        {
             "name": "symfony/console",
             "version": "v6.3.4",
             "source": {
@@ -4698,119 +4354,6 @@
                 }
             ],
             "time": "2023-08-22T08:20:46+00:00"
-        },
-        {
-            "name": "symfony/http-kernel",
-            "version": "v6.3.4",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/symfony/http-kernel.git",
-                "reference": "36abb425b4af863ae1fe54d8a8b8b4c76a2bccdb"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/symfony/http-kernel/zipball/36abb425b4af863ae1fe54d8a8b8b4c76a2bccdb",
-                "reference": "36abb425b4af863ae1fe54d8a8b8b4c76a2bccdb",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=8.1",
-                "psr/log": "^1|^2|^3",
-                "symfony/deprecation-contracts": "^2.5|^3",
-                "symfony/error-handler": "^6.3",
-                "symfony/event-dispatcher": "^5.4|^6.0",
-                "symfony/http-foundation": "^6.3.4",
-                "symfony/polyfill-ctype": "^1.8"
-            },
-            "conflict": {
-                "symfony/browser-kit": "<5.4",
-                "symfony/cache": "<5.4",
-                "symfony/config": "<6.1",
-                "symfony/console": "<5.4",
-                "symfony/dependency-injection": "<6.3.4",
-                "symfony/doctrine-bridge": "<5.4",
-                "symfony/form": "<5.4",
-                "symfony/http-client": "<5.4",
-                "symfony/http-client-contracts": "<2.5",
-                "symfony/mailer": "<5.4",
-                "symfony/messenger": "<5.4",
-                "symfony/translation": "<5.4",
-                "symfony/translation-contracts": "<2.5",
-                "symfony/twig-bridge": "<5.4",
-                "symfony/validator": "<5.4",
-                "symfony/var-dumper": "<6.3",
-                "twig/twig": "<2.13"
-            },
-            "provide": {
-                "psr/log-implementation": "1.0|2.0|3.0"
-            },
-            "require-dev": {
-                "psr/cache": "^1.0|^2.0|^3.0",
-                "symfony/browser-kit": "^5.4|^6.0",
-                "symfony/clock": "^6.2",
-                "symfony/config": "^6.1",
-                "symfony/console": "^5.4|^6.0",
-                "symfony/css-selector": "^5.4|^6.0",
-                "symfony/dependency-injection": "^6.3.4",
-                "symfony/dom-crawler": "^5.4|^6.0",
-                "symfony/expression-language": "^5.4|^6.0",
-                "symfony/finder": "^5.4|^6.0",
-                "symfony/http-client-contracts": "^2.5|^3",
-                "symfony/process": "^5.4|^6.0",
-                "symfony/property-access": "^5.4.5|^6.0.5",
-                "symfony/routing": "^5.4|^6.0",
-                "symfony/serializer": "^6.3",
-                "symfony/stopwatch": "^5.4|^6.0",
-                "symfony/translation": "^5.4|^6.0",
-                "symfony/translation-contracts": "^2.5|^3",
-                "symfony/uid": "^5.4|^6.0",
-                "symfony/validator": "^6.3",
-                "symfony/var-exporter": "^6.2",
-                "twig/twig": "^2.13|^3.0.4"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Symfony\\Component\\HttpKernel\\": ""
-                },
-                "exclude-from-classmap": [
-                    "/Tests/"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Fabien Potencier",
-                    "email": "fabien@symfony.com"
-                },
-                {
-                    "name": "Symfony Community",
-                    "homepage": "https://symfony.com/contributors"
-                }
-            ],
-            "description": "Provides a structured process for converting a Request into a Response",
-            "homepage": "https://symfony.com",
-            "support": {
-                "source": "https://github.com/symfony/http-kernel/tree/v6.3.4"
-            },
-            "funding": [
-                {
-                    "url": "https://symfony.com/sponsor",
-                    "type": "custom"
-                },
-                {
-                    "url": "https://github.com/fabpot",
-                    "type": "github"
-                },
-                {
-                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
-                    "type": "tidelift"
-                }
-            ],
-            "time": "2023-08-26T13:54:49+00:00"
         },
         {
             "name": "symfony/mime",

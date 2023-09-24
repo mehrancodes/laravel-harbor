@@ -2,24 +2,26 @@
 
 namespace App\Actions;
 
-use App\Http\Integrations\Forge\ForgeConnector;
-use App\Http\Integrations\Forge\Requests\CreateGitRepositoryRequest;
+use App\Traits\Outputifier;
+use Laravel\Forge\Resources\Site;
 use Lorisleiva\Actions\Concerns\AsAction;
-use ReflectionException;
-use Saloon\Exceptions\InvalidResponseClassException;
-use Saloon\Exceptions\PendingRequestException;
 
 class InstallGitRepository
 {
     use AsAction;
+    use Outputifier;
 
-    /**
-     * @throws InvalidResponseClassException
-     * @throws ReflectionException
-     * @throws PendingRequestException
-     */
-    public function handle(ForgeConnector $connector, int $serverId, int $siteId): string
+    public function handle(Site $site): Site
     {
-        return $connector->send(new CreateGitRepositoryRequest($serverId, $siteId));
+        $this->information('Installing the git repository...');
+
+        $data = [
+            'provider' => config('services.forge.git.provider'),
+            'repository' => config('services.forge.git.repository'),
+            'branch' => config('services.forge.git.branch'),
+            'composer' => false,
+        ];
+
+        return $site->installGitRepository($data);
     }
 }

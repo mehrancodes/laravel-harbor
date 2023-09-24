@@ -2,32 +2,26 @@
 
 namespace App\Actions;
 
-use App\Http\Integrations\Forge\Data\SiteData;
-use App\Http\Integrations\Forge\ForgeConnector;
-use App\Http\Integrations\Forge\Requests\ListSitesRequest;
-use Illuminate\Support\Collection;
+use App\Traits\Outputifier;
+use Laravel\Forge\Forge;
+use Laravel\Forge\Resources\Site;
 use Lorisleiva\Actions\Concerns\AsAction;
-use ReflectionException;
-use Saloon\Exceptions\InvalidResponseClassException;
-use Saloon\Exceptions\PendingRequestException;
 
 class FindSite
 {
     use AsAction;
+    use Outputifier;
 
-    /**
-     * @throws InvalidResponseClassException
-     * @throws ReflectionException
-     * @throws PendingRequestException
-     */
-    public function handle(ForgeConnector $connector, int $serverId, string $domain): ?SiteData
+    public function handle(Forge $forge, int $serverId, string $domain): ?Site
     {
-        /** @var Collection $sites */
-        $sites = $connector->send(
-            new ListSitesRequest($serverId)
-        )->dtoOrFail();
+        foreach ($forge->sites($serverId) as $site) {
+            if ($site->name === $domain) {
+                $this->success('Available site found.');
 
-        return $sites->filter(fn ($site) => $site->name === $domain)
-            ->first();
+                return $site;
+            }
+        }
+
+        return null;
     }
 }

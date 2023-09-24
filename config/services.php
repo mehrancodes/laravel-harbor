@@ -15,5 +15,10 @@ return [
         'subdomain' => [
             'pattern' => env('FORGE_SUBDOMAIN_PATTERN'),
         ],
+        'ssl_required' => env('FORGE_SSL_REQUIRED', true),
+        'wait_on_ssl' => env('FORGE_WAIT_ON_SSL', true),
+        'quick_deploy' => env('FORGE_QUICK_DEPLOY', true),
+        'nginx_template' => env('FORGE_NGINX_TEMPLATE'),
+        'site_isolation' => env('FORGE_SITE_ISOLATION', false),
     ],
 ];

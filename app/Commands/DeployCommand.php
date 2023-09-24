@@ -13,8 +13,9 @@ declare(strict_types=1);
 
 namespace App\Commands;
 
-use App\Http\Integrations\Forge\ForgeConnector;
+use App\Actions\FindOrCreateSite;
 use Illuminate\Support\Facades\Validator;
+use Laravel\Forge\Forge;
 use LaravelZero\Framework\Commands\Command;
 use Throwable;
 
@@ -34,20 +35,17 @@ class DeployCommand extends Command
             return 2;
         }
 
-        $connector = new ForgeConnector($config['token']);
+        $forge = new Forge($config['token']);
 
         try {
-            $server = $connector->server()
-                ->firstById($config['server'])
-                ->dtoOrFail();
+            $server = $forge->server($config['server']);
         } catch (Throwable $throwable) {
             $this->error('Server not found.');
 
             return 2;
         }
 
-        $site = $connector->site()
-            ->firstOrCreate($server->id);
+        $site = FindOrCreateSite::run($forge, $server->id);
 
         return 0;
     }
