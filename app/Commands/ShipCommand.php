@@ -22,6 +22,7 @@ use App\Services\Forge\Pipeline\InstallGitRepository;
 use App\Services\Forge\Pipeline\NginxTemplateSearchReplace;
 use App\Services\Forge\Pipeline\ObtainLetsEncryptCertification;
 use App\Services\Forge\Pipeline\OrCreateNewSite;
+use App\Services\Forge\Pipeline\UpdateEnvironmentVariables;
 use App\Traits\Outputifier;
 use Illuminate\Support\Facades\Pipeline;
 use LaravelZero\Framework\Commands\Command;
@@ -46,6 +47,7 @@ class ShipCommand extends Command
                 InstallGitRepository::class,
                 ObtainLetsEncryptCertification::class,
                 EnableQuickDeploy::class,
+                UpdateEnvironmentVariables::class,
             ])
             ->then(fn () => $this->success('it is done.'));
     }
