@@ -6,17 +6,13 @@ use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
-    /**
-     * Bootstrap any application services.
-     */
     public function boot(): void
     {
-        //
+        $this->app->setLocale('en');
+
+        $this->loadTranslationsFrom(base_path('lang'), 'harbor');
     }
 
-    /**
-     * Register any application services.
-     */
     public function register(): void
     {
         //
