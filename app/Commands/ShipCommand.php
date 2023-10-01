@@ -16,6 +16,7 @@ namespace App\Commands;
 use App\Services\Forge\ForgeService;
 use App\Services\Forge\Pipeline\FindServer;
 use App\Services\Forge\Pipeline\FindSite;
+use App\Services\Forge\Pipeline\NginxTemplateSearchReplace;
 use App\Services\Forge\Pipeline\OrCreateNewSite;
 use App\Traits\Outputifier;
 use Illuminate\Support\Facades\Pipeline;
@@ -36,6 +37,7 @@ class ShipCommand extends Command
                 FindServer::class,
                 FindSite::class,
                 OrCreateNewSite::class,
+                NginxTemplateSearchReplace::class,
             ])
             ->then(fn () => $this->success('it is done.'));
     }
