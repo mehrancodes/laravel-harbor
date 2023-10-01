@@ -68,6 +68,9 @@ return [
 
     'providers' => [
         App\Providers\AppServiceProvider::class,
+        \Illuminate\Pipeline\PipelineServiceProvider::class,
+        \Illuminate\Validation\ValidationServiceProvider::class,
+        \Illuminate\Translation\TranslationServiceProvider::class,
     ],
 
 ];
