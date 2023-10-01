@@ -19,6 +19,7 @@ use App\Services\Forge\Pipeline\FindServer;
 use App\Services\Forge\Pipeline\FindSite;
 use App\Services\Forge\Pipeline\InstallGitRepository;
 use App\Services\Forge\Pipeline\NginxTemplateSearchReplace;
+use App\Services\Forge\Pipeline\ObtainLetsEncryptCertification;
 use App\Services\Forge\Pipeline\OrCreateNewSite;
 use App\Traits\Outputifier;
 use Illuminate\Support\Facades\Pipeline;
@@ -42,6 +43,7 @@ class ShipCommand extends Command
                 NginxTemplateSearchReplace::class,
                 CreateDatabase::class,
                 InstallGitRepository::class,
+                ObtainLetsEncryptCertification::class,
             ])
             ->then(fn () => $this->success('it is done.'));
     }
