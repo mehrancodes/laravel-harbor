@@ -15,6 +15,7 @@ namespace App\Commands;
 
 use App\Services\Forge\ForgeService;
 use App\Services\Forge\Pipeline\CreateDatabase;
+use App\Services\Forge\Pipeline\DeploySite;
 use App\Services\Forge\Pipeline\EnableQuickDeploy;
 use App\Services\Forge\Pipeline\FindServer;
 use App\Services\Forge\Pipeline\FindSite;
@@ -22,6 +23,7 @@ use App\Services\Forge\Pipeline\InstallGitRepository;
 use App\Services\Forge\Pipeline\NginxTemplateSearchReplace;
 use App\Services\Forge\Pipeline\ObtainLetsEncryptCertification;
 use App\Services\Forge\Pipeline\OrCreateNewSite;
+use App\Services\Forge\Pipeline\UpdateDeployScript;
 use App\Services\Forge\Pipeline\UpdateEnvironmentVariables;
 use App\Traits\Outputifier;
 use Illuminate\Support\Facades\Pipeline;
@@ -48,6 +50,7 @@ class ShipCommand extends Command
                 ObtainLetsEncryptCertification::class,
                 EnableQuickDeploy::class,
                 UpdateEnvironmentVariables::class,
+                UpdateDeployScript::class,
             ])
             ->then(fn () => $this->success('it is done.'));
     }
