@@ -51,6 +51,7 @@ class ShipCommand extends Command
                 EnableQuickDeploy::class,
                 UpdateEnvironmentVariables::class,
                 UpdateDeployScript::class,
+                DeploySite::class,
             ])
             ->then(fn () => $this->success('it is done.'));
     }
