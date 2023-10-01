@@ -17,6 +17,7 @@ use App\Services\Forge\ForgeService;
 use App\Services\Forge\Pipeline\CreateDatabase;
 use App\Services\Forge\Pipeline\FindServer;
 use App\Services\Forge\Pipeline\FindSite;
+use App\Services\Forge\Pipeline\InstallGitRepository;
 use App\Services\Forge\Pipeline\NginxTemplateSearchReplace;
 use App\Services\Forge\Pipeline\OrCreateNewSite;
 use App\Traits\Outputifier;
@@ -40,6 +41,7 @@ class ShipCommand extends Command
                 OrCreateNewSite::class,
                 NginxTemplateSearchReplace::class,
                 CreateDatabase::class,
+                InstallGitRepository::class,
             ])
             ->then(fn () => $this->success('it is done.'));
     }
