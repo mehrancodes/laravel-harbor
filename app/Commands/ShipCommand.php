@@ -17,6 +17,7 @@ use App\Services\Forge\ForgeService;
 use App\Services\Forge\Pipeline\CreateDatabase;
 use App\Services\Forge\Pipeline\DeploySite;
 use App\Services\Forge\Pipeline\EnableQuickDeploy;
+use App\Services\Forge\Pipeline\EnsureJobScheduled;
 use App\Services\Forge\Pipeline\FindServer;
 use App\Services\Forge\Pipeline\FindSite;
 use App\Services\Forge\Pipeline\InstallGitRepository;
@@ -52,6 +53,7 @@ class ShipCommand extends Command
                 UpdateEnvironmentVariables::class,
                 UpdateDeployScript::class,
                 DeploySite::class,
+                EnsureJobScheduled::class,
             ])
             ->then(fn () => $this->success('it is done.'));
     }
