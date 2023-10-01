@@ -15,6 +15,7 @@ namespace App\Commands;
 
 use App\Services\Forge\ForgeService;
 use App\Services\Forge\Pipeline\CreateDatabase;
+use App\Services\Forge\Pipeline\EnableQuickDeploy;
 use App\Services\Forge\Pipeline\FindServer;
 use App\Services\Forge\Pipeline\FindSite;
 use App\Services\Forge\Pipeline\InstallGitRepository;
@@ -44,6 +45,7 @@ class ShipCommand extends Command
                 CreateDatabase::class,
                 InstallGitRepository::class,
                 ObtainLetsEncryptCertification::class,
+                EnableQuickDeploy::class,
             ])
             ->then(fn () => $this->success('it is done.'));
     }
