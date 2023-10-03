@@ -55,6 +55,6 @@ class ShipCommand extends Command
                 DeploySite::class,
                 EnsureJobScheduled::class,
             ])
-            ->then(fn () => $this->success('it is done.'));
+            ->then(fn () => $this->success('Provision complete!'));
     }
 }
