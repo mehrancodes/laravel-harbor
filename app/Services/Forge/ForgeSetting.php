@@ -122,7 +122,7 @@ class ForgeSetting
     /**
      * The contents of the custom key/values to get added in the environment file on runtime.
      */
-    public ?string $envVars = null;
+    public ?string $envKeys = null;
 
     /**
      * The validation rules.

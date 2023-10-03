@@ -25,37 +25,37 @@ class UpdateEnvironmentVariables
 
     public function __invoke(ForgeService $service, Closure $next)
     {
-        if (empty($service->setting->envVars)) {
+        if (empty($service->setting->envKeys)) {
             return $next($service);
         }
 
-        $this->information('Processing update of environment variables.');
-
-        $mergedString = $this->getBothEnvsMerged($service);
-
-        $service->forge->updateSiteEnvironmentFile(
-            $service->server->id,
-            $service->site->id,
-            $mergedString
-        );
+        if ($mergedString = $this->getBothEnvsMerged($service)) {
+            $service->forge->updateSiteEnvironmentFile(
+                $service->server->id,
+                $service->site->id,
+                $mergedString
+            );
+        }
 
         return $next($service);
     }
 
-    protected function getBothEnvsMerged(ForgeService $service): string
+    protected function getBothEnvsMerged(ForgeService $service): ?string
     {
-        if ($service->database !== null) {
-            $this->information('---> Update database environment variables');
+        $predefinedVars = array_merge(TextToArray::run($service->setting->envKeys), $service->database);
+
+        if (empty($predefinedVars)) {
+            return null;
         }
 
-        $predefinedVars = TextToArray::run($service->setting->envVars);
+        $this->information('Processing update of environment variables.');
 
         $source = TextToArray::run(
             $service->forge->siteEnvironmentFile($service->server->id, $service->site->id)
         );
 
         return ArrayToText::run(
-            array_merge($source, $predefinedVars, $service->database)
+            array_merge($source, $predefinedVars)
         );
     }
 }
