@@ -23,7 +23,7 @@ class EnsureJobScheduled
 
     public function __invoke(ForgeService $service, Closure $next)
     {
-        if (! $service->setting->jobSchedulerRequired) {
+        if ($service->setting->jobSchedulerRequired) {
             $this->setupJobIfRequired($service);
         }
 
