@@ -24,6 +24,7 @@ use App\Services\Forge\Pipeline\InstallGitRepository;
 use App\Services\Forge\Pipeline\NginxTemplateSearchReplace;
 use App\Services\Forge\Pipeline\ObtainLetsEncryptCertification;
 use App\Services\Forge\Pipeline\OrCreateNewSite;
+use App\Services\Forge\Pipeline\RunOptionalCommands;
 use App\Services\Forge\Pipeline\UpdateDeployScript;
 use App\Services\Forge\Pipeline\UpdateEnvironmentVariables;
 use App\Traits\Outputifier;
@@ -53,6 +54,7 @@ class ShipCommand extends Command
                 UpdateEnvironmentVariables::class,
                 UpdateDeployScript::class,
                 DeploySite::class,
+                RunOptionalCommands::class,
                 EnsureJobScheduled::class,
             ])
             ->then(fn () => $this->success('Provision complete!'));
