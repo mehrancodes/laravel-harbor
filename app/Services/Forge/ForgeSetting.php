@@ -125,6 +125,11 @@ class ForgeSetting
     public ?string $envKeys = null;
 
     /**
+     * The custom command to run.
+     */
+    public ?string $command = null;
+
+    /**
      * The validation rules.
      */
     private array $validationRules = [
@@ -134,9 +139,10 @@ class ForgeSetting
         'git_provider' => ['required'],
         'repository' => ['required'],
         'branch' => ['required'],
-        'subdomain_pattern' => ['nullable', 'string'],
         'project_type' => ['string'],
         'php_version' => ['string'],
+        'subdomain_pattern' => ['nullable', 'string'],
+        'command' => ['nullable', 'string'],
         'nginx_template' => ['nullable', 'int'],
         'quick_deploy' => ['boolean'],
         'site_isolation_required' => ['boolean'],
