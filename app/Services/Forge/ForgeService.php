@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace App\Services\Forge;
 
 use App\Actions\GenerateDomainName;
+use Illuminate\Support\Str;
 use Laravel\Forge\Forge;
 use Laravel\Forge\Resources\Server;
 use Laravel\Forge\Resources\Site;
@@ -100,5 +101,13 @@ class ForgeService
     public function markSiteAsNewlyMade(): void
     {
         $this->siteNewlyMade = true;
+    }
+
+    public function generateDatabaseName(): string
+    {
+        return Str::limit(
+            Str::slug($this->setting->branch, '_'),
+            64
+        );
     }
 }
