@@ -41,8 +41,6 @@ jobs:
               tag: process.env.GITHUB_REF.replace("refs/tags/", ""),
             });
 
-            console.log({ release });
-
             await github.repos.uploadReleaseAsset({
               owner, repo,
               name: "harbor",
