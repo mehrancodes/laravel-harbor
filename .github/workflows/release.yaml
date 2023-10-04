@@ -32,18 +32,11 @@ jobs:
       - name: Automatic Release
         uses: actions/github-script@v3
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+          github-token: "${{ secrets.GITHUB_TOKEN }}"
           script: |
             const fs = require("fs").promises;
             const { repo: { owner, repo }, sha } = context;
             const release = await github.repos.getReleaseByTag({
               owner, repo,
               tag: process.env.GITHUB_REF.replace("refs/tags/", ""),
-            });
-
-            await github.repos.uploadReleaseAsset({
-              owner, repo,
-              name: "harbor",
-              data: await fs.readFile("./builds/harbor"),
-              release_id: release.data.id,
             });
