@@ -29,15 +29,16 @@ use App\Services\Forge\Pipeline\UpdateDeployScript;
 use App\Services\Forge\Pipeline\UpdateEnvironmentVariables;
 use App\Traits\Outputifier;
 use Illuminate\Support\Facades\Pipeline;
+use Illuminate\Support\Facades\URL;
 use LaravelZero\Framework\Commands\Command;
 
-class ShipCommand extends Command
+class ProvisionCommand extends Command
 {
     use Outputifier;
 
-    protected $signature = 'ship';
+    protected $signature = 'provision';
 
-    protected $description = 'Prepares the preview environment for your project.';
+    protected $description = 'Prepare and deploy a testable preview environment on a new site.';
 
     public function handle(ForgeService $service): void
     {
@@ -57,6 +58,9 @@ class ShipCommand extends Command
                 RunOptionalCommands::class,
                 EnsureJobScheduled::class,
             ])
-            ->then(fn () => $this->success('Provision complete!'));
+            ->then(function () use ($service) {
+                $this->success('Provisioning complete! Your environment is now set up and ready to use.');
+                $this->success('www.' . $service->site->name);
+            });
     }
 }
