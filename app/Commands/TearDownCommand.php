@@ -24,13 +24,13 @@ use App\Traits\Outputifier;
 use Illuminate\Support\Facades\Pipeline;
 use LaravelZero\Framework\Commands\Command;
 
-class TerminateCommand extends Command
+class TearDownCommand extends Command
 {
     use Outputifier;
 
-    protected $signature = 'terminate';
+    protected $signature = 'teardown';
 
-    protected $description = 'Terminates the preview environment site.';
+    protected $description = 'Removes the provisioned environment, reversing the setup process.';
 
     public function handle(ForgeService $service): void
     {
@@ -43,6 +43,6 @@ class TerminateCommand extends Command
                 RemoveDatabaseUser::class,
                 DestroySite::class,
             ])
-            ->then(fn () => $this->success('Provision complete!'));
+            ->then(fn () => $this->success('Environment teardown successful! All provisioned resources have been removed.'));
     }
 }
