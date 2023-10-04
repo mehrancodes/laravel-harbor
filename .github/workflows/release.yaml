@@ -40,3 +40,10 @@ jobs:
               owner, repo,
               tag: process.env.GITHUB_REF.replace("refs/tags/", ""),
             });
+
+            await github.repos.uploadReleaseAsset({
+              owner, repo,
+              name: "harbor",
+              data: await fs.readFile("./builds/harbor"),
+              release_id: release.data.id,
+            });
