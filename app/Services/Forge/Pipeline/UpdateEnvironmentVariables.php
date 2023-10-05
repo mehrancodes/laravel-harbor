@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /**
- * This file is part of Harbor CLI.
+ * This file is part of Veyoze CLI.
  *
  * (c) Mehran Rasulian <mehran.rasulian@gmail.com>
  *

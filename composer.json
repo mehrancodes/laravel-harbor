@@ -1,13 +1,13 @@
 {
-    "name": "mehrancodes/harbor-cli",
-    "description": "The Laravel Zero Framework.",
-    "keywords": ["framework", "laravel", "laravel zero", "console", "cli"],
-    "homepage": "https://laravel-harbor.com",
+    "name": "mehrancodes/veyoze",
+    "description": "A CLI tool to Quickly create On-Demand preview environment for your apps.",
+    "keywords": ["php", "laravel zero", "console", "cli", "continuous-integration", "ci", "laravel forge", "provision", "staging", "preview", "pull-requests"],
+    "homepage": "https://veyoze.com",
     "type": "project",
     "license": "MIT",
     "support": {
-        "issues": "https://github.com/laravel-zero/laravel-zero/issues",
-        "source": "https://github.com/laravel-zero/laravel-zero"
+        "issues": "https://github.com/mehrancodes/veyoze/issues",
+        "source": "https://github.com/mehrancodes/veyoze"
     },
     "authors": [
         {
@@ -49,5 +49,5 @@
     },
     "minimum-stability": "stable",
     "prefer-stable": true,
-    "bin": ["harbor"]
+    "bin": ["veyoze"]
 }

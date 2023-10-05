@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /**
- * This file is part of Harbor CLI.
+ * This file is part of Veyoze CLI.
  *
  * (c) Mehran Rasulian <mehran.rasulian@gmail.com>
  *
@@ -29,7 +29,6 @@ use App\Services\Forge\Pipeline\UpdateDeployScript;
 use App\Services\Forge\Pipeline\UpdateEnvironmentVariables;
 use App\Traits\Outputifier;
 use Illuminate\Support\Facades\Pipeline;
-use Illuminate\Support\Facades\URL;
 use LaravelZero\Framework\Commands\Command;
 
 class ProvisionCommand extends Command
@@ -38,7 +37,7 @@ class ProvisionCommand extends Command
 
     protected $signature = 'provision';
 
-    protected $description = 'Prepare and deploy a testable preview environment on a new site.';
+    protected $description = 'Deploys the preview environment on a new site.';
 
     public function handle(ForgeService $service): void
     {
