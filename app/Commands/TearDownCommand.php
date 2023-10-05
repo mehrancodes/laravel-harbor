@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /**
- * This file is part of Harbor CLI.
+ * This file is part of Veyoze CLI.
  *
  * (c) Mehran Rasulian <mehran.rasulian@gmail.com>
  *
@@ -30,7 +30,7 @@ class TearDownCommand extends Command
 
     protected $signature = 'teardown';
 
-    protected $description = 'Removes the provisioned environment, reversing the setup process.';
+    protected $description = 'Removes the provisioned environment.';
 
     public function handle(ForgeService $service): void
     {
