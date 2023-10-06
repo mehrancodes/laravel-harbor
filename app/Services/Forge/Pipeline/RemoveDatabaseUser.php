@@ -16,7 +16,6 @@ namespace App\Services\Forge\Pipeline;
 use App\Services\Forge\ForgeService;
 use App\Traits\Outputifier;
 use Closure;
-use Laravel\Forge\Resources\DatabaseUser;
 
 class RemoveDatabaseUser
 {

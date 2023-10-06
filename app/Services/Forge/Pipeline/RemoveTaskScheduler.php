@@ -24,7 +24,7 @@ class RemoveTaskScheduler
     public function __invoke(ForgeService $service, Closure $next)
     {
         foreach ($service->forge->jobs($service->setting->server) as $job) {
-            if ($job->command === sprintf("php /home/forge/%s/artisan schedule:run", $service->site->name)) {
+            if ($job->command === sprintf('php /home/forge/%s/artisan schedule:run', $service->site->name)) {
                 $this->information('Removing scheduled command.');
 
                 $job->delete();
