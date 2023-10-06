@@ -29,7 +29,7 @@ class UpdateDeployScript
 
         $this->information('Updating deployment script.');
 
-        $service->forge->put(sprintf("servers/%s/sites/%s/deployment/script", $service->server->id, $service->site->id), [
+        $service->forge->put(sprintf('servers/%s/sites/%s/deployment/script', $service->server->id, $service->site->id), [
             'content' => $service->setting->deployScript,
             'auto_source' => $service->setting->autoSourceRequired,
         ]);
