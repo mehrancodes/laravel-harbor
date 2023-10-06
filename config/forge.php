@@ -13,7 +13,7 @@ return [
     // Git service provider (default: 'github').
     'git_provider' => env('FORGE_GIT_PROVIDER', 'github'),
 
-    // Git repository URL or name.
+    // Git repository name.
     'repository' => env('FORGE_GIT_REPOSITORY'),
 
     // Git branch name.
@@ -21,6 +21,18 @@ return [
 
     // Pattern for subdomains.
     'subdomain_pattern' => env('FORGE_SUBDOMAIN_PATTERN'),
+
+    // Deployment script content.
+    'deploy_script' => env('FORGE_DEPLOY_SCRIPT'),
+
+    // Template for Nginx configuration.
+    'nginx_template' => env('FORGE_NGINX_TEMPLATE'),
+
+    // Key/value pairs for customizing the Nginx template.
+    'nginx_substitute' => env('FORGE_NGINX_SUBSTITUTE'),
+
+    // Key/value pairs to be added to the environment file at runtime.
+    'env_keys' => env('FORGE_ENV_KEYS'),
 
     // PHP version (default: 'php82').
     'php_version' => env('FORGE_PHP_VERSION', 'php82'),
@@ -40,8 +52,8 @@ return [
     // Flag indicating if a database should be created (default: false).
     'db_creation_required' => env('FORGE_DB_CREATION_REQUIRED', false),
 
-    // Flag to enable SSL certification (default: false).
-    'ssl_required' => env('FORGE_SSL_REQUIRED', false),
+    // Flag to enable SSL certification (default: true).
+    'ssl_required' => env('FORGE_SSL_REQUIRED', true),
 
     // Flag to pause until SSL setup completes during provisioning (default: true).
     'wait_on_ssl' => env('FORGE_WAIT_ON_SSL', true),
@@ -49,18 +61,6 @@ return [
     // Flag to pause until site deployment completes during provisioning (default: true).
     'wait_on_deploy' => env('FORGE_WAIT_ON_DEPLOY', true),
 
-    // Template for Nginx configuration.
-    'nginx_template' => env('FORGE_NGINX_TEMPLATE'),
-
-    // Key/value pairs for customizing the Nginx template.
-    'nginx_substitute' => env('FORGE_NGINX_SUBSTITUTE'),
-
     // Flag to enable Quick Deploy (default: true).
     'quick_deploy' => env('FORGE_QUICK_DEPLOY', true),
-
-    // Deployment script content.
-    'deploy_script' => env('FORGE_DEPLOY_SCRIPT'),
-
-    // Key/value pairs to be added to the environment file at runtime.
-    'env_keys' => env('FORGE_ENV_KEYS'),
 ];
