@@ -20,114 +20,114 @@ use InvalidArgumentException;
 class ForgeSetting
 {
     /**
-     * The API token.
+     * Forge API authentication token.
      */
     public string $token;
 
     /**
-     * The server ID.
+     * Forge Identifier for the server.
      */
     public string $server;
 
     /**
-     * The site domain.
+     * Website's domain name.
      */
     public string $domain;
 
     /**
-     * The git provider.
+     * Git service provider (e.g., github, gitlab).
      */
     public string $gitProvider;
 
     /**
-     * The git repository.
+     * Git repository URL or name.
      */
     public string $repository;
 
     /**
-     * The git branch..
+     * Git branch name.
      */
     public string $branch;
 
     /**
-     * The subdomain pattern.
-     */
-    public ?string $subdomainPattern = null;
-
-    /**
-     * The project type
+     * Type of the project (e.g., Laravel, WordPress).
      */
     public string $projectType;
 
     /**
-     * The PHP version
+     * PHP version (e.g., 7.4, 8.0).
      */
     public string $phpVersion;
 
     /**
-     * The Nginx template
+     * Pattern for subdomains.
      */
-    public string $nginxTemplate;
+    public ?string $subdomainPattern = null;
 
     /**
-     * Weather enable Quick Deploy.
+     * Template for Nginx configuration.
      */
-    public bool $quickDeploy;
+    public ?string $nginxTemplate = null;
 
     /**
-     * Weather required to run site isolation.
-     */
-    public bool $siteIsolationRequired;
-
-    /**
-     * Weather required to run jobs scheduler.
-     */
-    public bool $jobSchedulerRequired;
-
-    /**
-     * Weather required to create database.
-     */
-    public bool $dbCreationRequired;
-
-    /**
-     * Whether to automatically source environment variables into the deployment script.
-     */
-    public bool $autoSourceRequired;
-
-    /**
-     * Whether to create the SSL certification.
-     */
-    public bool $sslRequired;
-
-    /**
-     * Wait on the site deployment during the provision.
-     */
-    public bool $waitOnDeploy;
-
-    /**
-     * Wait on the site deployment during the provision.
-     */
-    public bool $waitOnSsl;
-
-    /**
-     * A comma-separated string of key/values to update custom keys in the Nginx site template.
+     * Key/value pairs for customizing the Nginx template.
      */
     public ?string $nginxSubstitute = null;
 
     /**
-     * The contents of the deployment script.
+     * Deployment script content.
      */
     public ?string $deployScript = null;
 
     /**
-     * The contents of the custom key/values to get added in the environment file on runtime.
+     * Key/value pairs to be added to the environment file at runtime.
      */
     public ?string $envKeys = null;
 
     /**
-     * The custom command to run.
+     * Custom command to execute.
      */
     public ?string $command = null;
+
+    /**
+     * Flag to enable Quick Deploy.
+     */
+    public bool $quickDeploy;
+
+    /**
+     * Flag indicating if site isolation is needed.
+     */
+    public bool $siteIsolationRequired;
+
+    /**
+     * Flag indicating if a job scheduler is needed.
+     */
+    public bool $jobSchedulerRequired;
+
+    /**
+     * Flag indicating if a database should be created.
+     */
+    public bool $dbCreationRequired;
+
+    /**
+     * Flag to auto-source environment variables in deployment.
+     */
+    public bool $autoSourceRequired;
+
+    /**
+     * Flag to enable SSL certification.
+     */
+    public bool $sslRequired;
+
+    /**
+     * Flag to pause until site deployment completes during provisioning.
+     */
+    public bool $waitOnDeploy;
+
+    /**
+     * Flag to pause until SSL setup completes during provisioning.
+     */
+    public bool $waitOnSsl;
 
     /**
      * The validation rules.
