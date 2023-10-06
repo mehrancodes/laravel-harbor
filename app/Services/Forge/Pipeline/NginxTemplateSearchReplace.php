@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace App\Services\Forge\Pipeline;
 
-use App\Actions\SearchReplaceKeysInText;
+use App\Actions\TextToArray;
 use App\Services\Forge\ForgeService;
 use App\Traits\Outputifier;
 use Closure;
@@ -36,12 +36,21 @@ class NginxTemplateSearchReplace
         $service->forge->updateSiteNginxFile(
             $service->setting->server,
             $service->site->id,
-            SearchReplaceKeysInText::run(
+            $this->searchAndReplaceKeys(
                 $service->setting->nginxSubstitute,
                 $template
             )
         );
 
         return $next($service);
+    }
+
+    protected function searchAndReplaceKeys(string $substitutes, string $template): string
+    {
+        foreach (TextToArray::run($substitutes) as $key => $value) {
+            $template = str_replace($key, $value, $template);
+        }
+
+        return $template;
     }
 }

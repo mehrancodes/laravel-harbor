@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace App\Actions;
 
+use Illuminate\Support\Str;
 use Lorisleiva\Actions\Concerns\AsAction;
 
 class TextToArray
@@ -21,7 +22,9 @@ class TextToArray
 
     public function handle(string $content): array
     {
-        parse_str(str_replace("\n", '&', $content), $output);
+        $separator = Str::contains($content, ';') ? ';' : "\n";
+
+        parse_str(str_replace($separator, '&', $content), $output);
 
         return $output;
     }

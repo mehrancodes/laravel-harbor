@@ -154,40 +154,46 @@ FORGE_ENV_KEYS: ${{ secrets.LARAVEL_ENV_KEYS }}
 ```
 
 ### `FORGE_NGINX_TEMPLATE`
-This key allows you to specify a custom Nginx configuration template. This is useful when you need to tweak the default Nginx settings to cater to specific requirements of your application.
+This key allows you to specify a custom [Nginx configuration](https://forge.laravel.com/docs/servers/nginx-templates.html) template. This is useful when you need to tweak the default Nginx settings to cater to specific requirements of your application.
 
 ### `FORGE_NGINX_SUBSTITUTE`
 Define key=value pairs to customize the Nginx template. This is particularly handy when you need to automatically set values inside your Nginx template, such as proxying your Nuxt.js app to a specific port. An example value might be: 'NUXT_PORT=1234; NEXT_PORT=7542'.
 
 ### `FORGE_PHP_VERSION`
-Specify the desired PHP version for your application. The default is 'php82', but you can set it to other supported versions as per your application's requirements.
+Specify the desired PHP version for your application. The default is 'php82', but you can set it to other supported versions installed on your server as per your application's requirements.
 
 ### `FORGE_PROJECT_TYPE`
-Indicate the type of the project. The default is 'php', but depending on your application's stack, you might need to specify a different type.
+Indicate the [type of the project](https://forge.laravel.com/api-documentation#create-site). The default is 'php', but depending on your application's stack, you might need to specify a different type.
 
 ### `FORGE_SITE_ISOLATION`
-A flag to determine if site isolation is required. By default, it's set to false. Enable this if you need to isolate your site from other sites on the same server for security or performance reasons.
+A flag to determine if [user isolation](https://forge.laravel.com/docs/sites/user-isolation.html) is required. By default, it's set to false.
 
 ### `FORGE_JOB_SCHEDULER`
-This flag indicates whether a job scheduler, like Laravel's task scheduler, is needed. By default, it's set to false. If your application relies on scheduled tasks, you'd want to enable this.
+This flag indicates whether a job scheduler, like Laravel's task scheduler, is needed. By default, it's set to false.
 
 ### `FORGE_AUTO_SOURCE_REQUIRED`
 A flag to determine if environment variables should be auto-sourced during deployment. By default, it's set to false. Enable this if your deployment process requires environment variables to be sourced automatically.
 
 ### `FORGE_DB_CREATION_REQUIRED`
-Indicate if a database should be automatically created during the provisioning process. By default, it's set to false. If your application requires a database, you'd want to enable this.
+Indicate if a database should be automatically created during the provisioning process. By default, it's set to false.
 
 ### `FORGE_SSL_REQUIRED`
-This flag determines if SSL certification should be enabled for the site. By default, it's set to true, ensuring that your site is served over HTTPS.
+This flag indicates whether SSL certification should be enabled for the site. While the default setting is false, enabling this ensures your site is served securely over HTTPS.
+
+**Note**: If you enable this, ensure you've added [a wildcard subdomain DNS record](https://en.wikipedia.org/wiki/Wildcard_DNS_record) pointing to your Forge server.
+
+### `FORGE_QUICK_DEPLOY`
+This flag allows you to toggle the [Quick Deploy](https://forge.laravel.com/docs/sites/deployments.html#deploy-script) feature. By default, it's set to false.
+
+**Caution**: If you intend to enable this feature on your site, ensure the provision workflow isn't triggered.
+
+I've made the descriptions more concise and clear, and added emphasis where needed for clarity.
 
 ### `FORGE_WAIT_ON_SSL`
 A flag to pause the provisioning process until the SSL setup completes. By default, it's set to true, ensuring that the provisioning doesn't proceed until the SSL is fully set up.
 
 ### `FORGE_WAIT_ON_DEPLOY`
 This flag pauses the provisioning process until the site deployment completes. By default, it's true, ensuring a smooth and complete deployment before any subsequent steps.
-
-### `FORGE_QUICK_DEPLOY`
-Enable or disable the Quick Deploy feature. By default, it's set to true. Quick Deploy allows for faster deployments by only deploying changes rather than the entire application.
 
 ---
 
@@ -212,7 +218,7 @@ This project is licensed under the MIT License - see the [LICENSE.md](https://gi
 
 **Q: Can we get a shorter link for long branch names?**
 
-**A:** Absolutely! By configuring the [Subdomain Pattern](#subromain_pattern) you can shorten the domain, e.g., **plt-123.veyoze.com**.
+**A:** Absolutely! By configuring the [Subdomain Pattern](https://github.com/mehrancodes/veyoze#forge_subdomain_pattern) you can shorten the domain, e.g., **plt-123.veyoze.com**.
 
 **Q: Why use environment keys for configuration instead of command arguments?**
 
