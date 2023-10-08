@@ -96,32 +96,32 @@ jobs:
 
 Veyoze utilizes environment keys similar to a Laravel application, offering flexibility and the potential for powerful extensions over time.
 
-### `FORGE_TOKEN` (required)
+#### `FORGE_TOKEN` (required)
 This key holds your Forge API token, enabling Veyoze to communicate with Laravel Forge for site creation and resource management. **Always store this value as an encrypted secret; avoid pasting it directly into your workflow file.**
 
-### `FORGE_SERVER` (required)
+#### `FORGE_SERVER` (required)
 Specify the server where Veyoze should create and deploy a site.
 
-### `FORGE_GIT_REPOSITORY` (required)
+#### `FORGE_GIT_REPOSITORY` (required)
 Indicate the Git repository name, such as 'mehrancodes/veyoze'.
 
-### `FORGE_GIT_BRANCH` (required)
+#### `FORGE_GIT_BRANCH` (required)
 Provide the Git repository branch name, for instance, 'add-new-feature'.
 
-### `FORGE_DOMAIN` (required)
+#### `FORGE_DOMAIN` (required)
 Define the website's domain name. Acceptable formats include 'veyoze.com' or 'api.veyoze.com'.
 
-### `FORGE_GIT_PROVIDER`
+#### `FORGE_GIT_PROVIDER`
 Identify the Git service provider. Options include GitHub, GitLab, etc., with 'github' as the default. Refer to the [Forge API documentation](https://forge.laravel.com/api-documentation#install-new) for more details.
 
-### `FORGE_SUBDOMAIN_PATTERN`
+#### `FORGE_SUBDOMAIN_PATTERN`
 Veyoze constructs the site's subdomain based on your branch name. If your branch name follows a format like **YOUR_TEAM_SHORT_NAME-TICKET_ID** (e.g., **apt-123-added-new-feature**), you can employ a [regex pattern](https://en.wikipedia.org/wiki/Regular_expression) to abbreviate your subdomain:
 
 ```shell
 FORGE_SUBDOMAIN_PATTERN: /^[a-z]{1,3}-(\d{1,4})/i
 ```
 
-### `FORGE_DEPLOY_SCRIPT`
+#### `FORGE_DEPLOY_SCRIPT`
 By setting the [Forge Deploy Script](https://forge.laravel.com/docs/sites/deployments.html#deploy-script) environment key, you can seamlessly relay your custom bash deploy script to your new Forge site before project deployment. You can provide it directly or via a [GitHub action variable](https://docs.github.com/en/actions/learn-github-actions/variables) for improved workflow readability. Here's a basic deploy script example:
 
 ```shell
@@ -140,7 +140,7 @@ composer install
 FORGE_DEPLOY_SCRIPT: ${{ vars.LARAVEL_DEPLOY_SCRIPTS }}
 ```
 
-### `FORGE_ENV_KEYS`
+#### `FORGE_ENV_KEYS`
 Employ this key to introduce or update your project's custom environment keys, separated by ';':
 
 ```bash
@@ -153,46 +153,46 @@ Alternatively, as mentioned in the deploy script section, utilize a secret key f
 FORGE_ENV_KEYS: ${{ secrets.LARAVEL_ENV_KEYS }}
 ```
 
-### `FORGE_NGINX_TEMPLATE`
+#### `FORGE_NGINX_TEMPLATE`
 This key allows you to specify a custom [Nginx configuration](https://forge.laravel.com/docs/servers/nginx-templates.html) template. This is useful when you need to tweak the default Nginx settings to cater to specific requirements of your application.
 
-### `FORGE_NGINX_SUBSTITUTE`
+#### `FORGE_NGINX_SUBSTITUTE`
 Define key=value pairs to customize the Nginx template. This is particularly handy when you need to automatically set values inside your Nginx template, such as proxying your Nuxt.js app to a specific port. An example value might be: 'NUXT_PORT=1234; NEXT_PORT=7542'.
 
-### `FORGE_PHP_VERSION`
+#### `FORGE_PHP_VERSION`
 Specify the desired PHP version for your application. The default is 'php82', but you can set it to other supported versions installed on your server as per your application's requirements.
 
-### `FORGE_PROJECT_TYPE`
+#### `FORGE_PROJECT_TYPE`
 Indicate the [type of the project](https://forge.laravel.com/api-documentation#create-site). The default is 'php', but depending on your application's stack, you might need to specify a different type.
 
-### `FORGE_SITE_ISOLATION`
+#### `FORGE_SITE_ISOLATION`
 A flag to determine if [user isolation](https://forge.laravel.com/docs/sites/user-isolation.html) is required. By default, it's set to false.
 
-### `FORGE_JOB_SCHEDULER`
+#### `FORGE_JOB_SCHEDULER`
 This flag indicates whether a job scheduler, like Laravel's task scheduler, is needed. By default, it's set to false.
 
-### `FORGE_AUTO_SOURCE_REQUIRED`
+#### `FORGE_AUTO_SOURCE_REQUIRED`
 A flag to determine if environment variables should be auto-sourced during deployment. By default, it's set to false. Enable this if your deployment process requires environment variables to be sourced automatically.
 
-### `FORGE_DB_CREATION_REQUIRED`
+#### `FORGE_DB_CREATION_REQUIRED`
 Indicate if a database should be automatically created during the provisioning process. By default, it's set to false.
 
-### `FORGE_SSL_REQUIRED`
+#### `FORGE_SSL_REQUIRED`
 This flag indicates whether SSL certification should be enabled for the site. While the default setting is false, enabling this ensures your site is served securely over HTTPS.
 
 **Note**: If you enable this, ensure you've added [a wildcard subdomain DNS record](https://en.wikipedia.org/wiki/Wildcard_DNS_record) pointing to your Forge server.
 
-### `FORGE_QUICK_DEPLOY`
+#### `FORGE_QUICK_DEPLOY`
 This flag allows you to toggle the [Quick Deploy](https://forge.laravel.com/docs/sites/deployments.html#deploy-script) feature. By default, it's set to false.
 
 **Caution**: If you intend to enable this feature on your site, ensure the provision workflow isn't triggered.
 
 I've made the descriptions more concise and clear, and added emphasis where needed for clarity.
 
-### `FORGE_WAIT_ON_SSL`
+#### `FORGE_WAIT_ON_SSL`
 A flag to pause the provisioning process until the SSL setup completes. By default, it's set to true, ensuring that the provisioning doesn't proceed until the SSL is fully set up.
 
-### `FORGE_WAIT_ON_DEPLOY`
+#### `FORGE_WAIT_ON_DEPLOY`
 This flag pauses the provisioning process until the site deployment completes. By default, it's true, ensuring a smooth and complete deployment before any subsequent steps.
 
 ---
