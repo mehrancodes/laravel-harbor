@@ -1,4 +1,4 @@
-# Veyoze 🛠️
+# Veyoze - Beta version ⚡️ 🛠️
 
 Veyoze is a command-line interface (CLI) tool designed to automate the setup and deployment of preview environments for web applications. It's optimized for creating PR preview environments for Laravel, Nuxt.js, Next.js, and other web applications deployable to Laravel Forge.
 
