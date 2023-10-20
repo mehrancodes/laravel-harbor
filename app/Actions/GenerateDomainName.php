@@ -43,6 +43,6 @@ class GenerateDomainName
             return Str::slug(current($new));
         }
 
-        return $branch;
+        return Str::slug($branch);
     }
 }
