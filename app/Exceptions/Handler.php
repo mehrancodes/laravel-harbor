@@ -1,5 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
+/**
+ * This file is part of Veyoze CLI.
+ *
+ * (c) Mehran Rasulian <mehran.rasulian@gmail.com>
+ *
+ *  For the full copyright and license information, please view the LICENSE
+ *  file that was distributed with this source code.
+ */
+
 namespace App\Exceptions;
 
 use App\Traits\Outputifier;
@@ -10,18 +21,8 @@ class Handler extends ExceptionHandler
 {
     use Outputifier;
 
-    /**
-     * A list of the exception types that are not reported.
-     *
-     * @var array
-     */
-    protected $dontReport = [
-        // \Illuminate\Database\Eloquent\ModelNotFoundException::class,
-    ];
+    protected $dontReport = [];
 
-    /**
-     * Register the exception handling callbacks for the application.
-     */
     public function register(): void
     {
         $this->reportable(function (ValidationException $e) {
