@@ -16,11 +16,11 @@ test('it fails on incorrect payload', function ($site, $expectedErrors) {
         ->andThrows(ValidationException::class, $expectedErrors);
 
     expect(
-        app(OrCreateNewSite::class)($service, fn($service) => $service)
+        app(OrCreateNewSite::class)($service, fn ($service) => $service)
     )
         ->toBe($service);
 })
     ->with('site', [
-        'expected_errors' => [['First Error', 'Second Error']]
+        'expected_errors' => [['First Error', 'Second Error']],
     ])
     ->throws(ValidationException::class);

@@ -47,7 +47,8 @@ class ForgeService
     private ?string $formattedDomain = null;
 
     public function __construct(public ForgeSetting $setting, public Forge $forge)
-    {}
+    {
+    }
 
     public function setServer(Server $server): void
     {

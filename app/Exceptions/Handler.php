@@ -21,15 +21,13 @@ class Handler extends ExceptionHandler
 
     /**
      * Register the exception handling callbacks for the application.
-     *
-     * @return void
      */
     public function register(): void
     {
         $this->reportable(function (ValidationException $e) {
             foreach ($e->errors() as $error) {
 
-                $this->fail('--> ' . current($error));
+                $this->fail('--> '.current($error));
             }
 
             return false;
