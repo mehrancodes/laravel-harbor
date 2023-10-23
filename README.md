@@ -195,6 +195,9 @@ A flag to pause the provisioning process until the SSL setup completes. By defau
 #### `FORGE_WAIT_ON_DEPLOY`
 This flag pauses the provisioning process until the site deployment completes. By default, it's true, ensuring a smooth and complete deployment before any subsequent steps.
 
+#### `FORGE_TIMEOUT_SECONDS`
+This flag indicates how much time should be allowed for the deployment process.  Defaults to 180 seconds.
+
 ---
 
 ## Features
