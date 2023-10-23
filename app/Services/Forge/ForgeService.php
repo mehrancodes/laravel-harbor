@@ -22,16 +22,6 @@ use Laravel\Forge\Resources\Site;
 class ForgeService
 {
     /**
-     * The Forge SDK instance.
-     */
-    public Forge $forge;
-
-    /**
-     * The Forge wrapper setting instance.
-     */
-    public ForgeSetting $setting;
-
-    /**
      * The Forge server instance.
      */
     public ?Server $server = null;
@@ -56,12 +46,8 @@ class ForgeService
      */
     private ?string $formattedDomain = null;
 
-    public function __construct()
-    {
-        $this->setting = new ForgeSetting();
-
-        $this->forge = new Forge($this->setting->token);
-    }
+    public function __construct(public ForgeSetting $setting, public Forge $forge)
+    {}
 
     public function setServer(Server $server): void
     {
@@ -85,6 +71,17 @@ class ForgeService
         }
 
         return $this->formattedDomain;
+    }
+
+    public function createSite(string $serverId, array $payload): Site
+    {
+        $this->setSite(
+            $this->forge->createSite($serverId, $payload)
+        );
+
+        $this->markSiteAsNewlyMade();
+
+        return $this->site;
     }
 
     public function findSite(string $serverId): ?Site

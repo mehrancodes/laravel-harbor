@@ -11,6 +11,8 @@
 |
 */
 
+use App\Services\Forge\ForgeService;
+
 uses(Tests\TestCase::class)->in('Feature');
 
 /*
@@ -42,4 +44,10 @@ expect()->extend('toBeOne', function () {
 function something(): void
 {
     // ..
+}
+
+function callInvokable(callable $callback, ForgeService $service) {
+    $callback($service, function () {
+        return true;
+    });
 }

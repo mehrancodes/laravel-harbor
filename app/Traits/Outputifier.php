@@ -25,7 +25,7 @@ trait Outputifier
         render(sprintf(<<<'html'
             <div class="font-bold">
                 <span class="bg-red px-2 text-white mr-1">
-                    ERROR
+                    FAIL
                 </span>
                 %s
             </div>
