@@ -100,7 +100,7 @@ Veyoze utilizes environment keys similar to a Laravel application, offering flex
 This key holds your Forge API token, enabling Veyoze to communicate with Laravel Forge for site creation and resource management. **Always store this value as an encrypted secret; avoid pasting it directly into your workflow file.**
 
 #### `FORGE_SERVER` (required)
-Specify the server where Veyoze should create and deploy a site.
+Specify the server where Veyoze should create and deploy a site.  The value to use here is the Forge "Server ID" for the target server.  Examples: 723019, 68342, etc.
 
 #### `FORGE_GIT_REPOSITORY` (required)
 Indicate the Git repository name, such as 'mehrancodes/veyoze'.
