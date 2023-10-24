@@ -129,7 +129,7 @@ class ForgeSetting
      */
     public bool $waitOnSsl;
 
-    public int $timeoutSeconds;
+    public ?string $timeoutSeconds;
 
     /**
      * The validation rules.
@@ -154,7 +154,7 @@ class ForgeSetting
         'ssl_required' => ['boolean'],
         'wait_on_ssl' => ['boolean'],
         'wait_on_deploy' => ['boolean'],
-        'timeout_seconds' => ['int', 'nullable'],
+        'timeout_seconds' => ['string', 'nullable'],
     ];
 
     public function __construct()
