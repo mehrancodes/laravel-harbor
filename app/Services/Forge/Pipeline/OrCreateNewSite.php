@@ -27,13 +27,10 @@ class OrCreateNewSite
         if (is_null($service->site)) {
             $this->information('Creating a new site.');
 
-            $site = $service->forge->createSite(
+            $service->createSite(
                 $service->setting->server,
                 $this->gatherSiteData($service)
             );
-
-            $service->setSite($site);
-            $service->markSiteAsNewlyMade();
         }
 
         return $next($service);
