@@ -61,6 +61,8 @@ class ForgeService
         $this->setting = new ForgeSetting();
 
         $this->forge = new Forge($this->setting->token);
+
+        $this->forge->setTimeout($this->setting->timeoutSeconds);
     }
 
     public function setServer(Server $server): void
