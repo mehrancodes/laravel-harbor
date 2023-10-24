@@ -64,4 +64,6 @@ return [
     // Flag to pause until site deployment completes during provisioning (default: true).
     'wait_on_deploy' => env('FORGE_WAIT_ON_DEPLOY', true),
 
+    'timeout_seconds' => env('FORGE_TIMEOUT_SECONDS', 180),
+
 ];

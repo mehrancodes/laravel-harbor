@@ -48,6 +48,7 @@ class ForgeService
 
     public function __construct(public ForgeSetting $setting, public Forge $forge)
     {
+        $this->forge->setTimeout($this->setting->timeoutSeconds);
     }
 
     public function setServer(Server $server): void
