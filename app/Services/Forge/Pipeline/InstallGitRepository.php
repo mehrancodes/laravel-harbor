@@ -24,6 +24,16 @@ class InstallGitRepository
     public function __invoke(ForgeService $service, Closure $next)
     {
         if (! $service->siteNewlyMade) {
+
+            $this->information('Updating the git repository.');
+
+            $service->site->updateGitRepository([
+                'provider' => $service->setting->gitProvider,
+                'repository' => $service->setting->repository,
+                'branch' => $service->setting->branch,
+                'composer' => false,
+            ]);
+
             return $next($service);
         }
 
