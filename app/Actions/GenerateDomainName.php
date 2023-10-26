@@ -38,9 +38,8 @@ class GenerateDomainName
         $pattern = $this->service->setting->subdomainPattern;
 
         if (isset($pattern)) {
-            preg_match($pattern, $branch, $new);
-
-            return Str::slug(current($new));
+            preg_match($pattern, $branch, $matches);
+            $branch = array_pop($matches);
         }
 
         return Str::slug($branch);
