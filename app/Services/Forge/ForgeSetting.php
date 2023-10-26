@@ -157,7 +157,7 @@ class ForgeSetting
         'ssl_required' => ['boolean'],
         'wait_on_ssl' => ['boolean'],
         'wait_on_deploy' => ['boolean'],
-        'timeout_seconds' => ['required', 'int', 'min:0', 'max:180'],
+        'timeout_seconds' => ['required', 'int', 'min:0'],
     ];
 
     public function __construct()
