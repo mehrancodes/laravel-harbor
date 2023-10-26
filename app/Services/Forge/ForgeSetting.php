@@ -91,7 +91,6 @@ class ForgeSetting
 
     /**
      * Set the Forge timeout.
-     * @var string|int
      */
     public string|int $timeoutSeconds;
 
