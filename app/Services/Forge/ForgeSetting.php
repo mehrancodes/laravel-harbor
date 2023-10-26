@@ -90,6 +90,12 @@ class ForgeSetting
     public ?string $command = null;
 
     /**
+     * Set the Forge timeout.
+     * @var string|int
+     */
+    public string|int $timeoutSeconds;
+
+    /**
      * Flag to enable Quick Deploy.
      */
     public bool $quickDeploy;
@@ -129,8 +135,6 @@ class ForgeSetting
      */
     public bool $waitOnSsl;
 
-    public ?string $timeoutSeconds;
-
     /**
      * The validation rules.
      */
@@ -154,7 +158,7 @@ class ForgeSetting
         'ssl_required' => ['boolean'],
         'wait_on_ssl' => ['boolean'],
         'wait_on_deploy' => ['boolean'],
-        'timeout_seconds' => ['string', 'nullable'],
+        'timeout_seconds' => ['required', 'int', 'min:0', 'max:180'],
     ];
 
     public function __construct()
