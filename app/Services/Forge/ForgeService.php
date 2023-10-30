@@ -69,7 +69,11 @@ class ForgeService
     public function getFormattedDomainName(): ?string
     {
         if (is_null($this->formattedDomain)) {
-            $this->formattedDomain = GenerateDomainName::run();
+            $this->formattedDomain = GenerateDomainName::run(
+                $this->setting->domain,
+                $this->setting->branch,
+                $this->setting->subdomainPattern,
+            );
         }
 
         return $this->formattedDomain;
