@@ -20,8 +20,12 @@ class TextToArray
 {
     use AsAction;
 
-    public function handle(string $content): array
+    public function handle(?string $content): ?array
     {
+        if (empty($content)) {
+            return [];
+        }
+
         $separator = Str::contains($content, ';') ? ';' : "\n";
 
         parse_str(str_replace($separator, '&', $content), $output);

@@ -24,7 +24,7 @@ class CreateDatabase
 
     public function __invoke(ForgeService $service, Closure $next)
     {
-        if ($service->setting->dbCreationRequired || ! $service->siteNewlyMade) {
+        if (!$service->setting->dbCreationRequired || !$service->siteNewlyMade) {
             return $next($service);
         }
 
