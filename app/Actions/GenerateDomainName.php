@@ -13,7 +13,6 @@ declare(strict_types=1);
 
 namespace App\Actions;
 
-use App\Services\Forge\ForgeService;
 use Illuminate\Support\Str;
 use Lorisleiva\Actions\Concerns\AsAction;
 
@@ -21,28 +20,20 @@ class GenerateDomainName
 {
     use AsAction;
 
-    public function __construct(public ForgeService $service)
+    public function handle(string $domain, string $branch, ?string $pattern): string
     {
-    }
-
-    public function handle(): string
-    {
-        return str($this->formatBranchName())
-            ->append('.', $this->service->setting->domain)
+        return str($this->formatBranchName($branch, $pattern))
+            ->append('.', $domain)
             ->toString();
     }
 
-    private function formatBranchName(): string
+    private function formatBranchName(string $branch, ?string $pattern): string
     {
-        $branch = $this->service->setting->branch;
-        $pattern = $this->service->setting->subdomainPattern;
-
         if (isset($pattern)) {
-            preg_match($pattern, $branch, $new);
-
-            return Str::slug(current($new));
+            preg_match($pattern, $branch, $matches);
+            $branch = array_pop($matches);
         }
 
-        return Str::slug($branch);
+        return Str::slug($branch, '-', 'en', ['+' => '-', '_' => '-', '@' => '-']);
     }
 }
