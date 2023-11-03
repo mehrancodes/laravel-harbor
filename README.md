@@ -2,8 +2,21 @@
 
 ![logo-background-blue-sky-small](https://github.com/mehrancodes/veyoze/assets/7046255/2727ce3d-31c4-4a97-bafc-e461706ff219)
 
-## Velocity, Efficiency, Yield - Optimize Your Zone of Engineering
+### Velocity, Efficiency, Yield - Optimize Your Zone of Engineering
 
+
+## Table of Contents
+
+- [Introduction](#introduction)
+- [Getting Started](#getting-started)
+- [Configuration](#configuration)
+- [Features](#features)
+- [Contributing](#contributing)
+- [License](#license)
+- [Acknowledgments](#acknowledgments)
+- [Roadmap](#roadmap)
+
+## Introduction
 In today's fast-paced software development world, the ability to quickly and efficiently test new features is a game-changer for teams aiming to maintain a competitive edge. Preview Environments, also known as Ephemeral Environments, serve as the critical testing grounds for new features, bug fixes, and updates before they are integrated into the main codebase. These environments are crafted on-demand to validate specific git branches, providing a transient yet powerful platform for thorough pre-merge testing.
 
 `"Don't merge until you preview" - with Veyoze, ensure that excellence is the standard, not the exception.`
@@ -33,27 +46,13 @@ Veyoze embodies the principle of "shifting left" in the software development lif
 
 As the demand for faster and more reliable deployment cycles grows, tools like Veyoze represent the next step in the evolution of DevOps. It's not just about bringing Web Applications, or APIs into the age of real-time previewing; it's about transforming the entire development process into a more efficient, effective, and error-free journey. With Veyoze, experience the "holy grail" of DevOps, where every pull request paves the way for a smoother, faster, and more secure path to production.
 
----
-
-
-## Table of Contents
-
-- [Requirements](#requirements)
-- [Getting Started](#getting-started)
-- [Configuration](#configuration)
-- [Features](#features)
-- [Contributing](#contributing)
-- [License](#license)
-- [Acknowledgments](#acknowledgments)
-- [Roadmap](#roadmap)
+## Getting Started
 
 ### Requirements
 Before diving in, ensure you have:
 
 - An [app server on Forge](https://forge.laravel.com/docs/servers/types.html#app-servers).
 - A Forge [API token](https://forge.laravel.com/docs/1.0/accounts/api.html#create-api-token).
-
-## Getting Started
 
 ### Setup and Deploy
 
