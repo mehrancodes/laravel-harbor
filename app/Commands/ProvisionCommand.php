@@ -59,7 +59,7 @@ class ProvisionCommand extends Command
             ])
             ->then(function () use ($service) {
                 $this->success('Provisioning complete! Your environment is now set up and ready to use.');
-                $this->success('www.'.$service->site->name);
+                $this->success($service->site->name);
             });
     }
 }
