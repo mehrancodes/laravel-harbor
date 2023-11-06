@@ -13,12 +13,15 @@ declare(strict_types=1);
 
 namespace App\Services\Forge;
 
+use App\Traits\Outputifier;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
-use InvalidArgumentException;
+use Laravel\Forge\Exceptions\ValidationException;
 
 class ForgeSetting
 {
+    use Outputifier;
+
     /**
      * Forge API authentication token.
      */
@@ -169,12 +172,7 @@ class ForgeSetting
     {
         $validator = Validator::make($configurations, $this->validationRules);
 
-        if ($validator->fails()) {
-            // Handle validation failures.
-            throw new InvalidArgumentException(
-                'Invalid configuration values: '.implode(', ', $validator->errors()->all())
-            );
-        }
+        throw_if($validator->fails(), ValidationException::class, $validator->errors()->all());
 
         // If validation passes, set properties
         foreach ($configurations as $key => $value) {
