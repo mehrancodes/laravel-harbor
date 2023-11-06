@@ -27,9 +27,9 @@ class Handler extends ExceptionHandler
     {
         $this->reportable(function (ValidationException $e) {
             foreach ($e->errors() as $error) {
-                $message = is_array($error) ? current($error) : $error;
-
-                $this->fail('---> '.$message);
+                $this->fail(
+                    sprintf('---> %s', is_array($error) ? current($error) : $error)
+                );
             }
 
             return false;
