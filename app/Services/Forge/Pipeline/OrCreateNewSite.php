@@ -55,7 +55,7 @@ class OrCreateNewSite
             $this->information('---> Enabling site isolation.');
 
             $data['isolated'] = true;
-            $data['username'] = Str::slug($service->setting->branch);
+            $data['username'] = $service->generateUserName();
         }
 
         return $data;

@@ -108,9 +108,11 @@ class ForgeService
 
     public function generateDatabaseName(): string
     {
-        return Str::limit(
-            Str::slug($this->setting->branch, '_'),
-            64
-        );
+        $this->getFormattedDomainName();
+    }
+
+    public function generateUserName(): string
+    {
+        $this->getFormattedDomainName();
     }
 }
