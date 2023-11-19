@@ -67,12 +67,6 @@ return [
     // Set the Forge timeout. (default: 180).
     'timeout_seconds' => env('FORGE_TIMEOUT_SECONDS', 180),
 
-    // Set the github owner.
-    'github_owner' => env('GIT_OWNER'),
-
-    // Set the github repo.
-    'github_repo' => env('GIT_REPO'),
-
     // Set the github token.
     'github_token' => env('GIT_TOKEN'),
 

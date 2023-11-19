@@ -117,9 +117,9 @@ class ForgeService
 
     public function putCommentOnGithubPullRequest($siteName): void
     {
-        $uri = "https://api.github.com/repos/%s/%s/issues/%d/comments";
+        $uri = "https://api.github.com/repos/%s/issues/%d/comments";
 
-        $githubApi = sprintf($uri, $this->setting->gitOwner, $this->setting->gitRepo, $this->setting->gitIssue);
+        $githubApi = sprintf($uri, $this->setting->repository, $this->setting->gitIssue);
 
         $body = ["body" => sprintf("[%s](http://%s)", $siteName, $siteName)];
 
