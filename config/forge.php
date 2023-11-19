@@ -68,14 +68,14 @@ return [
     'timeout_seconds' => env('FORGE_TIMEOUT_SECONDS', 180),
 
     // Set the github owner.
-    'github_owner' => env('GITHUB_OWNER'),
+    'github_owner' => env('GIT_OWNER'),
 
     // Set the github repo.
-    'github_repo' => env('GITHUB_REPO'),
+    'github_repo' => env('GIT_REPO'),
 
     // Set the github token.
-    'github_token' => env('GITHUB_TOKEN'),
+    'github_token' => env('GIT_TOKEN'),
 
     // Set the github issue.
-    'github_issue' => env('GITHUB_ISSUE'),
+    'github_issue' => env('GIT_ISSUE'),
 ];

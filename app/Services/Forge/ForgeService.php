@@ -119,13 +119,13 @@ class ForgeService
     {
         $uri = "https://api.github.com/repos/%s/%s/issues/%d/comments";
 
-        $githubApi = sprintf($uri, $this->setting->githubOwner, $this->setting->githubRepo, $this->setting->githubIssue);
+        $githubApi = sprintf($uri, $this->setting->gitOwner, $this->setting->gitRepo, $this->setting->gitIssue);
 
         $body = ["body" => sprintf("[%s](http://%s)", $siteName, $siteName)];
 
         $header = [
             'Accept' => 'application/vnd.github+json',
-            'Authorization' => "Bearer {$this->setting->githubToken}",
+            'Authorization' => "Bearer {$this->setting->gitToken}",
             'X-GitHub-Api-Version' => '2022-11-28',
         ];
 

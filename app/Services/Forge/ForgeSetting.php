@@ -140,22 +140,22 @@ class ForgeSetting
     /**
      * GitHub Owner name.
      */
-    public string $githubOwner;
+    public string $gitOwner;
 
     /**
      * GitHub Repo name.
      */
-    public string $githubRepo;
+    public string $gitRepo;
 
     /**
      * GitHub token.
      */
-    public string $githubToken;
+    public string $gitToken;
 
     /**
      * GitHub Issue number.
      */
-    public string $githubIssue;
+    public string $gitIssue;
 
     /**
      * The validation rules.
@@ -181,10 +181,10 @@ class ForgeSetting
         'wait_on_ssl' => ['boolean'],
         'wait_on_deploy' => ['boolean'],
         'timeout_seconds' => ['required', 'int', 'min:0'],
-        'github_owner' => ['required', 'string', 'min:0'],
-        'github_repo' => ['required', 'string', 'min:0'],
-        'github_token' => ['required', 'string', 'min:0'],
-        'github_issue' => ['required', 'int', 'min:0'],
+        'git_owner' => ['required', 'string', 'min:0'],
+        'git_repo' => ['required', 'string', 'min:0'],
+        'git_token' => ['required', 'string', 'min:0'],
+        'git_issue' => ['required', 'int', 'min:0'],
     ];
 
     public function __construct()
