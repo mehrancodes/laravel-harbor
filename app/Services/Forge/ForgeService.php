@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace App\Services\Forge;
 
 use App\Actions\GenerateDomainName;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
 use Laravel\Forge\Forge;
 use Laravel\Forge\Resources\Server;
@@ -112,5 +113,22 @@ class ForgeService
             Str::slug($this->setting->branch, '_'),
             64
         );
+    }
+
+    public function putCommentOnGithubPullRequest($siteName): void
+    {
+        $uri = "https://api.github.com/repos/%s/%s/issues/%d/comments";
+
+        $githubApi = sprintf($uri, $this->setting->githubOwner, $this->setting->githubRepo, $this->setting->githubIssue);
+
+        $body = ["body" => sprintf("[%s](http://%s)", $siteName, $siteName)];
+
+        $header = [
+            'Accept' => 'application/vnd.github+json',
+            'Authorization' => "Bearer {$this->setting->githubToken}",
+            'X-GitHub-Api-Version' => '2022-11-28',
+        ];
+
+        Http::withHeaders($header)->post($githubApi, $body);
     }
 }

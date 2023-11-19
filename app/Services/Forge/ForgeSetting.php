@@ -138,6 +138,26 @@ class ForgeSetting
     public bool $waitOnSsl;
 
     /**
+     * GitHub Owner name.
+     */
+    public string $githubOwner;
+
+    /**
+     * GitHub Repo name.
+     */
+    public string $githubRepo;
+
+    /**
+     * GitHub token.
+     */
+    public string $githubToken;
+
+    /**
+     * GitHub Issue number.
+     */
+    public string $githubIssue;
+
+    /**
      * The validation rules.
      */
     private array $validationRules = [
@@ -161,6 +181,10 @@ class ForgeSetting
         'wait_on_ssl' => ['boolean'],
         'wait_on_deploy' => ['boolean'],
         'timeout_seconds' => ['required', 'int', 'min:0'],
+        'github_owner' => ['required', 'string', 'min:0'],
+        'github_repo' => ['required', 'string', 'min:0'],
+        'github_token' => ['required', 'string', 'min:0'],
+        'github_issue' => ['required', 'int', 'min:0'],
     ];
 
     public function __construct()
