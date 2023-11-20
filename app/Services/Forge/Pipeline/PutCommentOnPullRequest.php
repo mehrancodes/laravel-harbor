@@ -23,9 +23,12 @@ class PutCommentOnPullRequest
 
     public function __invoke(ForgeService $service, Closure $next)
     {
-        $this->information('Put Comment On Github Pull Request.');
+        if ($service->setting->gitPrComments){
 
-        $service->putCommentOnGithubPullRequest($service->site->name);
+            $this->information('Put Comment On Github Pull Request.');
+
+            $service->putCommentOnGithubPullRequest($service->site->name);
+        }
 
         return $next($service);
     }

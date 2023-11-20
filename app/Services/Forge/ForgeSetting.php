@@ -148,6 +148,11 @@ class ForgeSetting
     public string $gitIssue;
 
     /**
+     * Enable GitHub PR comments.
+     */
+    public bool $gitPrComments;
+
+    /**
      * The validation rules.
      */
     private array $validationRules = [
@@ -171,8 +176,9 @@ class ForgeSetting
         'wait_on_ssl' => ['boolean'],
         'wait_on_deploy' => ['boolean'],
         'timeout_seconds' => ['required', 'int', 'min:0'],
-        'git_token' => ['required', 'string', 'min:0'],
-        'git_issue' => ['required', 'int', 'min:0'],
+        'git_pr_comments' => ['required', 'boolean'],
+        'git_token' => ['required_if:git_pr_comments,true', 'string'],
+        'git_issue' => ['required_if:git_pr_comments,true', 'string'],
     ];
 
     public function __construct()

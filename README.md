@@ -138,6 +138,7 @@ jobs:
               FORGE_GIT_REPOSITORY: ${{ github.repository }}
               FORGE_GIT_BRANCH: ${{ github.head_ref }}
               FORGE_DOMAIN: veyoze.com
+              GIT_PR_COMMENTS: true
               GIT_TOKEN: ${{ github.token }}
               GIT_ISSUE: ${{ github.event.number }}
           run: veyoze teardown

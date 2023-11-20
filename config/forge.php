@@ -68,8 +68,11 @@ return [
     'timeout_seconds' => env('FORGE_TIMEOUT_SECONDS', 180),
 
     // Set the github token.
-    'github_token' => env('GIT_TOKEN'),
+    'git_token' => env('GIT_TOKEN'),
 
     // Set the github issue.
-    'github_issue' => env('GIT_ISSUE'),
+    'git_issue' => env('GIT_ISSUE'),
+
+    // Enable github PR comments
+    'git_pr_comments' => env('GIT_PR_COMMENTS', false),
 ];
