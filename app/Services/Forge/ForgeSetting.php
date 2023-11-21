@@ -138,19 +138,19 @@ class ForgeSetting
     public bool $waitOnSsl;
 
     /**
-     * GitHub token.
+     * Git token.
      */
     public string $gitToken;
 
     /**
-     * GitHub Issue number.
+     * Git Issue number.
      */
-    public string $gitIssue;
+    public string $gitIssueNumber;
 
     /**
-     * Enable GitHub PR comments.
+     * Enable git comments on pull requests.
      */
-    public bool $gitPrComments;
+    public bool $gitCommentEnabled;
 
     /**
      * The validation rules.
@@ -176,9 +176,9 @@ class ForgeSetting
         'wait_on_ssl' => ['boolean'],
         'wait_on_deploy' => ['boolean'],
         'timeout_seconds' => ['required', 'int', 'min:0'],
-        'git_pr_comments' => ['required', 'boolean'],
-        'git_token' => ['required_if:git_pr_comments,true', 'string'],
-        'git_issue' => ['required_if:git_pr_comments,true', 'string'],
+        'git_comment_enabled' => ['required', 'boolean'],
+        'git_token' => ['required_if:git_comment_enabled,true', 'string'],
+        'git_issue_number' => ['required_if:git_comment_enabled,true', 'string'],
     ];
 
     public function __construct()
