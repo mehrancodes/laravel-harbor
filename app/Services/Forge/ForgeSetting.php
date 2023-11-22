@@ -140,12 +140,12 @@ class ForgeSetting
     /**
      * Git token.
      */
-    public string $gitToken;
+    public ?string $gitToken;
 
     /**
      * Git Issue number.
      */
-    public string $gitIssueNumber;
+    public ?string $gitIssueNumber;
 
     /**
      * Enable git comments on pull requests.
@@ -177,8 +177,8 @@ class ForgeSetting
         'wait_on_deploy' => ['boolean'],
         'timeout_seconds' => ['required', 'int', 'min:0'],
         'git_comment_enabled' => ['required', 'boolean'],
-        'git_token' => ['required_if:git_comment_enabled,true', 'string'],
-        'git_issue_number' => ['required_if:git_comment_enabled,true', 'string'],
+        'git_token' => ['exclude_if:git_comment_enabled,false', 'required', 'string'],
+        'git_issue_number' => ['exclude_if:git_comment_enabled,false', 'required', 'string'],
     ];
 
     public function __construct()

@@ -59,7 +59,7 @@ class ProvisionCommand extends Command
                 EnsureJobScheduled::class,
                 PutCommentOnPullRequest::class,
             ])
-            ->then(function () use ($service) {
+            ->then(function () {
                 $this->success('Provisioning complete! Your environment is now set up and ready to use.');
             });
     }
