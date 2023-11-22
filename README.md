@@ -247,7 +247,18 @@ A flag to pause the provisioning process until the SSL setup completes. By defau
 This flag pauses the provisioning process until the site deployment completes. By default, it's true, ensuring a smooth and complete deployment before any subsequent steps.
 
 #### `FORGE_TIMEOUT_SECONDS`
-This flag indicates how much time should be allowed for the deployment process.  Defaults to 180 seconds.
+This flag indicates how much time should be allowed for the deployment process. Defaults to 180 seconds.
+
+#### `GIT_PR_COMMENTS`
+This flag indicates if you would like to receive the site information in your pull request as a comment when provision is done. Defaults to false.
+
+You also need to set the `GIT_TOKEN` and `GIT_ISSUE_NUMBER` so this feature being able to work.
+
+#### `GIT_TOKEN`
+This flag is required in order to post a comment on the pull request. You may assign `${{ github.token }}` to it as the GitHub API token. 
+
+#### `GIT_ISSUE_NUMBER`
+This flag is required in order to post a comment on the pull request. You may assign `${{ github.event.number }}` to it as the GitHub pull request number. 
 
 ---
 

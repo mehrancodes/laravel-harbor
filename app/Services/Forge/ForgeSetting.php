@@ -138,6 +138,21 @@ class ForgeSetting
     public bool $waitOnSsl;
 
     /**
+     * Git token.
+     */
+    public string $gitToken;
+
+    /**
+     * Git Issue number.
+     */
+    public string $gitIssueNumber;
+
+    /**
+     * Enable git comments on pull requests.
+     */
+    public bool $gitCommentEnabled;
+
+    /**
      * The validation rules.
      */
     private array $validationRules = [
@@ -161,6 +176,9 @@ class ForgeSetting
         'wait_on_ssl' => ['boolean'],
         'wait_on_deploy' => ['boolean'],
         'timeout_seconds' => ['required', 'int', 'min:0'],
+        'git_comment_enabled' => ['required', 'boolean'],
+        'git_token' => ['required_if:git_comment_enabled,true', 'string'],
+        'git_issue_number' => ['required_if:git_comment_enabled,true', 'string'],
     ];
 
     public function __construct()

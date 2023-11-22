@@ -66,4 +66,13 @@ return [
 
     // Set the Forge timeout. (default: 180).
     'timeout_seconds' => env('FORGE_TIMEOUT_SECONDS', 180),
+
+    // Set the git token.
+    'git_token' => env('GIT_TOKEN'),
+
+    // Set the git issue number.
+    'git_issue_number' => env('GIT_ISSUE_NUMBER'),
+
+    // Enable git PR comment
+    'git_comment_enabled' => env('GIT_COMMENT_ENABLED', false),
 ];
