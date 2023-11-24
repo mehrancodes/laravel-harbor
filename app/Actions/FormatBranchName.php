@@ -13,16 +13,20 @@ declare(strict_types=1);
 
 namespace App\Actions;
 
+use Illuminate\Support\Str;
 use Lorisleiva\Actions\Concerns\AsAction;
 
-class GenerateDomainName
+class FormatBranchName
 {
     use AsAction;
 
-    public function handle(string $domain, string $branch): string
+    public function handle(string $branch, ?string $pattern): string
     {
-        return str($branch)
-            ->append('.', $domain)
-            ->toString();
+        if (isset($pattern)) {
+            preg_match($pattern, $branch, $matches);
+            $branch = array_pop($matches);
+        }
+
+        return Str::slug($branch, '-', 'en', ['+' => '-', '_' => '-', '@' => '-']);
     }
 }

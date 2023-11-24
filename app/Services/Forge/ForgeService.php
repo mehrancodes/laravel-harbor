@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace App\Services\Forge;
 
+use App\Actions\FormatBranchName;
 use App\Actions\GenerateDomainName;
 use Illuminate\Support\Str;
 use Laravel\Forge\Forge;
@@ -42,9 +43,14 @@ class ForgeService
     public bool $siteNewlyMade = false;
 
     /**
-     * Get the formatted domain based on subdomain pattern.
+     * Get the full domain name.
      */
-    private ?string $formattedDomain = null;
+    public ?string $domainName = null;
+
+    /**
+     * Get the formatted branch based on the regex pattern.
+     */
+    public string $formattedBranchName;
 
     public function __construct(public ForgeSetting $setting, public Forge $forge)
     {
@@ -66,17 +72,32 @@ class ForgeService
         $this->database = $database;
     }
 
-    public function getFormattedDomainName(): ?string
+    public function getFormattedBranchName()
     {
-        if (is_null($this->formattedDomain)) {
-            $this->formattedDomain = GenerateDomainName::run(
-                $this->setting->domain,
-                $this->setting->branch,
-                $this->setting->subdomainPattern,
-            );
+        if (isset($this->formattedBranchName)) {
+            return $this->formattedBranchName;
         }
 
-        return $this->formattedDomain;
+        $this->formattedBranchName = FormatBranchName::run(
+            $this->setting->branch,
+            $this->setting->subdomainPattern
+        );
+
+        return $this->formattedBranchName;
+    }
+
+    public function getFormattedDomainName(): ?string
+    {
+        if (isset($this->domainName)) {
+            return $this->domainName;
+        }
+
+        $this->domainName = GenerateDomainName::run(
+            $this->setting->domain,
+            $this->getFormattedBranchName()
+        );
+
+        return $this->domainName;
     }
 
     public function createSite(string $serverId, array $payload): Site
@@ -108,11 +129,20 @@ class ForgeService
 
     public function generateDatabaseName(): string
     {
-        $this->getFormattedDomainName();
+        $limitted = Str::limit(
+            $this->getFormattedBranchName(),
+            64
+        );
+
+        return Str::replace('-', '_', $limitted);
     }
 
-    public function generateUserName(): string
+    public function generateIsolationUsername(): string
     {
-        $this->getFormattedDomainName();
+        $matchesFirstDigitsOfString = '/^\d+/';
+
+        return Str::slug(
+            preg_replace($matchesFirstDigitsOfString, '', $this->getFormattedBranchName())
+        );
     }
 }
