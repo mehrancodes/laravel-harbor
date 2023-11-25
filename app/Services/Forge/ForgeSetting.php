@@ -153,6 +153,11 @@ class ForgeSetting
     public bool $gitCommentEnabled;
 
     /**
+     * Gets used to set the site subdomain manually.
+     */
+    public ?string $subdomainName;
+
+    /**
      * The validation rules.
      */
     private array $validationRules = [
@@ -179,6 +184,7 @@ class ForgeSetting
         'git_comment_enabled' => ['required', 'boolean'],
         'git_token' => ['exclude_if:git_comment_enabled,false', 'required', 'string'],
         'git_issue_number' => ['exclude_if:git_comment_enabled,false', 'required', 'string'],
+        'subdomain_name' => ['nullable', 'string', 'regex:/^[a-zA-Z0-9-_]+$/'],
     ];
 
     public function __construct()

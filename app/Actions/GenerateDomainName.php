@@ -19,9 +19,9 @@ class GenerateDomainName
 {
     use AsAction;
 
-    public function handle(string $domain, string $branch): string
+    public function handle(string $domain, string $subdomain): string
     {
-        return str($branch)
+        return str($subdomain)
             ->append('.', $domain)
             ->toString();
     }

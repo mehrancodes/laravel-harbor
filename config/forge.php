@@ -73,6 +73,9 @@ return [
     // Set the git issue number.
     'git_issue_number' => env('GIT_ISSUE_NUMBER'),
 
-    // Enable git PR comment
+    // Enable git PR comment.
     'git_comment_enabled' => env('GIT_COMMENT_ENABLED', false),
+
+    // Subdomain name used for the Forge site domain instead of branch name.
+    'subdomain_name' => env('SUBDOMAIN_NAME'),
 ];

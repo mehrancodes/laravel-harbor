@@ -260,6 +260,9 @@ This flag is required in order to post a comment on the pull request. You may as
 #### `GIT_ISSUE_NUMBER`
 This flag is required in order to post a comment on the pull request. You may assign `${{ github.event.number }}` to it as the GitHub pull request number. 
 
+#### `SUBDOMAIN_NAME`
+Use this flag to manually set the Forge site subdomain. For example having a value of `pr-${{ github.event.number }}` aims to have a site name of `pr-123.YOUR_DOMAIN.COM`. 
+
 ---
 
 ## Features
