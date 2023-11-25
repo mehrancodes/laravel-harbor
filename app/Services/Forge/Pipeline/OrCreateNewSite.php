@@ -16,7 +16,6 @@ namespace App\Services\Forge\Pipeline;
 use App\Services\Forge\ForgeService;
 use App\Traits\Outputifier;
 use Closure;
-use Illuminate\Support\Str;
 
 class OrCreateNewSite
 {
@@ -55,7 +54,7 @@ class OrCreateNewSite
             $this->information('---> Enabling site isolation.');
 
             $data['isolated'] = true;
-            $data['username'] = Str::slug($service->setting->branch);
+            $data['username'] = $service->getStandardizedBranchName();
         }
 
         return $data;

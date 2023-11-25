@@ -13,8 +13,9 @@ declare(strict_types=1);
 
 namespace App\Services\Forge;
 
+use App\Actions\FormattedBranchName;
 use App\Actions\GenerateDomainName;
-use Illuminate\Support\Str;
+use App\Actions\GenerateStandardizedBranchName;
 use Laravel\Forge\Forge;
 use Laravel\Forge\Resources\Server;
 use Laravel\Forge\Resources\Site;
@@ -41,11 +42,6 @@ class ForgeService
      */
     public bool $siteNewlyMade = false;
 
-    /**
-     * Get the formatted domain based on subdomain pattern.
-     */
-    private ?string $formattedDomain = null;
-
     public function __construct(public ForgeSetting $setting, public Forge $forge)
     {
         $this->forge->setTimeout($this->setting->timeoutSeconds);
@@ -66,17 +62,27 @@ class ForgeService
         $this->database = $database;
     }
 
-    public function getFormattedDomainName(): ?string
+    public function getFormattedBranchName(): string
     {
-        if (is_null($this->formattedDomain)) {
-            $this->formattedDomain = GenerateDomainName::run(
-                $this->setting->domain,
-                $this->setting->branch,
-                $this->setting->subdomainPattern,
-            );
-        }
+        return FormattedBranchName::run(
+            $this->setting->branch,
+            $this->setting->subdomainPattern
+        );
+    }
 
-        return $this->formattedDomain;
+    public function getFormattedDomainName(): string
+    {
+        return GenerateDomainName::run(
+            $this->setting->domain,
+            $this->getFormattedBranchName()
+        );
+    }
+
+    public function getStandardizedBranchName(): string
+    {
+        return GenerateStandardizedBranchName::run(
+            $this->getFormattedBranchName()
+        );
     }
 
     public function createSite(string $serverId, array $payload): Site
@@ -104,13 +110,5 @@ class ForgeService
     public function markSiteAsNewlyMade(): void
     {
         $this->siteNewlyMade = true;
-    }
-
-    public function generateDatabaseName(): string
-    {
-        return Str::limit(
-            Str::slug($this->setting->branch, '_'),
-            64
-        );
     }
 }

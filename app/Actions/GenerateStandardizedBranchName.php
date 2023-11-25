@@ -13,16 +13,21 @@ declare(strict_types=1);
 
 namespace App\Actions;
 
+use Illuminate\Support\Str;
 use Lorisleiva\Actions\Concerns\AsAction;
 
-class GenerateDomainName
+class GenerateStandardizedBranchName
 {
     use AsAction;
 
-    public function handle(string $domain, string $branch): string
+    public function handle(string $branch): string
     {
-        return str($branch)
-            ->append('.', $domain)
-            ->toString();
+        $firstDigitsOfStringRemoved = preg_replace(
+            '/^\d+-?/',
+            '',
+            $branch
+        );
+
+        return Str::replace('-', '_', $firstDigitsOfStringRemoved);
     }
 }

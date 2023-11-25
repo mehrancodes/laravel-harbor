@@ -24,7 +24,7 @@ class RemoveDatabaseUser
     public function __invoke(ForgeService $service, Closure $next)
     {
         foreach ($service->forge->databaseUsers($service->setting->server) as $databaseUser) {
-            if ($databaseUser->name === $service->generateDatabaseName()) {
+            if ($databaseUser->name === $service->getStandardizedBranchName()) {
                 $this->information('Removing database with user.');
 
                 foreach ($databaseUser->databases as $database) {
