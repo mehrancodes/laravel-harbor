@@ -29,6 +29,7 @@ class FindSiteOrFail
 
         if (is_null($site)) {
             $this->fail('---> Site not found.');
+
             return $next;
         }
 
