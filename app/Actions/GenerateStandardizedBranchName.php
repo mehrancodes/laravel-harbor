@@ -16,17 +16,18 @@ namespace App\Actions;
 use Illuminate\Support\Str;
 use Lorisleiva\Actions\Concerns\AsAction;
 
-class FormatBranchName
+class GenerateStandardizedBranchName
 {
     use AsAction;
 
-    public function handle(string $branch, ?string $pattern): string
+    public function handle(string $branch): string
     {
-        if (isset($pattern)) {
-            preg_match($pattern, $branch, $matches);
-            $branch = array_pop($matches);
-        }
+        $firstDigitsOfStringRemoved = preg_replace(
+            '/^\d+-?/',
+            '',
+            $branch
+        );
 
-        return Str::slug($branch, '-', 'en', ['+' => '-', '_' => '-', '@' => '-']);
+        return Str::replace('-', '_', $firstDigitsOfStringRemoved);
     }
 }

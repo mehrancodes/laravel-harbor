@@ -11,6 +11,9 @@ test('it fails on incorrect payload', function ($site, $expectedErrors) {
     $service->shouldReceive('getFormattedDomainName')
         ->once()
         ->andReturn($site['name']);
+
+    $service->shouldReceive('getStandardizedBranchName')
+        ->once();
     $service->shouldReceive('createSite')
         ->once()
         ->andThrows(ValidationException::class, $expectedErrors);

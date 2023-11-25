@@ -1,10 +1,10 @@
 <?php
 
-use App\Actions\FormatBranchName;
+use App\Actions\FormattedBranchName;
 
 it('verify correct domain generation for various branch formats', function ($actual, $expected) {
     expect(
-        FormatBranchName::run(
+        FormattedBranchName::run(
             $actual['branch'],
             $actual['pattern'],
         )
@@ -72,7 +72,7 @@ it('verify correct domain generation for various branch formats', function ($act
 
 it('ensure graceful handling of invalid or problematic branch formats', function ($actual, $expected) {
     expect(
-        FormatBranchName::run(
+        FormattedBranchName::run(
             $actual['branch'],
             $actual['pattern'],
         )

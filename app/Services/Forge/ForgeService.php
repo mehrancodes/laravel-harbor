@@ -13,9 +13,9 @@ declare(strict_types=1);
 
 namespace App\Services\Forge;
 
-use App\Actions\FormatBranchName;
+use App\Actions\FormattedBranchName;
 use App\Actions\GenerateDomainName;
-use Illuminate\Support\Str;
+use App\Actions\GenerateStandardizedBranchName;
 use Laravel\Forge\Forge;
 use Laravel\Forge\Resources\Server;
 use Laravel\Forge\Resources\Site;
@@ -42,16 +42,6 @@ class ForgeService
      */
     public bool $siteNewlyMade = false;
 
-    /**
-     * Get the full domain name.
-     */
-    public ?string $domainName = null;
-
-    /**
-     * Get the formatted branch based on the regex pattern.
-     */
-    public string $formattedBranchName;
-
     public function __construct(public ForgeSetting $setting, public Forge $forge)
     {
         $this->forge->setTimeout($this->setting->timeoutSeconds);
@@ -72,32 +62,27 @@ class ForgeService
         $this->database = $database;
     }
 
-    public function getFormattedBranchName()
+    public function getFormattedBranchName(): string
     {
-        if (isset($this->formattedBranchName)) {
-            return $this->formattedBranchName;
-        }
-
-        $this->formattedBranchName = FormatBranchName::run(
+        return FormattedBranchName::run(
             $this->setting->branch,
             $this->setting->subdomainPattern
         );
-
-        return $this->formattedBranchName;
     }
 
-    public function getFormattedDomainName(): ?string
+    public function getFormattedDomainName(): string
     {
-        if (isset($this->domainName)) {
-            return $this->domainName;
-        }
-
-        $this->domainName = GenerateDomainName::run(
+        return GenerateDomainName::run(
             $this->setting->domain,
             $this->getFormattedBranchName()
         );
+    }
 
-        return $this->domainName;
+    public function getStandardizedBranchName(): string
+    {
+        return GenerateStandardizedBranchName::run(
+            $this->getFormattedBranchName()
+        );
     }
 
     public function createSite(string $serverId, array $payload): Site
@@ -125,24 +110,5 @@ class ForgeService
     public function markSiteAsNewlyMade(): void
     {
         $this->siteNewlyMade = true;
-    }
-
-    public function generateDatabaseName(): string
-    {
-        $limitted = Str::limit(
-            $this->getFormattedBranchName(),
-            64
-        );
-
-        return Str::replace('-', '_', $limitted);
-    }
-
-    public function generateIsolationUsername(): string
-    {
-        $matchesFirstDigitsOfString = '/^\d+/';
-
-        return Str::slug(
-            preg_replace($matchesFirstDigitsOfString, '', $this->getFormattedBranchName())
-        );
     }
 }
