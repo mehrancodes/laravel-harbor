@@ -21,6 +21,7 @@ class FormattedBranchName
     use AsAction;
 
     protected const STRING_LIMIT = 64;
+
     protected const SLUGIFY_DICTIONARY = ['+' => '-', '_' => '-', '@' => '-'];
 
     public function handle(string $branch, ?string $pattern): string
