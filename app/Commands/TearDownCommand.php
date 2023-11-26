@@ -16,7 +16,7 @@ namespace App\Commands;
 use App\Services\Forge\ForgeService;
 use App\Services\Forge\Pipeline\DestroySite;
 use App\Services\Forge\Pipeline\FindServer;
-use App\Services\Forge\Pipeline\FindSite;
+use App\Services\Forge\Pipeline\FindSiteOrFail;
 use App\Services\Forge\Pipeline\RemoveDatabaseUser;
 use App\Services\Forge\Pipeline\RemoveTaskScheduler;
 use App\Services\Forge\Pipeline\RunOptionalCommands;
@@ -37,7 +37,7 @@ class TearDownCommand extends Command
         Pipeline::send($service)
             ->through([
                 FindServer::class,
-                FindSite::class,
+                FindSiteOrFail::class,
                 RunOptionalCommands::class,
                 RemoveTaskScheduler::class,
                 RemoveDatabaseUser::class,

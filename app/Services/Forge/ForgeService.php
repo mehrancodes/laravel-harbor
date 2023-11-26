@@ -72,9 +72,11 @@ class ForgeService
 
     public function getFormattedDomainName(): string
     {
+        $subdomain = $this->setting->subdomainName ?? $this->getFormattedBranchName();
+
         return GenerateDomainName::run(
             $this->setting->domain,
-            $this->getFormattedBranchName()
+            $subdomain
         );
     }
 
