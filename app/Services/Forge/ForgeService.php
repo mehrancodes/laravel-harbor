@@ -42,6 +42,8 @@ class ForgeService
      */
     public bool $siteNewlyMade = false;
 
+    public ?int $deploymentId;
+
     public function __construct(public ForgeSetting $setting, public Forge $forge)
     {
         $this->forge->setTimeout($this->setting->timeoutSeconds);
@@ -112,5 +114,10 @@ class ForgeService
     public function markSiteAsNewlyMade(): void
     {
         $this->siteNewlyMade = true;
+    }
+
+    public function setDeploymentId(int $id): void
+    {
+        $this->deploymentId = $id;
     }
 }
