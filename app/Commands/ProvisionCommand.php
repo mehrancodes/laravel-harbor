@@ -15,14 +15,12 @@ namespace App\Commands;
 
 use App\Services\Forge\ForgeService;
 use App\Services\Forge\Pipeline\CreateDatabase;
-use App\Services\Forge\Pipeline\CreateGitDeployment;
 use App\Services\Forge\Pipeline\DeploySite;
 use App\Services\Forge\Pipeline\EnableQuickDeploy;
 use App\Services\Forge\Pipeline\EnsureJobScheduled;
 use App\Services\Forge\Pipeline\FindServer;
 use App\Services\Forge\Pipeline\FindSite;
 use App\Services\Forge\Pipeline\InstallGitRepository;
-use App\Services\Forge\Pipeline\MarkGitDeploymentAsDone;
 use App\Services\Forge\Pipeline\NginxTemplateSearchReplace;
 use App\Services\Forge\Pipeline\ObtainLetsEncryptCertification;
 use App\Services\Forge\Pipeline\OrCreateNewSite;
@@ -46,7 +44,6 @@ class ProvisionCommand extends Command
     {
         Pipeline::send($service)
             ->through([
-                CreateGitDeployment::class,
                 FindServer::class,
                 FindSite::class,
                 OrCreateNewSite::class,
@@ -61,7 +58,6 @@ class ProvisionCommand extends Command
                 RunOptionalCommands::class,
                 EnsureJobScheduled::class,
                 PutCommentOnPullRequest::class,
-                MarkGitDeploymentAsDone::class,
             ])
             ->then(function () {
                 $this->success('Provisioning complete! Your environment is now set up and ready to use.');
