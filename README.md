@@ -249,13 +249,20 @@ This flag pauses the provisioning process until the site deployment completes. B
 #### `FORGE_TIMEOUT_SECONDS`
 This flag indicates how much time should be allowed for the deployment process. Defaults to 180 seconds.
 
+#### `GIT_TOKEN`
+This flag is required in order to post a comment on the pull request. You may assign `${{ github.token }}` to it as the GitHub API token.
+
+
+#### `GIT_COMMENT_ENABLED`
+This flag indicates if you would like to receive the site information in your pull request as a comment when provision is done. Defaults to false.
+
+#### `GIT_ISSUE_NUMBER`
+This flag is required in order to post a comment on the pull request. You may assign `${{ github.event.number }}` to it as the GitHub pull request number.
+
 #### `GIT_DEPLOYMENT_ENABLED`
 This flag indicates if you would like the Veyoze to manage GitHub deployments on your pull request in order to receive the site information when provision is done. Defaults to false.
 
 You also need to set the `GIT_TOKEN` and `GIT_ISSUE_NUMBER` so this feature being able to work.
-
-#### `GIT_TOKEN`
-This flag is required in order to post a comment on the pull request. You may assign `${{ github.token }}` to it as the GitHub API token. 
 
 #### `SUBDOMAIN_NAME`
 Use this flag to manually set the Forge site subdomain. For example having a value of `pr-${{ github.event.number }}` aims to have a site name of `pr-123.YOUR_DOMAIN.COM`. 

@@ -26,6 +26,7 @@ use App\Services\Forge\Pipeline\MarkGitDeploymentAsDone;
 use App\Services\Forge\Pipeline\NginxTemplateSearchReplace;
 use App\Services\Forge\Pipeline\ObtainLetsEncryptCertification;
 use App\Services\Forge\Pipeline\OrCreateNewSite;
+use App\Services\Forge\Pipeline\PutCommentOnPullRequest;
 use App\Services\Forge\Pipeline\RunOptionalCommands;
 use App\Services\Forge\Pipeline\UpdateDeployScript;
 use App\Services\Forge\Pipeline\UpdateEnvironmentVariables;
@@ -59,6 +60,7 @@ class ProvisionCommand extends Command
                 DeploySite::class,
                 RunOptionalCommands::class,
                 EnsureJobScheduled::class,
+                PutCommentOnPullRequest::class,
                 MarkGitDeploymentAsDone::class,
             ])
             ->then(function () {

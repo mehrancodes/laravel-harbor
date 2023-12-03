@@ -70,7 +70,13 @@ return [
     // Set the git token.
     'git_token' => env('GIT_TOKEN'),
 
-    // Enable git PR deployment.
+    // Enable provision site information comment on pull requests.
+    'git_comment_enabled' => env('GIT_COMMENT_ENABLED', false),
+
+    // Set the git issue number used for adding comments on pull requests.
+    'git_issue_number' => env('GIT_ISSUE_NUMBER'),
+
+    // Enable git pull request deployment.
     'git_deployment_enabled' => env('GIT_DEPLOYMENT_ENABLED', false),
 
     // Subdomain name used for the Forge site domain instead of branch name.

@@ -37,17 +37,17 @@ class GithubService
     {
     }
 
-    public function createDeployment(string $gitToken, string $repository, string $branch)
+    public function createDeployment()
     {
-        $uri = sprintf('https://api.github.com/repos/%s/deployments', $repository);
+        $uri = sprintf('https://api.github.com/repos/%s/deployments', $this->setting->repository);
 
         $result = Http::withHeaders([
             'accepts' => self::API_ACCEPT,
             'X-GitHub-Api-Version' => self::API_VERSION,
-            'Authorization' => sprintf('Bearer %s', $gitToken),
+            'Authorization' => sprintf('Bearer %s', $this->setting->gitToken),
         ])
             ->post($uri, [
-                'ref' => $branch,
+                'ref' => $this->setting->branch,
                 'environment' => self::ENVIRONMENT,
                 'production_environment' => self::PRODUCTION_ENVIRONMENT,
                 'task' => self::TASK_TYPE,
@@ -59,24 +59,43 @@ class GithubService
         return json_decode($result->body(), true);
     }
 
-    public function markAsDeployed(string $gitToken, string $repository, int $deploymentId, string $environmentUrl)
+    public function markAsDeployed(int $deploymentId, string $environmentUrl)
     {
         $uri = sprintf(
             'https://api.github.com/repos/%s/deployments/%s/statuses',
-            $repository,
+            $this->setting->repository,
             $deploymentId
         );
 
         $result = Http::withHeaders([
             'accepts' => self::API_ACCEPT,
             'X-GitHub-Api-Version' => self::API_VERSION,
-            'Authorization' => sprintf('Bearer %s', $gitToken),
+            'Authorization' => sprintf('Bearer %s', $this->setting->gitToken),
         ])
             ->post($uri, [
                 'state' => self::SUCCESS_STATE,
                 'environment' => self::ENVIRONMENT,
                 'environment_url' => $environmentUrl,
             ]);
+
+        throw_if($result->failed(), ValidationException::class, [$result->body()]);
+
+        return json_decode($result->body(), true);
+    }
+
+    public function putCommentOnGithubPullRequest(string $body): array
+    {
+        $uri = sprintf(
+            'https://api.github.com/repos/%s/issues/%s/comments',
+            $this->setting->repository,
+            $this->setting->gitIssueNumber
+        );
+
+        $result = Http::withHeaders([
+            'accepts' => self::API_ACCEPT,
+            'X-GitHub-Api-Version' => self::API_VERSION,
+            'Authorization' => sprintf('Bearer %s', $this->setting->gitToken),
+        ])->post($uri, ['body' => $body]);
 
         throw_if($result->failed(), ValidationException::class, [$result->body()]);
 
