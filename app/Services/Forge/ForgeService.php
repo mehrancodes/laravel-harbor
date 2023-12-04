@@ -115,9 +115,4 @@ class ForgeService
     {
         $this->siteNewlyMade = true;
     }
-
-    public function setDeploymentId(int $id): void
-    {
-        $this->deploymentId = $id;
-    }
 }

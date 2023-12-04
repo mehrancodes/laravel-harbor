@@ -76,9 +76,6 @@ return [
     // Set the git issue number used for adding comments on pull requests.
     'git_issue_number' => env('GIT_ISSUE_NUMBER'),
 
-    // Enable git pull request deployment.
-    'git_deployment_enabled' => env('GIT_DEPLOYMENT_ENABLED', false),
-
     // Subdomain name used for the Forge site domain instead of branch name.
     'subdomain_name' => env('SUBDOMAIN_NAME'),
 ];

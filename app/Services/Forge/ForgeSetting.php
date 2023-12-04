@@ -153,11 +153,6 @@ class ForgeSetting
     public bool $gitCommentEnabled;
 
     /**
-     * Enable git deployment on pull requests.
-     */
-    public bool $gitDeploymentEnabled;
-
-    /**
      * Gets used to set the site subdomain manually.
      */
     public ?string $subdomainName;
@@ -187,7 +182,6 @@ class ForgeSetting
         'wait_on_deploy' => ['boolean'],
         'timeout_seconds' => ['required', 'int', 'min:0'],
         'git_comment_enabled' => ['required', 'boolean'],
-        'git_deployment_enabled' => ['required', 'boolean'],
         'git_issue_number' => ['exclude_if:git_comment_enabled,false', 'required', 'string'],
         'git_token' => ['exclude_if:git_deployment_enabled,false', 'exclude_if:git_comment_enabled,false', 'required', 'string'],
         'subdomain_name' => ['nullable', 'string', 'regex:/^[a-zA-Z0-9-_]+$/'],
