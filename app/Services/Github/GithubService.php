@@ -22,15 +22,17 @@ class GithubService
     private const API_ACCEPT = 'application/vnd.github+json';
 
     private const API_VERSION = '2022-11-28';
+
     private const API_BASE_URL = 'https://api.github.com';
 
     public function __construct(public ForgeSetting $setting)
-    {}
+    {
+    }
 
     public function putCommentOnGithubPullRequest(string $body): array
     {
         $uri = sprintf(
-            self::API_BASE_URL . '/repos/%s/issues/%s/comments',
+            self::API_BASE_URL.'/repos/%s/issues/%s/comments',
             $this->setting->repository,
             $this->setting->gitIssueNumber
         );

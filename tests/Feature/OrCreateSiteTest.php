@@ -1,8 +1,8 @@
 <?php
 
 use App\Services\Forge\ForgeService;
-use App\Services\Forge\Pipeline\OrCreateNewSite;
 use App\Services\Forge\ForgeSetting;
+use App\Services\Forge\Pipeline\OrCreateNewSite;
 use Laravel\Forge\Exceptions\ValidationException;
 
 test('it fails on incorrect payload', function ($site, $expectedErrors) {
