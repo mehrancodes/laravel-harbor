@@ -2,8 +2,7 @@
 
 ![logo-background-blue-sky-small](https://github.com/mehrancodes/veyoze/assets/7046255/2727ce3d-31c4-4a97-bafc-e461706ff219)
 
-### Velocity, Efficiency, Yield - Optimize Your Zone of Engineering
-
+### On-Demand deployments with all setup you need
 
 ## Table of Contents
 
@@ -21,64 +20,13 @@ In today's fast-paced software development world, the ability to quickly and eff
 
 `"Don't merge until you preview" - with Veyoze, ensure that excellence is the standard, not the exception.`
 
-### The Challenge
-
-While Preview Environments are indispensable in modern DevOps, their setup and maintenance pose a significant challenge. Traditionally, the creation of these environments has been a manual, time-consuming task, often requiring complex orchestration of resources. The process can introduce delays in testing, bottlenecks in deployment, and ultimately hinders the development velocity. Moreover, maintaining the lifecycle of these environments in sync with pull requests (PRs) or merge requests (MRs) demands constant attention and can strain the resources of any software team.
-
-### The Veyoze Solution
-
-Enter Veyoze, the CLI tool designed to seamlessly automate the provisioning of Preview Environments behind the scenes of Laravel Forge Server Manager. Veyoze stands at the forefront of DevOps innovation, offering a streamlined process to generate and manage ephemeral environments effectively. With Veyoze, the creation, updating, and deletion of Preview Environments are triggered automatically in response to PRs or MRs, mirroring the lifecycle of the code changes they represent.
-
-#### How Veyoze Enhances Development Workflows:
-
-- **Automated Provisioning**: Veyoze automates the setup of Preview Environments, enabling your team to focus on building and testing rather than configuration and deployment.
-- **Speed and Efficiency**: By reducing the time required to test new features, Veyoze empowers teams to increase their development velocity significantly.
-- **Quality Assurance**: Veyoze's pre-merge testing capabilities ensure that every feature is rigorously evaluated in a production-like setting, minimizing the risk of post-merge issues.
-- **Scalability**: With Veyoze, teams can scale their testing efforts without a corresponding increase in overhead or complexity.
-- **Cross-Functional Collaboration**: By providing isolated environments for each feature, Veyoze facilitates better collaboration across developers, testers, product teams, and stakeholders.
-- **Automatic Cleanup**: Veyoze ensures no remnants of test environments after PRs are merged or closed.
-
-### Embracing the "Shift Left" Philosophy
-
-Veyoze embodies the principle of "shifting left" in the software development lifecycle. By shifting testing to the earliest stages possible, Veyoze acts as a quality gate, ensuring that only the most robust features reach your main branch. This proactive approach to quality assurance aligns with the DevOps philosophy of continuous integration and delivery, setting a new standard for code review and quality control.
-
-### The Future of DevOps
-
-As the demand for faster and more reliable deployment cycles grows, tools like Veyoze represent the next step in the evolution of DevOps. It's not just about bringing Web Applications, or APIs into the age of real-time previewing; it's about transforming the entire development process into a more efficient, effective, and error-free journey. With Veyoze, experience the "holy grail" of DevOps, where every pull request paves the way for a smoother, faster, and more secure path to production.
-
-### Veyoze could be the game-changer for your team if you recognize these scenarios:
-
-1. **Fast Shipping Needs**: Your business's success depends on rapid feature deployment. Veyoze expedites this, helping you lead the market.
-
-2. **Stalled Releases**: Commits with bugs are delaying your releases. Veyoze's isolated preview environments mean you can test without disrupting the main branch.
-
-3. **Slow PR/MR Merges**: If merging changes is a slow process, Veyoze's automation can help you review and integrate faster.
-
-4. **Heavy Local Testing**: If your lead is constantly testing branches locally, Veyoze automates this process, freeing up their valuable time.
-
-5. **Development Delays**: Frequent "Code Freezes" indicate fear of instability. Veyoze lets you test fearlessly, potentially reducing or eliminating freezes.
-
-6. **Shared Environment Clogs**: If you're juggling a shared test environment among multiple developers, Veyoze's on-demand environments offer each developer their own testing space.
-
-7. **Frontend Only Previews**: Have frontend previews but no backend? Veyoze provides backend preview environments too.
-
-8. **Test Queue Bottlenecks**: Long waits for automated tests? Veyoze’s parallel testing environments cut down the queue time.
-
-9. **Team Collaboration Hurdles**: If enhancing collaboration across your team is a goal, Veyoze's shared review spaces promote real-time, iterative feedback.
-
-10. **POC Environment Challenges**: Need to show off a new feature but setting up a demo is tough? Veyoze makes it easy to provision temporary environments.
-
-11. **Ops Team Bottlenecks**: Relying on Ops for environment setups? Veyoze gives your team the independence to create environments on-the-fly.
-
-Short and simple, Veyoze streamlines your development and testing processes, ensuring that your team stays agile and productive.
-
 ## Getting Started
 
 ### Requirements
 Before diving in, ensure you have:
 
-- An [app server on Forge](https://forge.laravel.com/docs/servers/types.html#app-servers).
-- A Forge [API token](https://forge.laravel.com/docs/1.0/accounts/api.html#create-api-token).
+- An [app server on Laravel Forge](https://forge.laravel.com/docs/servers/types.html#app-servers).
+- A Laravel Forge [API token](https://forge.laravel.com/docs/1.0/accounts/api.html#create-api-token).
 
 ### Setup and Deploy
 
