@@ -247,9 +247,6 @@ This project is licensed under the MIT License - see the [LICENSE.md](https://gi
 
 **A:** Yes! Grab the latest build [from the releases page](https://github.com/mehrancodes/veyoze/releases). It's quicker to set up and highly recommended.
 
-
-Certainly! Including a "To-Do" or "Roadmap" section in your README is a great way to communicate future plans and improvements to your users and potential contributors. Here's how you can incorporate that into the template:
-
 ---
 
 ## Roadmap
