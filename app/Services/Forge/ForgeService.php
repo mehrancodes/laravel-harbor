@@ -87,6 +87,16 @@ class ForgeService
         );
     }
 
+    public function siteNginxTemplate(): string
+    {
+        return $this->forge->siteNginxFile($this->setting->server, $this->site->id);
+    }
+
+    public function updateSiteNginxTemplate(string $content): void
+    {
+        $this->forge->updateSiteNginxFile($this->setting->server, $this->site->id, $content);
+    }
+
     public function createSite(string $serverId, array $payload): Site
     {
         $this->setSite(

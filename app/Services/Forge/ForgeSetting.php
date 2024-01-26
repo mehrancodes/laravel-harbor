@@ -75,7 +75,7 @@ class ForgeSetting
     /**
      * Key/value pairs for customizing the Nginx template.
      */
-    public ?string $nginxSubstitute = null;
+    public ?string $nginxVariables = null;
 
     /**
      * Deployment script content.

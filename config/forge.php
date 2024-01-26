@@ -29,7 +29,7 @@ return [
     'nginx_template' => env('FORGE_NGINX_TEMPLATE'),
 
     // Key/value pairs for customizing the Nginx template.
-    'nginx_substitute' => env('FORGE_NGINX_SUBSTITUTE'),
+    'nginx_variables' => env('FORGE_NGINX_VARIABLES'),
 
     // Key/value pairs to be added to the environment file at runtime.
     'env_keys' => env('FORGE_ENV_KEYS'),
