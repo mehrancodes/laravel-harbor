@@ -9,7 +9,6 @@
 - [Introduction](#introduction)
 - [Contributing](#contributing)
 - [License](#license)
-- [Acknowledgments](#acknowledgments)
 - [Roadmap](#roadmap)
 
 ## Introduction
@@ -27,31 +26,6 @@ We welcome contributions! Please see our [CONTRIBUTING.md](https://github.com/me
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE.md](https://github.com/mehrancodes/veyoze/blob/main/LICENSE.md) file for details.
-
-
-## Acknowledgments
-
-**Q: Is it secure to use sensitive data like API tokens in our workflow?**
-
-**A:** Yes, when passed securely. We use [GitHub actions secrets](https://docs.github.com/en/actions/security-guides/using-secrets-in-github-actions) to safely pass the Forge token and server ID.
-
-**Q: Can we get a shorter link for long branch names?**
-
-**A:** Absolutely! By configuring the [Subdomain Pattern](https://github.com/mehrancodes/veyoze#forge_subdomain_pattern) you can shorten the domain, e.g., **plt-123.veyoze.com**.
-
-**Q: Why use environment keys for configuration instead of command arguments?**
-
-**A:** We have around 20 configurations and more planned. Using environment keys keeps things organized. However, we're open to suggestions!
-
-**Q: How can we control the conditions under which this workflow runs?**
-
-**A:** Check our [veyoze-laravel-sample workflow](https://github.com/mehrancodes/veyoze-laravel-sample/blob/92fce07b6b63bf665ad2063db7f2ad00fa9f3f31/.github/workflows/pr-preview-provision.yml#L7). It specifies conditions like the PR not being a draft or the PR title containing `[veyoze]`.
-
-**Q: Is there a standalone build for Veyoze CLI?**
-
-**A:** Yes! Grab the latest build [from the releases page](https://github.com/mehrancodes/veyoze/releases). It's quicker to set up and highly recommended.
-
----
 
 ## Roadmap
 
