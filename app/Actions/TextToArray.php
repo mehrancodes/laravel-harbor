@@ -28,7 +28,16 @@ class TextToArray
 
         $separator = Str::contains($content, ';') ? ';' : "\n";
 
-        parse_str(str_replace($separator, '&', $content), $output);
+        $output = [];
+        foreach (explode($separator, $content) as $variable) {
+            $var = explode('=', $variable, 2);
+
+            if (empty($var[0]) || empty($var[1])) {
+                return [];
+            }
+
+            $output[$var[0]] = $var[1];
+        }
 
         return $output;
     }
