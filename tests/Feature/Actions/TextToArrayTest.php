@@ -33,6 +33,24 @@ it('it converts key/value strings to array by semicolon and new-line', function 
             'actual' => [
                 'content' => "GOOGLE_API=MY_API_KEY\nINVALID_COMMENT INVALID_VALUE\nGITHUB_API=MY_SECOND_KEY",
             ],
+            'expected' => [
+                'GOOGLE_API' => 'MY_API_KEY',
+                'GITHUB_API' => 'MY_SECOND_KEY',
+            ],
+        ],
+        [
+            'actual' => [
+                'content' => "GOOGLE_API=MY_API_KEY\n\nGITHUB_API=MY_SECOND_KEY",
+            ],
+            'expected' => [
+                'GOOGLE_API' => 'MY_API_KEY',
+                'GITHUB_API' => 'MY_SECOND_KEY'
+            ],
+        ],
+        [
+            'actual' => [
+                'content' => "",
+            ],
             'expected' => [],
         ],
     ]);

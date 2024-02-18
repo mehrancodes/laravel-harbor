@@ -30,10 +30,14 @@ class TextToArray
 
         $output = [];
         foreach (explode($separator, $content) as $variable) {
+            if (empty($variable)) {
+                continue;
+            }
+
             $var = explode('=', $variable, 2);
 
             if (empty($var[0]) || empty($var[1])) {
-                return [];
+                continue;
             }
 
             $output[$var[0]] = $var[1];
