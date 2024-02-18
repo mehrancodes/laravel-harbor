@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace App\Services\Forge\Pipeline;
 
-use App\Actions\ArrayToText;
+use App\Actions\MergeEnvironmentVariables;
 use App\Actions\TextToArray;
 use App\Services\Forge\ForgeService;
 use App\Traits\Outputifier;
@@ -42,12 +42,8 @@ class UpdateEnvironmentVariables
 
     protected function getBothEnvsMerged(ForgeService $service, array $newKeys): string
     {
-        $sourceKeys = TextToArray::run(
-            $service->forge->siteEnvironmentFile($service->server->id, $service->site->id)
-        );
+        $source = $service->forge->siteEnvironmentFile($service->server->id, $service->site->id);
 
-        return ArrayToText::run(
-            array_merge($sourceKeys, $newKeys)
-        );
+        return MergeEnvironmentVariables::run($source, $newKeys);
     }
 }
