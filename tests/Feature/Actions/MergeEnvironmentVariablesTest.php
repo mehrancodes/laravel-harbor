@@ -51,6 +51,15 @@ it('it can merge custom variables with source environment variables securely', f
         ],
         [
             'actual' => [
+                'source' => "=Laravel\n\n",
+                'content' => [
+                    'APP_KEY' => 'APP_KEY_VALUE',
+                ],
+            ],
+            'expected' => "\n\nAPP_KEY=APP_KEY_VALUE\n",
+        ],
+        [
+            'actual' => [
                 'source' => '',
                 'content' => [
                     'APP_NAME' => 'Project Name',
