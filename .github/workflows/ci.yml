@@ -20,6 +20,13 @@ jobs:
       - name: Run Pest tests
         run: ./vendor/bin/pest
 
+      - name: Upload artifacts
+        uses: actions/upload-artifact@master
+        if: failure()
+        with:
+          name: Logs
+          path: ./storage/logs
+
       - name: Get Composer cache directory
         id: composer-cache
         run: echo "::set-output name=dir::$(composer config cache-files-dir)"
