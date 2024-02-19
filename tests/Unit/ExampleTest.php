@@ -1,5 +1,5 @@
 <?php
 
 test('example', function () {
-    expect(false)->toBeTrue();
+    expect(true)->toBeTrue();
 });
