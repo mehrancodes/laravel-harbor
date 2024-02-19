@@ -10,7 +10,7 @@ trait Outputifier
     {
         render(sprintf(<<<'html'
             <div class="font-bold">
-                <span class="bg-blue px-2 text-white mr-1">
+                <span class="bg-blue-400 px-2 text-white mr-1">
                     INFO
                 </span>
                 %s
@@ -24,8 +24,22 @@ trait Outputifier
     {
         render(sprintf(<<<'html'
             <div class="font-bold">
-                <span class="bg-red px-2 text-white mr-1">
+                <span class="bg-red-400 px-2 text-white mr-1">
                     FAIL
+                </span>
+                %s
+            </div>
+        html, trim($message)));
+
+        return 0;
+    }
+
+    protected function warning(string $message): int
+    {
+        render(sprintf(<<<'html'
+            <div class="font-bold">
+                <span class="bg-orange-400 px-2 text-white mr-1">
+                    WARNING
                 </span>
                 %s
             </div>
@@ -38,7 +52,7 @@ trait Outputifier
     {
         render(sprintf(<<<'html'
             <div class="font-bold">
-                <span class="bg-green px-2 text-white mr-1">
+                <span class="bg-green-400 px-2 text-white mr-1">
                     SUCCESS
                 </span>
                 %s
