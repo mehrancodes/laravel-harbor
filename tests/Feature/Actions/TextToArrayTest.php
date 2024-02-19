@@ -13,11 +13,11 @@ it('it converts key/value strings to array by semicolon and new-line', function 
     ->with([
         [
             'actual' => [
-                'content' => "GOOGLE_API=MY_API_KEY;APP_KEY=ba=)(*&^%$#@!se64:psYUiUHUTds+8TLxgsUqAw=",
+                'content' => 'GOOGLE_API=MY_API_KEY;APP_KEY=ba=)(*&^%$#@!se64:psYUiUHUTds+8TLxgsUqAw=',
             ],
             'expected' => [
                 'GOOGLE_API' => 'MY_API_KEY',
-                'APP_KEY' => 'ba=)(*&^%$#@!se64:psYUiUHUTds+8TLxgsUqAw='
+                'APP_KEY' => 'ba=)(*&^%$#@!se64:psYUiUHUTds+8TLxgsUqAw=',
             ],
         ],
         [
@@ -26,7 +26,7 @@ it('it converts key/value strings to array by semicolon and new-line', function 
             ],
             'expected' => [
                 'GOOGLE_API' => 'MY_API_KEY',
-                'GITHUB_API' => 'MY_SECOND_KEY'
+                'GITHUB_API' => 'MY_SECOND_KEY',
             ],
         ],
         [
@@ -44,7 +44,7 @@ it('it converts key/value strings to array by semicolon and new-line', function 
             ],
             'expected' => [
                 'GOOGLE_API' => 'MY_API_KEY',
-                'GITHUB_API' => 'MY_SECOND_KEY'
+                'GITHUB_API' => 'MY_SECOND_KEY',
             ],
         ],
         [
@@ -59,7 +59,7 @@ it('it converts key/value strings to array by semicolon and new-line', function 
         ],
         [
             'actual' => [
-                'content' => "",
+                'content' => '',
             ],
             'expected' => [],
         ],

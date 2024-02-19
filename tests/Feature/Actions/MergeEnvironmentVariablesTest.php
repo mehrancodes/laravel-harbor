@@ -16,8 +16,8 @@ it('it can merge custom variables with source environment variables securely', f
             'actual' => [
                 'source' => "APP_NAME=Laravel\n\nAPP_KEY=\nAPP_ENV=local\n",
                 'content' => [
-                    "GOOGLE_API" => "MY_API_KEY",
-                    "APP_KEY" => "APP_KEY_VALUE",
+                    'GOOGLE_API' => 'MY_API_KEY',
+                    'APP_KEY' => 'APP_KEY_VALUE',
                 ],
             ],
             'expected' => "APP_NAME=Laravel\n\nAPP_KEY=APP_KEY_VALUE\nAPP_ENV=local\n\nGOOGLE_API=MY_API_KEY\n",
@@ -26,7 +26,7 @@ it('it can merge custom variables with source environment variables securely', f
             'actual' => [
                 'source' => "APP_NAME=Laravel\n\nPUSHER_APP_ID=\n\nAPP_ENV=local\n",
                 'content' => [
-                    "GOOGLE_API" => "MY_API_KEY",
+                    'GOOGLE_API' => 'MY_API_KEY',
                 ],
             ],
             'expected' => "APP_NAME=Laravel\n\nPUSHER_APP_ID=\n\nAPP_ENV=local\n\nGOOGLE_API=MY_API_KEY\n",
@@ -35,7 +35,7 @@ it('it can merge custom variables with source environment variables securely', f
             'actual' => [
                 'source' => "APP_NAME=Laravel\n\n\n",
                 'content' => [
-                    "GOOGLE_API" => "MY_API_KEY",
+                    'GOOGLE_API' => 'MY_API_KEY',
                 ],
             ],
             'expected' => "APP_NAME=Laravel\n\n\n\nGOOGLE_API=MY_API_KEY\n",
@@ -44,16 +44,16 @@ it('it can merge custom variables with source environment variables securely', f
             'actual' => [
                 'source' => "APP_NAME=Laravel\n\n",
                 'content' => [
-                    "APP_NAME" => "Project Name",
+                    'APP_NAME' => 'Project Name',
                 ],
             ],
             'expected' => "APP_NAME=Project Name\n\n\n",
         ],
         [
             'actual' => [
-                'source' => "",
+                'source' => '',
                 'content' => [
-                    "APP_NAME" => "Project Name",
+                    'APP_NAME' => 'Project Name',
                 ],
             ],
             'expected' => "APP_NAME=Project Name\n",

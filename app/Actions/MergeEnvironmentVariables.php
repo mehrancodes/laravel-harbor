@@ -25,7 +25,7 @@ class MergeEnvironmentVariables
 
     public function handle(string $source, array $newVariables): string
     {
-        $output = "";
+        $output = '';
 
         if (! empty($source)) {
             $output = $this->searchReplaceExistingVariables($source, $newVariables);
@@ -46,13 +46,15 @@ class MergeEnvironmentVariables
         foreach (explode($separator, $source) as $variable) {
             if (empty($variable)) {
                 $output .= "\n";
+
                 continue;
             }
 
-            list($key, $value) = explode('=', $variable, 2);
+            [$key, $value] = explode('=', $variable, 2);
 
             if (empty($key)) {
                 $this->warning("No key found for the assigned value \"$value\" inside your environment variables! Make sure to remove it.");
+
                 continue;
             }
 
