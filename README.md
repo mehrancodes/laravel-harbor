@@ -1,3 +1,5 @@
+[![Actions Status](https://github.com/mehrancodes/veyoze/actions/workflows/run-tests.yml/badge.svg?event=pull_request)](https://github.com/mehrancodes/veyoze/actions)
+
 # Veyoze - Beta version ⚡️ 🛠️
 
 ![logo-background-blue-sky-small](https://github.com/mehrancodes/veyoze/assets/7046255/2727ce3d-31c4-4a97-bafc-e461706ff219)
