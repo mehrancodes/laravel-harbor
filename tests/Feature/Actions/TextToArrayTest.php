@@ -49,6 +49,16 @@ it('it converts key/value strings to array by semicolon and new-line', function 
         ],
         [
             'actual' => [
+                'content' => "APP_NAME=Laravel\nAPP_ENV=production\nAPP_KEY=\n\nLOG_LEVEL=debug",
+            ],
+            'expected' => [
+                'APP_NAME' => 'Laravel',
+                'APP_ENV' => 'production',
+                'LOG_LEVEL' => 'debug',
+            ],
+        ],
+        [
+            'actual' => [
                 'content' => "",
             ],
             'expected' => [],
