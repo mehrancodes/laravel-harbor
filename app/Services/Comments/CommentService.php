@@ -33,9 +33,9 @@ class CommentService
         return $this;
     }
 
-    public function setEnvironmentUrl(string $url): CommentService
+    public function setEnvironmentUrl(string $url, bool $isSecured): CommentService
     {
-        $commenter = new EnvironmentUrlBuilder($url);
+        $commenter = new EnvironmentUrlBuilder($url, $isSecured);
 
         $this->collection->push(
             $this->getOutputArray($commenter)

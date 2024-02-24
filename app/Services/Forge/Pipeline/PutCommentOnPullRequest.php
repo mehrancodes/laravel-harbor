@@ -41,9 +41,9 @@ class PutCommentOnPullRequest
 
     protected function getTable(ForgeService $service): string
     {
-
         $this->commentService->setEnvironmentUrl(
-            ($service->site->isSecured ? 'https://' : 'http://').$service->site->name
+            $service->site->name,
+            $service->site->isSecured
         );
 
         if ($service->setting->dbCreationRequired) {
