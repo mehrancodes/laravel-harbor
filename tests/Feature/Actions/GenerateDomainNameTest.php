@@ -15,15 +15,15 @@ it('verify correct domain generation for various branch formats', function ($act
         [
             'actual' => [
                 'branch' => 'user-notification-test',
-                'domain' => 'veyoze.com',
+                'domain' => 'harbor.com',
             ],
-            'expected' => 'user-notification-test.veyoze.com',
+            'expected' => 'user-notification-test.harbor.com',
         ],
         [
             'actual' => [
                 'branch' => 'user-notification',
-                'domain' => 'sub.veyoze.com',
+                'domain' => 'sub.harbor.com',
             ],
-            'expected' => 'user-notification.sub.veyoze.com',
+            'expected' => 'user-notification.sub.harbor.com',
         ],
     ]);

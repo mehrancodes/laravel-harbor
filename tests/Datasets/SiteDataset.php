@@ -5,7 +5,7 @@ dataset('site', [
         [
             'id' => 111111,
             'server_id' => 222222,
-            'name' => '325.veyoze.com',
+            'name' => '325.harbor.com',
             'aliases' => [],
             'directory' => '/public',
             'wildcards' => false,
