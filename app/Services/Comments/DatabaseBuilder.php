@@ -13,14 +13,15 @@ declare(strict_types=1);
 
 namespace App\Services\Comments;
 
-class DatabaseCommenter implements CommentInterface
+class DatabaseBuilder implements CommentInterface
 {
     public function __construct(public string $database, public string $username, public string $password, public string $host)
-    {}
+    {
+    }
 
     public function getName(): string
     {
-        return 'Database Url';
+        return 'DatabaseBuilder Url';
     }
 
     public function getType(): string

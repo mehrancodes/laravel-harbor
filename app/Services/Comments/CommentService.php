@@ -15,7 +15,7 @@ namespace App\Services\Comments;
 
 use Illuminate\Support\Collection;
 
-class CommentFactory
+class CommentService
 {
     private Collection $collection;
 
@@ -24,18 +24,18 @@ class CommentFactory
         $this->collection = new Collection();
     }
 
-    public function setDatabase(string $database, string $username, string $password, string $host): CommentFactory
+    public function setDatabase(string $database, string $username, string $password, string $host): CommentService
     {
-        $commenter = new DatabaseCommenter($database, $username, $password, $host);
+        $commenter = new DatabaseBuilder($database, $username, $password, $host);
 
         $this->collection->push($this->getOutputArray($commenter));
 
         return $this;
     }
 
-    public function setEnvironmentUrl(string $url): CommentFactory
+    public function setEnvironmentUrl(string $url): CommentService
     {
-        $commenter = new EnvironmentUrlCommenter($url);
+        $commenter = new EnvironmentUrlBuilder($url);
 
         $this->collection->push(
             $this->getOutputArray($commenter)
@@ -49,11 +49,16 @@ class CommentFactory
         return $this->collection->toArray();
     }
 
+    public function toMarkdown(): string
+    {
+        return (new MarkdownBuilder())->prepareBody($this->toArray());
+    }
+
     private function getOutputArray(CommentInterface $commenter): array
     {
         return [
-            'name'    => $commenter->getName(),
-            'type'    => $commenter->getType(),
+            'name' => $commenter->getName(),
+            'type' => $commenter->getType(),
             'content' => $commenter->getContent(),
         ];
     }

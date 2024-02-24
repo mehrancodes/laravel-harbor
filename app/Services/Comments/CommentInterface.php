@@ -15,9 +15,9 @@ namespace App\Services\Comments;
 
 interface CommentInterface
 {
-    function getName(): string;
+    public function getName(): string;
 
-    function getType(): string;
+    public function getType(): string;
 
-    function getContent(): string;
+    public function getContent(): string;
 }

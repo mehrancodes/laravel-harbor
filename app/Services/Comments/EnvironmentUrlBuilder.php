@@ -13,14 +13,17 @@ declare(strict_types=1);
 
 namespace App\Services\Comments;
 
-class EnvironmentUrlCommenter implements CommentInterface
+class EnvironmentUrlBuilder implements CommentInterface
 {
     public string $name = 'Environment Url';
+
     public string $type = 'link';
+
     public string $content;
 
     public function __construct(public string $url)
-    {}
+    {
+    }
 
     public function getName(): string
     {
