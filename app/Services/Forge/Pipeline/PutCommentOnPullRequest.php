@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace App\Services\Forge\Pipeline;
 
+use App\Services\Comments\CommentFactory;
 use App\Services\Forge\ForgeService;
 use App\Services\Github\GithubService;
 use App\Traits\Outputifier;
@@ -22,7 +23,7 @@ class PutCommentOnPullRequest
 {
     use Outputifier;
 
-    public function __construct(public GithubService $githubService)
+    public function __construct(public GithubService $githubService, public CommentFactory $commentFactory)
     {
     }
 
@@ -42,24 +43,22 @@ class PutCommentOnPullRequest
 
     protected function getTableRows(ForgeService $service): array
     {
-        $dbUsername = $service->database['DB_DATABASE'];
-        $dbName = $service->database['DB_USERNAME'];
-        $dbPassword = $service->database['DB_PASSWORD'];
-        $dbHost = $service->server->ipAddress;
-        $siteName = $service->site->name;
+        $this->commentFactory->setEnvironmentUrl(
+            ($service->site->isSecured ? 'https://' : 'http://').$service->site->name
+        );
+//
+//        if ($service->setting->dbCreationRequired) {
+//            $this->commentFactory->setDatabase(
+//                $service->database['DB_DATABASE'],
+//                $service->database['DB_USERNAME'],
+//                $service->database['DB_PASSWORD'],
+//                $service->server->ipAddress,
+//            );
+//        }
 
-        return [
-            [
-                'name' => 'Database Url',
-                'type' => 'text',
-                'content' => "mysql+ssh://forge@{$dbHost}/${dbUsername}:{$dbPassword}@127.0.0.1/${dbName}",
-            ],
-            [
-                'name' => 'Environment Url',
-                'type' => 'link',
-                'content' => $service->site->isSecured ? 'https://' : 'http://'.$siteName,
-            ],
-        ];
+
+
+        return $this->commentFactory->toArray();
     }
 
     public function prepareBody(array $rows): string
