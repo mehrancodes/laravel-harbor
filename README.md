@@ -6,7 +6,9 @@
 
 We have officially changed the repository name from "Veyoze" to "Laravel Harbor." The new repository URL is now:
 
-[https://github.com/mehrancodes/laravel-harbor](https://github.com/mehrancodes/laravel-harbor)
+```bash
+composer require mehrancodes/laravel-harbor
+```
 
 Please update your references and links accordingly.
 
