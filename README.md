@@ -1,8 +1,9 @@
 [![Actions Status](https://github.com/mehrancodes/laravel-harbor/actions/workflows/run-tests.yml/badge.svg?event=pull_request)](https://github.com/mehrancodes/laravel-harbor/actions)
 
-# Laravel Harbor - Beta Version ⚡️ 🛠 (formerly Veyoze)
-![logo-harbor](https://github.com/mehrancodes/laravel-harbor/assets/7046255/732005de-6e43-4f73-9d8f-8afc6beec939)
 
+![logo-harbor](https://github.com/mehrancodes/laravel-harbor/assets/7046255/18186f83-dbd7-4a5a-ad2f-051e8c60c832)
+
+# Laravel Harbor - Beta Version ⚡️ 🛠 (formerly Veyoze)
 ### On-Demand Laravel Forge deployments with all setup you need
 
 🚀 **Update (February 25, 2024):** Repository Name Change
