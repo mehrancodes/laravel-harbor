@@ -23,7 +23,7 @@ class InstallGitRepository
 
     public function __invoke(ForgeService $service, Closure $next)
     {
-        if (! $service->siteNewlyMade) {
+        if (! $service->siteNewlyMade && ! is_null($service->site->repository)) {
             return $next($service);
         }
 
