@@ -13,7 +13,7 @@ class AppServiceProvider extends ServiceProvider
     {
         $this->app->setLocale('en');
 
-        $this->loadTranslationsFrom(base_path('lang'), 'veyoze');
+        $this->loadTranslationsFrom(base_path('lang'), 'harbor');
     }
 
     public function register(): void
