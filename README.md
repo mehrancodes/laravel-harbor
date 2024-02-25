@@ -43,8 +43,6 @@ This project is licensed under the MIT License - see the [LICENSE.md](https://gi
 
 As this CLI tool has been crafted as an MVP and has undergone real-world testing, we're now focusing on enhancing its robustness and expanding its capabilities. Here's what's on our radar:
 
-- 🚀 **Preview Link Comments**: Plan to automatically comment the preview link on the pull request once provisioning is complete.
-
 - 🛠️ **Enhanced Error Handling**: Aiming for comprehensive error handling throughout the entire CLI process to ensure smooth user experiences.
 
 - 📣 **Slack Integration**: Integrate with Slack to provide real-time notifications and updates.
