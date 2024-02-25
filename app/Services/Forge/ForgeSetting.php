@@ -60,7 +60,7 @@ class ForgeSetting
     /**
      * PHP version (e.g., 7.4, 8.0).
      */
-    public string $phpVersion;
+    public ?string $phpVersion = null;
 
     /**
      * Pattern for subdomains.
@@ -168,7 +168,7 @@ class ForgeSetting
         'repository' => ['required'],
         'branch' => ['required'],
         'project_type' => ['string'],
-        'php_version' => ['string'],
+        'php_version' => ['nullable', 'string'],
         'subdomain_pattern' => ['nullable', 'string'],
         'command' => ['nullable', 'string'],
         'nginx_template' => ['nullable', 'int'],
