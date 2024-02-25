@@ -1,8 +1,14 @@
 [![Actions Status](https://github.com/mehrancodes/laravel-harbor/actions/workflows/run-tests.yml/badge.svg?event=pull_request)](https://github.com/mehrancodes/laravel-harbor/actions)
 
-# Laravel Harbor - Beta version ⚡️ 🛠️
+# Laravel Harbor - Beta Version ⚡️ 🛠 (formerly Veyoze)
 
-![logo-background-blue-sky-small](https://github.com/mehrancodes/laravel-harbor/assets/7046255/2727ce3d-31c4-4a97-bafc-e461706ff219)
+🚀 **Update (February 25, 2024):** Repository Name Change
+
+We have officially changed the repository name from "Veyoze" to "Laravel Harbor." The new repository URL is now:
+
+[https://github.com/mehrancodes/laravel-harbor](https://github.com/mehrancodes/laravel-harbor)
+
+Please update your references and links accordingly.
 
 ### On-Demand deployments with all setup you need
 
