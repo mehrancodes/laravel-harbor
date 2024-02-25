@@ -35,7 +35,7 @@ return [
     'env_keys' => env('FORGE_ENV_KEYS'),
 
     // PHP version (default: 'php82').
-    'php_version' => env('FORGE_PHP_VERSION', 'php82'),
+    'php_version' => env('FORGE_PHP_VERSION'),
 
     // Type of the project (default: 'php').
     'project_type' => env('FORGE_PROJECT_TYPE', 'php'),
