@@ -123,4 +123,9 @@ class ForgeService
     {
         $this->siteNewlyMade = true;
     }
+
+    public function getSiteLink(): string
+    {
+        return ($this->site->isSecured ? 'https://' : 'http://').$this->site->name;
+    }
 }

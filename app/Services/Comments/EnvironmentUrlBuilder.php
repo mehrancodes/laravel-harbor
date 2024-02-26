@@ -21,7 +21,7 @@ class EnvironmentUrlBuilder implements CommentInterface
 
     public string $content;
 
-    public function __construct(public string $url, public bool $isSecured)
+    public function __construct(public string $url)
     {
     }
 
@@ -37,6 +37,6 @@ class EnvironmentUrlBuilder implements CommentInterface
 
     public function getContent(): string
     {
-        return ($this->isSecured ? 'https://' : 'http://').$this->name;
+        return $this->url;
     }
 }

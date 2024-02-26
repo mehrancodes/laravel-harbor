@@ -33,7 +33,7 @@ class MarkdownBuilder
 
     private function getGitPrMarkdown(array $body): string
     {
-        return "# PR Preview Environment Details
+        return "# Harbor Preview Environment Details
 Hello! Here are the details of the preview environment for this pull request:
 
 | Service     | Location                |
