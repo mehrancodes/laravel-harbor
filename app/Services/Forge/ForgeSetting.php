@@ -158,6 +158,11 @@ class ForgeSetting
     public ?string $subdomainName;
 
     /**
+     * Gets used to set the site subdomain manually.
+     */
+    public ?string $environmentUrl;
+
+    /**
      * The validation rules.
      */
     private array $validationRules = [
@@ -185,6 +190,7 @@ class ForgeSetting
         'git_issue_number' => ['exclude_if:git_comment_enabled,false', 'required', 'string'],
         'git_token' => ['exclude_if:git_comment_enabled,false', 'required', 'string'],
         'subdomain_name' => ['nullable', 'string', 'regex:/^[a-zA-Z0-9-_]+$/'],
+        'environment_url' => ['nullable', 'url'],
     ];
 
     public function __construct()

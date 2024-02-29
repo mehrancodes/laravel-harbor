@@ -37,6 +37,6 @@ class EnvironmentUrlBuilder implements CommentInterface
 
     public function getContent(): string
     {
-        return env('HARBOR_ENVIRONMENT_URL', $this->url);
+        return $this->url;
     }
 }
