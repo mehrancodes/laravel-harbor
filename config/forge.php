@@ -78,4 +78,7 @@ return [
 
     // Subdomain name used for the Forge site domain instead of branch name.
     'subdomain_name' => env('SUBDOMAIN_NAME'),
+
+    // Environment URL used for the provision site information comment.
+    'environment_url' => env('HARBOR_ENVIRONMENT_URL'),
 ];
