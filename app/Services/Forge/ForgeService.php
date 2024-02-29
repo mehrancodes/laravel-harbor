@@ -126,8 +126,8 @@ class ForgeService
 
     public function getSiteLink(): string
     {
-        if ( env('HARBOUR_ENVIRONMENT_URL') ) {
-            return env('HARBOUR_ENVIRONMENT_URL');
+        if ( env('HARBOR_ENVIRONMENT_URL') ) {
+            return env('HARBOR_ENVIRONMENT_URL');
         }
 
         return ($this->site->isSecured ? 'https://' : 'http://').$this->site->name;
