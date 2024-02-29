@@ -80,5 +80,5 @@ return [
     'subdomain_name' => env('SUBDOMAIN_NAME'),
 
     // Environment URL used for the provision site information comment.
-    'environment_url' => env('HARBOR_ENVIRONMENT_URL'),
+    'environment_url' => env('FORGE_ENVIRONMENT_URL'),
 ];
