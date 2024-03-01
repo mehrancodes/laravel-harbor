@@ -126,7 +126,7 @@ class ForgeService
 
     public function getSiteLink(): string
     {
-        if ( $this->setting->environmentUrl ){
+        if ($this->setting->environmentUrl) {
             return $this->setting->environmentUrl;
         }
 

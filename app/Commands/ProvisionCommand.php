@@ -61,7 +61,7 @@ class ProvisionCommand extends Command
             ])
             ->then(function () use ($service) {
                 $this->success('Provisioning complete! Your environment is now set up and ready to use.');
-                $this->success('Site Link: '. $service->getSiteLink());
+                $this->success('Site Link: '.$service->getSiteLink());
             });
     }
 }
