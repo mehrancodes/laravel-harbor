@@ -126,6 +126,10 @@ class ForgeService
 
     public function getSiteLink(): string
     {
+        if ($this->setting->environmentUrl) {
+            return $this->setting->environmentUrl;
+        }
+
         return ($this->site->isSecured ? 'https://' : 'http://').$this->site->name;
     }
 }
