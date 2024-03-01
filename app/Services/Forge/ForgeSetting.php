@@ -158,7 +158,7 @@ class ForgeSetting
     public ?string $subdomainName;
 
     /**
-     * Gets used to set the site subdomain manually.
+     * Gets used to set the site domain manually.
      */
     public ?string $environmentUrl;
 
