@@ -158,9 +158,14 @@ class ForgeSetting
     public ?string $subdomainName;
 
     /**
-     * Gets used to set the site subdomain manually.
+     * The OAuth Token for the Slack Bot
      */
-    public ?string $slackWebhookUrl;
+    public ?string $slackBotToken;
+
+    /**
+     * Which channel to announce to on Slack
+     */
+    public ?string $slackChannel;
 
     /**
      * The validation rules.
@@ -190,7 +195,8 @@ class ForgeSetting
         'git_issue_number' => ['exclude_if:git_comment_enabled,false', 'required', 'string'],
         'git_token' => ['exclude_if:git_comment_enabled,false', 'required', 'string'],
         'subdomain_name' => ['nullable', 'string', 'regex:/^[a-zA-Z0-9-_]+$/'],
-        'slack_webhook_url' => ['nullable', 'url'],
+        'slack_bot_token' => ['nullable', 'string'],
+        'slack_channel' => ['nullable', 'string'],
     ];
 
     public function __construct()
