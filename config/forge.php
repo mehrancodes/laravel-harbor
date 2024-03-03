@@ -78,4 +78,7 @@ return [
 
     // Subdomain name used for the Forge site domain instead of branch name.
     'subdomain_name' => env('SUBDOMAIN_NAME'),
+
+    // URL to send Site Provisioning status to Slack.
+    'slack_webhook_url' => env('SLACK_WEBHOOK_URL'),
 ];
