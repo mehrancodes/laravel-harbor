@@ -32,10 +32,13 @@ class AnnounceSiteOnSlack
             return $next($service);
         }
 
+        if ( ! $service->siteNewlyMade ) {
+            $this->information('Skipping Slack announcement as the site is not newly made.');
+        }
+
         $this->information('Announce the site on Slack.');
 
         $route = new SlackRoute($service->setting->slackChannel, $service->setting->slackBotToken);
-        dd($route);
         Notification::route(SlackChannel::class, $route)
             ->notify(new SiteProvisionedNotification($service));
 
