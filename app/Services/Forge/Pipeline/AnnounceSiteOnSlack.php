@@ -40,12 +40,11 @@ class AnnounceSiteOnSlack
 //
         $this->information('Announce the site on Slack.');
 
-        $notification = new SiteProvisionedNotification($service);
-        $slack_notification = $notification->toSlack(new AnonymousNotifiable());
-
-        Notification::send(
+        Notification::route(
+            SlackChannel::class,
             new SlackRoute($service->setting->slackChannel, $service->setting->slackBotToken),
-            $slack_notification
+        )->notify(
+            (new SiteProvisionedNotification($service))
         );
 
         return $next($service);
