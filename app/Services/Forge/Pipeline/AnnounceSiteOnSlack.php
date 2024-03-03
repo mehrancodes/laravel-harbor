@@ -26,8 +26,7 @@ class AnnounceSiteOnSlack
     public function __invoke(ForgeService $service, Closure $next)
     {
         // End early if the slack bot token and channel are not set in the Forge service settings
-        if ( empty( $service->setting->slackBotToken ) || empty( $service->setting->slackChannel ) ) {
-            $this->information('Slack Bot Token ' . $service->setting->slackBotToken . ' and Slack Channel ' . $service->setting->slackChannel . ' are not set. Skipping Slack announcement.');
+        if ( ! $service->setting->slackBotToken || ! $service->setting->slackChannel ) {
             return $next($service);
         }
 
