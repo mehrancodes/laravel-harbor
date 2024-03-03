@@ -43,8 +43,6 @@ class AnnounceSiteOnSlack
         $notification = new SiteProvisionedNotification($service);
         $slack_notification = $notification->toSlack(new AnonymousNotifiable());
 
-        $slack_notification->dd();
-
         Notification::send(
             new SlackRoute($service->setting->slackChannel, $service->setting->slackBotToken),
             $notification

@@ -26,7 +26,7 @@ class SiteProvisionedNotification extends Notification
             ->to($this->service->setting->slackChannel)
             ->text('A new site has been provisioned!')
             ->sectionBlock(function (SectionBlock $block) {
-                $block->text('An invoice has been paid.');
+                $block->text('An preview site has been deployed with Laravel Harbor');
 
                 $block->field("*Branch Name URL:*\n{$this->service->setting->branch}")->markdown();
                 $block->field("*Environment URL:*\n{$this->service->getSiteLink()}")->markdown();
