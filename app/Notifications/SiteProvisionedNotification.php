@@ -28,7 +28,7 @@ class SiteProvisionedNotification extends Notification
             ->sectionBlock(function (SectionBlock $block) {
                 $block->text('An preview site has been deployed with Laravel Harbor');
 
-                $block->field("*Branch Name:*\nhttps://{$this->service->setting->gitProvider}.com/{$this->service->setting->repository}/tree/{$this->service->setting->branch}")->markdown();
+                $block->field("*Branch Name:*\n{$this->service->setting->branch}")->markdown();
                 $block->field("*Environment URL:*\n{$this->service->getSiteLink()}")->markdown();
             })
             ->dividerBlock()
