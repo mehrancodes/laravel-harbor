@@ -165,7 +165,7 @@ class ForgeSetting
     /**
      * The OAuth Token for the Slack Bot
      */
-    public ?string $slackBotToken;
+    public ?string $slackBotUserOauthToken;
 
     /**
      * Which channel to announce to on Slack
@@ -201,7 +201,7 @@ class ForgeSetting
         'git_token' => ['exclude_if:git_comment_enabled,false', 'required', 'string'],
         'subdomain_name' => ['nullable', 'string', 'regex:/^[a-zA-Z0-9-_]+$/'],
         'slack_announcement_enabled' => ['required', 'boolean'],
-        'slack_bot_token' => ['exclude_if:slack_announcement_enabled,false', 'required', 'string'],
+        'slack_bot_user_oauth_token' => ['exclude_if:slack_announcement_enabled,false', 'required', 'string'],
         'slack_channel' => ['exclude_if:slack_announcement_enabled,false', 'required', 'string'],
     ];
 

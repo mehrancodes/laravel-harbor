@@ -17,7 +17,6 @@ use App\Notifications\SiteProvisionedNotification;
 use App\Services\Forge\ForgeService;
 use App\Traits\Outputifier;
 use Closure;
-use Illuminate\Notifications\AnonymousNotifiable;
 use Illuminate\Notifications\Slack\SlackChannel;
 use Illuminate\Notifications\Slack\SlackRoute;
 use Illuminate\Support\Facades\Notification;
@@ -29,7 +28,7 @@ class AnnounceSiteOnSlack
     public function __invoke(ForgeService $service, Closure $next)
     {
         // End early if the slack bot token and channel are not set in the Forge service settings
-        if ( ! $service->setting->slackAnnouncementEnabled || ! $service->setting->slackBotToken || ! $service->setting->slackChannel ) {
+        if ( ! $service->setting->slackAnnouncementEnabled || ! $service->setting->slackBotUserOauthToken || ! $service->setting->slackChannel ) {
             return $next($service);
         }
 
@@ -42,7 +41,7 @@ class AnnounceSiteOnSlack
 
         Notification::route(
             SlackChannel::class,
-            new SlackRoute($service->setting->slackChannel, env('SLACK_BOT_TOKEN')),
+            new SlackRoute($service->setting->slackChannel, $service->setting->slackBotUserOauthToken)
         )->notify(
             (new SiteProvisionedNotification($service))
         );

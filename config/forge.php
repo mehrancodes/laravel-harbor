@@ -83,7 +83,7 @@ return [
     'slack_announcement_enabled' => env('SLACK_ANNOUNCEMENT_ENABLED', false),
 
     // The token that will be used to send notifications a Slack channel.
-    'slack_bot_token' => env('SLACK_BOT_TOKEN'),
+    'slack_bot_user_oauth_token' => env('SLACK_BOT_USER_OAUTH_TOKEN'),
 
     // The channel that will be used to send notifications about site provisioning
     'slack_channel' => env('SLACK_CHANNEL'),
