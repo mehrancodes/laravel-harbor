@@ -17,6 +17,7 @@ use App\Notifications\SiteProvisionedNotification;
 use App\Services\Forge\ForgeService;
 use App\Traits\Outputifier;
 use Closure;
+use Illuminate\Notifications\AnonymousNotifiable;
 use Illuminate\Notifications\Slack\SlackChannel;
 use Illuminate\Notifications\Slack\SlackRoute;
 use Illuminate\Support\Facades\Notification;
@@ -39,11 +40,15 @@ class AnnounceSiteOnSlack
 //
         $this->information('Announce the site on Slack.');
 
-        var_dump('Token Length:', strlen($service->setting->slackBotToken));
+        $notification = new SiteProvisionedNotification($service);
+        $slack_notification = $notification->toSlack(new AnonymousNotifiable());
 
-        $route = SlackRoute::make($service->setting->slackChannel, $service->setting->slackBotToken);
-        Notification::route(SlackChannel::class, $route)
-            ->notifyNow(new SiteProvisionedNotification($service));
+        $slack_notification->dd();
+
+        Notification::send(
+            new SlackRoute($service->setting->slackChannel, $service->setting->slackBotToken),
+            $notification
+        );
 
         return $next($service);
     }
