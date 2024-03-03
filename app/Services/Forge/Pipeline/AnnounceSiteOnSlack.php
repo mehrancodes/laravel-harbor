@@ -39,7 +39,7 @@ class AnnounceSiteOnSlack
 //
         $this->information('Announce the site on Slack.');
 
-        dd($service->setting->slackChannel, $service->setting->slackBotToken);
+        var_dump($service->setting->slackChannel, $service->setting->slackBotToken);
 
         $route = new SlackRoute($service->setting->slackChannel, $service->setting->slackBotToken);
         Notification::route(SlackChannel::class, $route)
