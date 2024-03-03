@@ -80,6 +80,9 @@ return [
     'subdomain_name' => env('SUBDOMAIN_NAME'),
 
     // The token that will be used to send notifications a Slack channel.
+    'slack_announcement_enabled' => env('SLACK_ANNOUNCEMENT_ENABLED', false),
+
+    // The token that will be used to send notifications a Slack channel.
     'slack_bot_token' => env('SLACK_BOT_TOKEN'),
 
     // The channel that will be used to send notifications about site provisioning

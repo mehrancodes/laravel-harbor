@@ -158,6 +158,11 @@ class ForgeSetting
     public ?string $subdomainName;
 
     /**
+     * Is the Slack integration enabled?
+     */
+    public bool $slackAnnouncementEnabled;
+
+    /**
      * The OAuth Token for the Slack Bot
      */
     public ?string $slackBotToken;
@@ -195,8 +200,9 @@ class ForgeSetting
         'git_issue_number' => ['exclude_if:git_comment_enabled,false', 'required', 'string'],
         'git_token' => ['exclude_if:git_comment_enabled,false', 'required', 'string'],
         'subdomain_name' => ['nullable', 'string', 'regex:/^[a-zA-Z0-9-_]+$/'],
-        'slack_bot_token' => ['nullable', 'string'],
-        'slack_channel' => ['nullable', 'string'],
+        'slack_announcement_enabled' => ['required', 'boolean'],
+        'slack_bot_token' => ['exclude_if:slack_announcement_enabled,false', 'required', 'string'],
+        'slack_channel' => ['exclude_if:slack_announcement_enabled,false', 'required', 'string'],
     ];
 
     public function __construct()

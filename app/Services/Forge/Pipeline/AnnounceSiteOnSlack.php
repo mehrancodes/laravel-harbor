@@ -28,7 +28,7 @@ class AnnounceSiteOnSlack
     public function __invoke(ForgeService $service, Closure $next)
     {
         // End early if the slack bot token and channel are not set in the Forge service settings
-        if ( ! $service->setting->slackBotToken || ! $service->setting->slackChannel ) {
+        if ( ! $service->setting->slackAnnouncementEnabled || ! $service->setting->slackBotToken || ! $service->setting->slackChannel ) {
             return $next($service);
         }
 
@@ -41,7 +41,7 @@ class AnnounceSiteOnSlack
 
         var_dump($service->setting->slackChannel, $service->setting->slackBotToken);
 
-        $route = SlackRoute::make($service->setting->slackChannel, env('SLACK_BOT_TOKEN', 'xoxb-3798822736-6739233849188-mtueZKOYSt7EMvYCGLrB2hoQ'));
+        $route = SlackRoute::make($service->setting->slackChannel, $service->setting->slackBotToken);
         Notification::route(SlackChannel::class, $route)
             ->notifyNow(new SiteProvisionedNotification($service));
 
