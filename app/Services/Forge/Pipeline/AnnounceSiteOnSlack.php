@@ -33,7 +33,7 @@ class AnnounceSiteOnSlack
 
         $this->information('Announce the site on Slack.');
 
-        Notification::route(SlackChannel::class, null)->notify(new SiteProvisionedNotification($service));
+        Notification::route(SlackChannel::class, $service->setting->slackChannel)->notify(new SiteProvisionedNotification($service));
 
         return $next($service);
     }
