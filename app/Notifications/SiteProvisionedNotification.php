@@ -4,6 +4,7 @@ namespace App\Notifications;
 
 use App\Services\Forge\ForgeService;
 use Illuminate\Notifications\Slack\BlockKit\Blocks\SectionBlock;
+use Illuminate\Notifications\Slack\SlackChannel;
 use Illuminate\Notifications\Slack\SlackMessage;
 use Illuminate\Notifications\Notification;
 
@@ -16,7 +17,7 @@ class SiteProvisionedNotification extends Notification
 
     public function via(object $notifiable): array
     {
-        return ['slack'];
+        return [SlackChannel::class];
     }
 
     public function toSlack(object $notifiable): SlackMessage
