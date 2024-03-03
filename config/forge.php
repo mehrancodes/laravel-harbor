@@ -79,6 +79,9 @@ return [
     // Subdomain name used for the Forge site domain instead of branch name.
     'subdomain_name' => env('SUBDOMAIN_NAME'),
 
+    // Environment URL used for the provision site information comment.
+    'environment_url' => env('FORGE_ENVIRONMENT_URL'),
+
     // The token that will be used to send notifications a Slack channel.
     'slack_announcement_enabled' => env('SLACK_ANNOUNCEMENT_ENABLED', false),
 

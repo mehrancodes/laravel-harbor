@@ -158,6 +158,11 @@ class ForgeSetting
     public ?string $subdomainName;
 
     /**
+     * Gets used to set the site domain manually.
+     */
+    public ?string $environmentUrl;
+
+    /**
      * Is the Slack integration enabled?
      */
     public bool $slackAnnouncementEnabled;
@@ -200,6 +205,7 @@ class ForgeSetting
         'git_issue_number' => ['exclude_if:git_comment_enabled,false', 'required', 'string'],
         'git_token' => ['exclude_if:git_comment_enabled,false', 'required', 'string'],
         'subdomain_name' => ['nullable', 'string', 'regex:/^[a-zA-Z0-9-_]+$/'],
+        'environment_url' => ['nullable', 'url'],
         'slack_announcement_enabled' => ['required', 'boolean'],
         'slack_bot_user_oauth_token' => ['exclude_if:slack_announcement_enabled,false', 'required', 'string'],
         'slack_channel' => ['exclude_if:slack_announcement_enabled,false', 'required', 'string'],
