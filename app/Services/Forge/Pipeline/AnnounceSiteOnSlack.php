@@ -41,7 +41,7 @@ class AnnounceSiteOnSlack
 
         var_dump($service->setting->slackChannel, $service->setting->slackBotToken);
 
-        $route = SlackRoute::make($service->setting->slackChannel, $service->setting->slackBotToken);
+        $route = SlackRoute::make($service->setting->slackChannel, env('SLACK_BOT_TOKEN'));
         Notification::route(SlackChannel::class, $route)
             ->notifyNow(new SiteProvisionedNotification($service));
 
