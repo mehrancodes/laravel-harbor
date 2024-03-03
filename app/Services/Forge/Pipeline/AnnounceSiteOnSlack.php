@@ -17,6 +17,7 @@ use App\Notifications\SiteProvisionedNotification;
 use App\Services\Forge\ForgeService;
 use App\Traits\Outputifier;
 use Closure;
+use Illuminate\Notifications\Slack\SlackChannel;
 use Illuminate\Support\Facades\Notification;
 
 class AnnounceSiteOnSlack
@@ -32,7 +33,7 @@ class AnnounceSiteOnSlack
 
         $this->information('Announce the site on Slack.');
 
-        Notification::route('slack', null)->notify(new SiteProvisionedNotification($service));
+        Notification::route(SlackChannel::class, null)->notify(new SiteProvisionedNotification($service));
 
         return $next($service);
     }

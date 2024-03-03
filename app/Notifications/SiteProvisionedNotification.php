@@ -23,6 +23,7 @@ class SiteProvisionedNotification extends Notification
     public function toSlack(object $notifiable): SlackMessage
     {
         return (new SlackMessage)
+            ->to($this->service->setting->slackChannel)
             ->text('A new site has been provisioned!')
             ->sectionBlock(function (SectionBlock $block) {
                 $block->text('An invoice has been paid.');
