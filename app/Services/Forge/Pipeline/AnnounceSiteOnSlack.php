@@ -28,12 +28,13 @@ class AnnounceSiteOnSlack
     public function __invoke(ForgeService $service, Closure $next)
     {
         // End early if the slack bot token and channel are not set in the Forge service settings
-        if ( ! $service->setting->slackAnnouncementEnabled ) {
+        if (! $service->setting->slackAnnouncementEnabled) {
             return $next($service);
         }
 
-        if ( ! $service->siteNewlyMade ) {
+        if (! $service->siteNewlyMade) {
             $this->information('Skipping Slack announcement as the site is not newly made.');
+
             return $next($service);
         }
 
