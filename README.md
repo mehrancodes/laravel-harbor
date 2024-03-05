@@ -45,8 +45,6 @@ As this CLI tool has been crafted as an MVP and has undergone real-world testing
 
 - 🛠️ **Enhanced Error Handling**: Aiming for comprehensive error handling throughout the entire CLI process to ensure smooth user experiences.
 
-- 📣 **Slack Integration**: Integrate with Slack to provide real-time notifications and updates.
-
 - 📘 **Expanded Documentation**: We'll be adding more examples showcasing the tool's versatility, such as:
     - Using Laravel as an API backend with Nuxt.js on the frontend for SSR handling.
     - Using with projects like WordPress and more.
