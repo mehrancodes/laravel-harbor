@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace App\Commands;
 
 use App\Services\Forge\ForgeService;
+use App\Services\Forge\Pipeline\AnnounceSiteOnSlack;
 use App\Services\Forge\Pipeline\CreateDatabase;
 use App\Services\Forge\Pipeline\DeploySite;
 use App\Services\Forge\Pipeline\EnableQuickDeploy;
@@ -58,6 +59,7 @@ class ProvisionCommand extends Command
                 RunOptionalCommands::class,
                 EnsureJobScheduled::class,
                 PutCommentOnPullRequest::class,
+                AnnounceSiteOnSlack::class,
             ])
             ->then(function () use ($service) {
                 $this->success('Provisioning complete! Your environment is now set up and ready to use.');

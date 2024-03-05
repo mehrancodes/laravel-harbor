@@ -23,6 +23,7 @@
         "illuminate/validation": "^10.24",
         "laravel-zero/framework": "^10.0.2",
         "laravel/forge-sdk": "^3.13",
+        "laravel/slack-notification-channel": "^3.2",
         "lorisleiva/laravel-actions": "^2.7",
         "nunomaduro/termwind": "^1.15"
     },

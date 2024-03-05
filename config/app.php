@@ -71,6 +71,8 @@ return [
         \Illuminate\Pipeline\PipelineServiceProvider::class,
         \Illuminate\Validation\ValidationServiceProvider::class,
         \Illuminate\Translation\TranslationServiceProvider::class,
+        Illuminate\Notifications\NotificationServiceProvider::class,
+        \Illuminate\Bus\BusServiceProvider::class,
     ],
 
 ];
