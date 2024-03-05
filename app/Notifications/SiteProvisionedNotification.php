@@ -1,12 +1,23 @@
 <?php
 
+declare(strict_types=1);
+
+/**
+ * This file is part of Laravel Harbor.
+ *
+ * (c) Mehran Rasulian <mehran.rasulian@gmail.com>
+ *
+ *  For the full copyright and license information, please view the LICENSE
+ *  file that was distributed with this source code.
+ */
+
 namespace App\Notifications;
 
 use App\Services\Forge\ForgeService;
+use Illuminate\Notifications\Notification;
 use Illuminate\Notifications\Slack\BlockKit\Blocks\SectionBlock;
 use Illuminate\Notifications\Slack\SlackChannel;
 use Illuminate\Notifications\Slack\SlackMessage;
-use Illuminate\Notifications\Notification;
 
 class SiteProvisionedNotification extends Notification
 {
