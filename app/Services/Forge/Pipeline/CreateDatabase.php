@@ -29,7 +29,7 @@ class CreateDatabase
         }
 
         $dbPassword = Str::random(16);
-        $dbName = $service->getStandardizedBranchName();
+        $dbName = $service->setting->dbName ?? $service->getStandardizedBranchName();
 
         if (! $this->databaseExists($service, $dbName)) {
             $this->information('Creating database.');
