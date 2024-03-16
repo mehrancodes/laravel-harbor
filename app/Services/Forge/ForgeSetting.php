@@ -118,6 +118,11 @@ class ForgeSetting
     public bool $dbCreationRequired;
 
     /**
+     * The name of the database to be created
+     */
+    public ?string $dbName;
+
+    /**
      * Flag to auto-source environment variables in deployment.
      */
     public bool $autoSourceRequired;
@@ -196,6 +201,7 @@ class ForgeSetting
         'site_isolation_required' => ['boolean'],
         'job_scheduler_required' => ['boolean'],
         'db_creation_required' => ['boolean'],
+        'db_name' => ['nullable', 'string'],
         'auto_source_required' => ['boolean'],
         'ssl_required' => ['boolean'],
         'wait_on_ssl' => ['boolean'],
