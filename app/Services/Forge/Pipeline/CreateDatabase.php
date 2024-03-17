@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace App\Services\Forge\Pipeline;
 
+use App\Actions\FormattedBranchName;
 use App\Services\Forge\ForgeService;
 use App\Traits\Outputifier;
 use Closure;
@@ -28,8 +29,13 @@ class CreateDatabase
             return $next($service);
         }
 
+        if ( $service->setting->dbName ) {
+            $dbName = FormattedBranchName::run($service->setting->dbName);
+        } else {
+            $dbName = $service->getStandardizedBranchName();
+        }
+
         $dbPassword = Str::random(16);
-        $dbName = $service->setting->dbName ?? $service->getStandardizedBranchName();
 
         if (! $this->databaseExists($service, $dbName)) {
             $this->information('Creating database.');
