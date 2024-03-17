@@ -132,4 +132,9 @@ class ForgeService
 
         return ($this->site->isSecured ? 'https://' : 'http://').$this->site->name;
     }
+
+    public function siteDirectory(): string
+    {
+        return sprintf('/home/%s/%s', $this->site->username, $this->site->name);
+    }
 }
