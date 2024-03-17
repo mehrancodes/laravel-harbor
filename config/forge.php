@@ -93,4 +93,7 @@ return [
 
     // The channel that will be used to send notifications about site provisioning
     'slack_channel' => env('SLACK_CHANNEL'),
+
+    // Used to create a Forge daemon to start inertia ssr.
+    'inertia_ssr_enabled' => env('INERTIA_SSR_ENABLED', false),
 ];

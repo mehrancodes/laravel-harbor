@@ -17,6 +17,7 @@ use App\Services\Forge\ForgeService;
 use App\Services\Forge\Pipeline\AnnounceSiteOnSlack;
 use App\Services\Forge\Pipeline\CreateDatabase;
 use App\Services\Forge\Pipeline\DeploySite;
+use App\Services\Forge\Pipeline\EnableInertiaSupport;
 use App\Services\Forge\Pipeline\EnableQuickDeploy;
 use App\Services\Forge\Pipeline\EnsureJobScheduled;
 use App\Services\Forge\Pipeline\FindServer;
@@ -60,6 +61,7 @@ class ProvisionCommand extends Command
                 EnsureJobScheduled::class,
                 PutCommentOnPullRequest::class,
                 AnnounceSiteOnSlack::class,
+                EnableInertiaSupport::class,
             ])
             ->then(function () use ($service) {
                 $this->success('Provisioning complete! Your environment is now set up and ready to use.');
