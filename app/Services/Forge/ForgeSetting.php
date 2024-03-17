@@ -178,6 +178,11 @@ class ForgeSetting
     public ?string $slackChannel;
 
     /**
+     * Enable support for Inertia SSR
+     */
+    public bool $inertiaSsrEnabled;
+
+    /**
      * The validation rules.
      */
     private array $validationRules = [
@@ -209,6 +214,7 @@ class ForgeSetting
         'slack_announcement_enabled' => ['required', 'boolean'],
         'slack_bot_user_oauth_token' => ['exclude_if:slack_announcement_enabled,false', 'required', 'string'],
         'slack_channel' => ['exclude_if:slack_announcement_enabled,false', 'required', 'string'],
+        'inertia_ssr_enabled' => ['required', 'boolean'],
     ];
 
     public function __construct()
