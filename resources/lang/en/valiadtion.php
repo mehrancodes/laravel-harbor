@@ -163,8 +163,8 @@ return [
     */
 
     'custom' => [
-        'attribute-name' => [
-            'rule-name' => 'custom-message',
+        'db_name' => [
+            'regex' => 'The :attribute must only contain letters, numbers, and underscores.',
         ],
     ],
 
@@ -179,6 +179,8 @@ return [
     |
     */
 
-    'attributes' => [],
+    'attributes' => [
+        'db_name' => 'FORGE_DB_NAME'
+    ],
 
 ];

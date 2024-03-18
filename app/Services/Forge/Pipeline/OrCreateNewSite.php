@@ -54,7 +54,7 @@ class OrCreateNewSite
             $this->information('---> Enabling site isolation.');
 
             $data['isolated'] = true;
-            $data['username'] = $service->getStandardizedBranchName();
+            $data['username'] = $service->getSiteIsolationUsername();
         }
 
         return $data;
