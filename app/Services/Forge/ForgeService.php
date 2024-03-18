@@ -89,8 +89,8 @@ class ForgeService
 
     public function getFormattedDatabaseName(): string
     {
-        return GenerateStandardizedBranchName::run(
-            $this->setting->dbName ?? $this->getFormattedBranchName()
+        return $this->setting->dbName ?? GenerateStandardizedBranchName::run(
+            $this->getFormattedBranchName()
         );
     }
 

@@ -201,7 +201,7 @@ class ForgeSetting
         'site_isolation_required' => ['boolean'],
         'job_scheduler_required' => ['boolean'],
         'db_creation_required' => ['boolean'],
-        'db_name' => ['nullable', 'string'],
+        'db_name' => ['nullable', 'string', 'regex:/^[a-zA-Z0-9_]+$/'],
         'auto_source_required' => ['boolean'],
         'ssl_required' => ['boolean'],
         'wait_on_ssl' => ['boolean'],
@@ -224,7 +224,14 @@ class ForgeSetting
 
     private function init(array $configurations): void
     {
-        $validator = Validator::make($configurations, $this->validationRules);
+        $validator = Validator::make(
+            $configurations,
+            $this->validationRules,
+            [
+                'db_name.regex' => 'The :attribute must only contain letters, numbers, and underscores.'
+            ],
+            ['db_name' => 'Database name']
+        );
 
         throw_if($validator->fails(), ValidationException::class, $validator->errors()->all());
 
