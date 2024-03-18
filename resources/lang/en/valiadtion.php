@@ -180,7 +180,7 @@ return [
     */
 
     'attributes' => [
-        'db_name' => 'Database name'
+        'db_name' => 'FORGE_DB_NAME'
     ],
 
 ];
