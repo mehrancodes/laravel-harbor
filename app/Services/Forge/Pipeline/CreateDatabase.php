@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace App\Services\Forge\Pipeline;
 
-use App\Actions\FormattedBranchName;
+use App\Actions\GenerateStandardizedBranchName;
 use App\Services\Forge\ForgeService;
 use App\Traits\Outputifier;
 use Closure;
@@ -30,7 +30,7 @@ class CreateDatabase
         }
 
         if ( $service->setting->dbName ) {
-            $dbName = FormattedBranchName::run($service->setting->dbName);
+            $dbName = GenerateStandardizedBranchName::run($service->setting->dbName);
         } else {
             $dbName = $service->getStandardizedBranchName();
         }
