@@ -16,6 +16,7 @@ namespace App\Services\Forge;
 use App\Actions\FormattedBranchName;
 use App\Actions\GenerateDomainName;
 use App\Actions\GenerateStandardizedBranchName;
+use Illuminate\Support\Str;
 use Laravel\Forge\Forge;
 use Laravel\Forge\Resources\Server;
 use Laravel\Forge\Resources\Site;
@@ -89,9 +90,13 @@ class ForgeService
 
     public function getFormattedDatabaseName(): string
     {
-        return $this->setting->dbName ?? GenerateStandardizedBranchName::run(
-            $this->getFormattedBranchName()
-        );
+        if ($this->setting->dbName) {
+            $dbName = FormattedBranchName::run($this->setting->dbName);
+        } else {
+            $dbName = $this->getFormattedBranchName();
+        }
+
+        return Str::replace('-', '_', $dbName);
     }
 
     public function siteNginxTemplate(): string

@@ -24,7 +24,7 @@ class FormattedBranchName
 
     protected const SLUGIFY_DICTIONARY = ['+' => '-', '_' => '-', '@' => '-'];
 
-    public function handle(string $branch, ?string $pattern): string
+    public function handle(string $branch, ?string $pattern = null): string
     {
         if (isset($pattern)) {
             preg_match($pattern, $branch, $matches);
