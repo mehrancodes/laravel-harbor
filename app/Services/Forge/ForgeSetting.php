@@ -230,7 +230,7 @@ class ForgeSetting
             [
                 'db_name.regex' => 'The :attribute must only contain letters, numbers, and underscores.'
             ],
-            ['db_name' => 'Database name']
+            ['db_name' => 'FORGE_DB_NAME']
         );
 
         throw_if($validator->fails(), ValidationException::class, $validator->errors()->all());
