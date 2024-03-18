@@ -80,7 +80,7 @@ class ForgeService
         );
     }
 
-    public function getStandardizedBranchName(): string
+    public function getSiteIsolationUsername(): string
     {
         return GenerateStandardizedBranchName::run(
             $this->getFormattedBranchName()
