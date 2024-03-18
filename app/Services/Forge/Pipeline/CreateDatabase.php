@@ -29,12 +29,7 @@ class CreateDatabase
             return $next($service);
         }
 
-        if ( $service->setting->dbName ) {
-            $dbName = GenerateStandardizedBranchName::run($service->setting->dbName);
-        } else {
-            $dbName = $service->getStandardizedBranchName();
-        }
-
+        $dbName = $service->getFormattedDatabaseName();
         $dbPassword = Str::random(16);
 
         if (! $this->databaseExists($service, $dbName)) {

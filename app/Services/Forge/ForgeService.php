@@ -87,6 +87,13 @@ class ForgeService
         );
     }
 
+    public function getFormattedDatabaseName(): string
+    {
+        return GenerateStandardizedBranchName::run(
+            $this->setting->dbName ?? $this->getFormattedBranchName()
+        );
+    }
+
     public function siteNginxTemplate(): string
     {
         return $this->forge->siteNginxFile($this->setting->server, $this->site->id);
