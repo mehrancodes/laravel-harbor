@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace App\Services\Forge;
 
+use App\Rules\BranchNameRegex;
 use App\Traits\Outputifier;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
@@ -187,42 +188,6 @@ class ForgeSetting
      */
     public bool $inertiaSsrEnabled;
 
-    /**
-     * The validation rules.
-     */
-    private array $validationRules = [
-        'token' => ['required'],
-        'server' => ['required'],
-        'domain' => ['required'],
-        'git_provider' => ['required'],
-        'repository' => ['required'],
-        'branch' => ['required'],
-        'project_type' => ['string'],
-        'php_version' => ['nullable', 'string'],
-        'subdomain_pattern' => ['nullable', 'string'],
-        'command' => ['nullable', 'string'],
-        'nginx_template' => ['nullable', 'int'],
-        'quick_deploy' => ['boolean'],
-        'site_isolation_required' => ['boolean'],
-        'job_scheduler_required' => ['boolean'],
-        'db_creation_required' => ['boolean'],
-        'db_name' => ['nullable', 'string'],
-        'auto_source_required' => ['boolean'],
-        'ssl_required' => ['boolean'],
-        'wait_on_ssl' => ['boolean'],
-        'wait_on_deploy' => ['boolean'],
-        'timeout_seconds' => ['required', 'int', 'min:0'],
-        'git_comment_enabled' => ['required', 'boolean'],
-        'git_issue_number' => ['exclude_if:git_comment_enabled,false', 'required', 'string'],
-        'git_token' => ['exclude_if:git_comment_enabled,false', 'required', 'string'],
-        'subdomain_name' => ['nullable', 'string', 'regex:/^[a-zA-Z0-9-_]+$/'],
-        'environment_url' => ['nullable', 'url'],
-        'slack_announcement_enabled' => ['required', 'boolean'],
-        'slack_bot_user_oauth_token' => ['exclude_if:slack_announcement_enabled,false', 'required', 'string'],
-        'slack_channel' => ['exclude_if:slack_announcement_enabled,false', 'required', 'string'],
-        'inertia_ssr_enabled' => ['required', 'boolean'],
-    ];
-
     public function __construct()
     {
         $this->init(config('forge'));
@@ -230,7 +195,7 @@ class ForgeSetting
 
     private function init(array $configurations): void
     {
-        $validator = Validator::make($configurations, $this->validationRules);
+        $validator = $this->validate($configurations);
 
         throw_if($validator->fails(), ValidationException::class, $validator->errors()->all());
 
@@ -240,5 +205,41 @@ class ForgeSetting
                 $this->$key = $value;
             }
         }
+    }
+
+    protected function validate(array $configurations): \Illuminate\Validation\Validator
+    {
+        return Validator::make($configurations, [
+            'token' => ['required'],
+            'server' => ['required'],
+            'domain' => ['required'],
+            'git_provider' => ['required'],
+            'repository' => ['required'],
+            'branch' => ['required', new BranchNameRegex],
+            'project_type' => ['string'],
+            'php_version' => ['nullable', 'string'],
+            'subdomain_pattern' => ['nullable', 'string'],
+            'command' => ['nullable', 'string'],
+            'nginx_template' => ['nullable', 'int'],
+            'quick_deploy' => ['boolean'],
+            'site_isolation_required' => ['boolean'],
+            'job_scheduler_required' => ['boolean'],
+            'db_creation_required' => ['boolean'],
+            'db_name' => ['nullable', 'string'],
+            'auto_source_required' => ['boolean'],
+            'ssl_required' => ['boolean'],
+            'wait_on_ssl' => ['boolean'],
+            'wait_on_deploy' => ['boolean'],
+            'timeout_seconds' => ['required', 'int', 'min:0'],
+            'git_comment_enabled' => ['required', 'boolean'],
+            'git_issue_number' => ['exclude_if:git_comment_enabled,false', 'required', 'string'],
+            'git_token' => ['exclude_if:git_comment_enabled,false', 'required', 'string'],
+            'subdomain_name' => ['nullable', 'string', 'regex:/^[a-zA-Z0-9-_]+$/'],
+            'environment_url' => ['nullable', 'url'],
+            'slack_announcement_enabled' => ['required', 'boolean'],
+            'slack_bot_user_oauth_token' => ['exclude_if:slack_announcement_enabled,false', 'required', 'string'],
+            'slack_channel' => ['exclude_if:slack_announcement_enabled,false', 'required', 'string'],
+            'inertia_ssr_enabled' => ['required', 'boolean'],
+        ]);
     }
 }
