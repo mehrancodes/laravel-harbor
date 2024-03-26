@@ -14,7 +14,7 @@ class BranchNameRegex implements DataAwareRule, ValidationRule
     {
         $pattern = $this->data['subdomain_pattern'];
 
-        if (!empty($pattern) && !preg_match($pattern, $value)) {
+        if (! empty($pattern) && ! preg_match($pattern, $value)) {
             $fail('The subdomain regex pattern must be match with the branch name.');
         }
     }

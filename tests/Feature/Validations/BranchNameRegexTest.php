@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Validator;
 test('it validates the subdomain pattern matches the branch name', function ($data, $failed) {
     $validator = Validator::make($data, [
         'branch' => ['required', new BranchNameRegex],
-        'subdomain_pattern' => ['string']
+        'subdomain_pattern' => ['string'],
     ]);
 
     expect($validator->fails())->toBe($failed);
