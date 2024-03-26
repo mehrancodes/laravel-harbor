@@ -195,7 +195,21 @@ class ForgeSetting
 
     private function init(array $configurations): void
     {
-        $validator = Validator::make($configurations, [
+        $validator = $this->validate($configurations);
+
+        throw_if($validator->fails(), ValidationException::class, $validator->errors()->all());
+
+        // If validation passes, set properties
+        foreach ($configurations as $key => $value) {
+            if (property_exists($this, $key = Str::camel($key))) {
+                $this->$key = $value;
+            }
+        }
+    }
+
+    protected function validate(array $configurations): \Illuminate\Validation\Validator
+    {
+        return Validator::make($configurations, [
             'token' => ['required'],
             'server' => ['required'],
             'domain' => ['required'],
@@ -227,14 +241,5 @@ class ForgeSetting
             'slack_channel' => ['exclude_if:slack_announcement_enabled,false', 'required', 'string'],
             'inertia_ssr_enabled' => ['required', 'boolean'],
         ]);
-
-        throw_if($validator->fails(), ValidationException::class, $validator->errors()->all());
-
-        // If validation passes, set properties
-        foreach ($configurations as $key => $value) {
-            if (property_exists($this, $key = Str::camel($key))) {
-                $this->$key = $value;
-            }
-        }
     }
 }
