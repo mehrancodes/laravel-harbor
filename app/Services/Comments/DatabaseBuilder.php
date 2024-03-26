@@ -21,7 +21,7 @@ class DatabaseBuilder implements CommentInterface
 
     public function getName(): string
     {
-        return 'DatabaseBuilder Url';
+        return 'Database Url';
     }
 
     public function getType(): string
