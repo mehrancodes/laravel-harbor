@@ -15,24 +15,18 @@ namespace App\Services\Comments;
 
 class EnvironmentUrlBuilder implements CommentInterface
 {
-    public string $name = 'Environment Url';
-
-    public string $type = 'link';
-
-    public string $content;
-
     public function __construct(public string $url)
     {
     }
 
     public function getName(): string
     {
-        return $this->name;
+        return 'Environment Url';
     }
 
     public function getType(): string
     {
-        return $this->type;
+        return 'link';
     }
 
     public function getContent(): string
