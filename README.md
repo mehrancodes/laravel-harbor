@@ -3,7 +3,7 @@
 
 ![logo-harbor](https://github.com/mehrancodes/laravel-harbor/assets/7046255/18186f83-dbd7-4a5a-ad2f-051e8c60c832)
 
-# Laravel Harbor - Beta Version ⚡️ 🛠 (formerly Veyoze)
+# Laravel Harbor (formerly Veyoze)
 ### On-Demand Laravel Forge deployments with all setup you need
 
 🚀 **Update (February 25, 2024):** Repository Name Change
