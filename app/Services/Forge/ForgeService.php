@@ -142,7 +142,7 @@ class ForgeService
             return $this->setting->environmentUrl;
         }
 
-        return ($this->site->isSecured ? 'https://' : 'http://').$this->site->name;
+        return ($this->setting->sslRequired ? 'https://' : 'http://').$this->site->name;
     }
 
     public function siteDirectory(): string
