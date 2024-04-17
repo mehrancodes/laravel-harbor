@@ -58,6 +58,15 @@ return [
     // Override default database and database username, if needed. Defaults to the site name.
     'db_name' => env('FORGE_DB_NAME', null),
 
+    // Import the database via a SQL file (default: null).
+    'db_import_sql' => env('FORGE_DB_IMPORT_SQL', null),
+
+    // Import the database via seeding (default: false).
+    'db_import_seed' => env('FORGE_DB_IMPORT_SEED', false),
+
+    // Flag to perform database import on deployment (default: false).
+    'db_import_on_deployment' => env('FORGE_DB_IMPORT_ON_DEPLOYMENT', false),
+
     // Flag to enable SSL certification (default: false).
     'ssl_required' => env('FORGE_SSL_REQUIRED', false),
 

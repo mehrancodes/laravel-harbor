@@ -22,6 +22,7 @@ use App\Services\Forge\Pipeline\EnableQuickDeploy;
 use App\Services\Forge\Pipeline\EnsureJobScheduled;
 use App\Services\Forge\Pipeline\FindServer;
 use App\Services\Forge\Pipeline\FindSite;
+use App\Services\Forge\Pipeline\ImportDatabaseFromSql;
 use App\Services\Forge\Pipeline\InstallGitRepository;
 use App\Services\Forge\Pipeline\NginxTemplateSearchReplace;
 use App\Services\Forge\Pipeline\ObtainLetsEncryptCertification;
@@ -56,6 +57,7 @@ class ProvisionCommand extends Command
                 EnableQuickDeploy::class,
                 UpdateEnvironmentVariables::class,
                 UpdateDeployScript::class,
+                ImportDatabaseFromSql::class,
                 DeploySite::class,
                 RunOptionalCommands::class,
                 EnsureJobScheduled::class,

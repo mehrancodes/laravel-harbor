@@ -124,6 +124,21 @@ class ForgeSetting
     public ?string $dbName;
 
     /**
+     * Flag to importing database via seeding.
+     */
+    public bool $dbImportSeed;
+
+    /**
+     * Flag to importing database via SQL file.
+     */
+    public ?string $dbImportSql;
+
+    /**
+     * Flag to import database on deployment.
+     */
+    public bool $dbImportOnDeployment;
+
+    /**
      * Flag to auto-source environment variables in deployment.
      */
     public bool $autoSourceRequired;
@@ -226,6 +241,9 @@ class ForgeSetting
             'job_scheduler_required' => ['boolean'],
             'db_creation_required' => ['boolean'],
             'db_name' => ['nullable', 'string'],
+            'db_import_sql' => ['nullable', 'string'],
+            'db_import_seed' => ['boolean'],
+            'db_import_on_deployment' => ['boolean'],
             'auto_source_required' => ['boolean'],
             'ssl_required' => ['boolean'],
             'wait_on_ssl' => ['boolean'],
