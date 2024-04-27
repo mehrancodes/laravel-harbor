@@ -67,4 +67,11 @@ it('it can merge custom variables with source environment variables securely', f
             ],
             'expected' => "APP_NAME=Project Name\n",
         ],
+        [
+            'actual' => [
+                'source' => "APP_NAME=Laravel\n# Here be dragons\nAPP_ENV=local\n",
+                'content' => [],
+            ],
+            'expected' => "APP_NAME=Laravel\n# Here be dragons\nAPP_ENV=local\n\n",
+        ],
     ]);

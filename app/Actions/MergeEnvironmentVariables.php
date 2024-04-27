@@ -40,21 +40,27 @@ class MergeEnvironmentVariables
 
     protected function searchReplaceExistingVariables(string $source, array &$newVariables): string
     {
+        // Determine the separator based on the source string
         $separator = Str::contains($source, ';') ? ';' : "\n";
         $output = '';
 
         foreach (explode($separator, $source) as $variable) {
+            // If the variable is empty, add a newline to the output
             if (empty($variable)) {
                 $output .= "\n";
+                continue;
+            }
 
+            if (Str::contains($variable, '#')) {
+                $output .= "$variable\n";
                 continue;
             }
 
             [$key, $value] = explode('=', $variable, 2);
 
+            // If the key is empty, issue a warning and skip
             if (empty($key)) {
                 $this->warning("No key found for the assigned value \"$value\" inside your environment variables! Make sure to remove it.");
-
                 continue;
             }
 
