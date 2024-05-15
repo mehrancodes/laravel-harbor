@@ -60,9 +60,8 @@ class ForgeSiteCommandWaiter
 
     protected function commandIsRunning(SiteCommand $site_command): bool
     {
-        echo sprintf('site command status: %s', $site_command->status);
         return !isset($site_command->status)
-            || $site_command->status === 'running';
+            || in_array($site_command->status, ['running', 'waiting']);
     }
 
 }

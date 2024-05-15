@@ -153,6 +153,7 @@ class ForgeService
 
     public function waitForSiteCommand(SiteCommand $site_command): SiteCommand
     {
-        return (new ForgeSiteCommandWaiter($this->forge))->waitFor($site_command);
+        $waiter = app()->makeWith(ForgeSiteCommandWaiter::class, [$this->forge]);
+        return $waiter->waitFor($site_command);
     }
 }
