@@ -62,7 +62,6 @@ class ImportDatabaseFromSeeder
 
     public function buildImportCommandContent(ForgeService $service): string
     {
-
         $seeder = '';
         if (is_string($service->setting->dbImportSeed)) {
             $seeder = sprintf(
@@ -76,9 +75,19 @@ class ImportDatabaseFromSeeder
 
         return trim(sprintf(
             '%s artisan %s %s',
-            $service->site->phpVersion ?? 'php',
+            $this->phpExecutable($service->site->phpVersion ?? 'php'),
             $service->siteNewlyMade ? 'db:seed' : 'migrate:fresh --seed',
             $seeder
         ));
+    }
+
+    /**
+     * Forge's phpVersion strings don't exactly map to the executable.
+     * For example php83 corresponds to the php8.3 executable.
+     * This workaround assumes no minor versions above 9!
+     */
+    protected function phpExecutable(string $phpVersion): string
+    {
+        return preg_replace_callback('/\d$/', fn ($matches) => '.' . $matches[0], $phpVersion);
     }
 }

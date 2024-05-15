@@ -80,7 +80,7 @@ test('it generates import command with phpVersion', function () {
     $pipe = new ImportDatabaseFromSeeder();
 
     expect($pipe->buildImportCommandContent($service))
-        ->toBe('php81 artisan db:seed');
+        ->toBe('php8.1 artisan db:seed');
 });
 
 test('it generates import command with custom seeder on provision', function () {
