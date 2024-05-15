@@ -52,7 +52,7 @@ class ForgeSiteCommandWaiter
                 $site_command->serverId,
                 $site_command->siteId,
                 $site_command->id
-            );
+            )[0];
         }
 
         return $site_command;

@@ -18,7 +18,7 @@ test('it waits until the maximum number of attempts', function () {
 
     $forge->shouldReceive('getSiteCommand')
         ->times($waiter->maxAttempts)
-        ->andReturn($site_command);
+        ->andReturn([$site_command]);
 
     $site_command = $waiter->waitFor($site_command);
 
@@ -29,7 +29,7 @@ test('it waits until the maximum number of attempts', function () {
     ]);
 });
 
-test('it waits until the command is no longer running', function() {
+test('it waits until the command is no longer running', function () {
 
     $forge = Mockery::mock(Forge::class);
     $site_command = Mockery::mock(SiteCommand::class);
@@ -45,9 +45,9 @@ test('it waits until the command is no longer running', function() {
     $forge->shouldReceive('getSiteCommand')
         ->times(3)
         ->andReturn(
-            $site_command,
-            $site_command,
-            $finished_command
+            [$site_command],
+            [$site_command],
+            [$finished_command]
         );
 
     $site_command = $waiter->waitFor($site_command);
