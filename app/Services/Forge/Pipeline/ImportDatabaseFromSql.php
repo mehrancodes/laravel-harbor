@@ -40,12 +40,16 @@ class ImportDatabaseFromSql
 
         $content = $this->buildImportCommandContent($service, $file);
 
+        $site_command = $service->forge->executeSiteCommand(
+            $service->setting->server,
+            $service->site->id,
+            ['command' => $content]
+        );
+
+        $this->information('---> site command status: %s', $site_command->status);
+
         $site_command = $service->waitForSiteCommand(
-            $service->forge->executeSiteCommand(
-                $service->setting->server,
-                $service->site->id,
-                ['command' => $content]
-            )
+            $site_command
         );
 
         if ($site_command->status === 'failed') {

@@ -19,50 +19,50 @@ use Illuminate\Support\Sleep;
 
 class ForgeSiteCommandWaiter
 {
-
-	/**
+    /**
      * The number of seconds to wait between querying Forge for the command status.
      */
-	public int $retrySeconds = 10;
-	
-	/**
+    public int $retrySeconds = 10;
+
+    /**
      * The number of attempts to make before returning the command.
      */
-	public int $maxAttempts = 60;
+    public int $maxAttempts = 60;
 
-	/**
+    /**
      * The current number of attempts.
      */
-	protected int $attempts = 0;
+    protected int $attempts = 0;
 
-	public function __construct(public Forge $forge)
-	{
-	}
+    public function __construct(public Forge $forge)
+    {
+    }
 
-	public function waitFor(SiteCommand $site_command): SiteCommand
-	{
-		$this->attempts = 0;
+    public function waitFor(SiteCommand $site_command): SiteCommand
+    {
+        $this->attempts = 0;
 
-		while (
-			$this->commandIsRunning($site_command)
-			&& $this->attempts++ < $this->maxAttempts
-		) {
-			Sleep::for($this->retrySeconds)->seconds();
+        while (
+            $this->commandIsRunning($site_command)
+            && $this->attempts++ < $this->maxAttempts
+        ) {
+            Sleep::for($this->retrySeconds)->seconds();
 
-			$site_command = $this->forge->getSiteCommand(
-				$site_command->serverId,
-				$site_command->siteId,
-				$site_command->id
-			);
-		}
+            $site_command = $this->forge->getSiteCommand(
+                $site_command->serverId,
+                $site_command->siteId,
+                $site_command->id
+            );
+        }
 
-		return $site_command;
-	}
+        return $site_command;
+    }
 
-	protected function commandIsRunning(SiteCommand $site_command): bool
-	{
-		return !isset($site_command->status)
-			|| $site_command->status === 'running';
-	}
+    protected function commandIsRunning(SiteCommand $site_command): bool
+    {
+        echo sprintf('site command status: %s', $site_command->status);
+        return !isset($site_command->status)
+            || $site_command->status === 'running';
+    }
 
 }
