@@ -126,7 +126,7 @@ class ForgeSetting
     /**
      * Flag to importing database via seeding.
      */
-    public bool $dbImportSeed;
+    public string|bool $dbImportSeed;
 
     /**
      * Flag to importing database via SQL file.
@@ -230,7 +230,7 @@ class ForgeSetting
             'domain' => ['required'],
             'git_provider' => ['required'],
             'repository' => ['required'],
-            'branch' => ['required', new BranchNameRegex],
+            'branch' => ['required', new BranchNameRegex()],
             'project_type' => ['string'],
             'php_version' => ['nullable', 'string'],
             'subdomain_pattern' => ['nullable', 'string'],

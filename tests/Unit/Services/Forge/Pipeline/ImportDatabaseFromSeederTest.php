@@ -7,6 +7,7 @@ use Laravel\Forge\Resources\SiteCommand;
 test('it skips import when dbImportOnDeployment is false', function () {
 
     $service = configureMockService([
+        'dbImportSeed' => true,
         'dbImportOnDeployment' => false,
     ]);
 
@@ -22,8 +23,8 @@ test('it skips import when dbImportOnDeployment is false', function () {
 test('it attempts import when siteNewlyMade is false, and dbImportOnDeployment is true', function () {
 
     $service = configureMockService([
-        'dbImportOnDeployment' => true,
         'dbImportSeed' => true,
+        'dbImportOnDeployment' => true,
     ]);
 
     $next = fn () => true;
@@ -39,8 +40,8 @@ test('it attempts import when siteNewlyMade is false, and dbImportOnDeployment i
 test('it attempts import when siteNewlyMade is true', function () {
 
     $service = configureMockService([
-        'dbImportOnDeployment' => false,
         'dbImportSeed' => true,
+        'dbImportOnDeployment' => false,
     ]);
     $service->siteNewlyMade = true;
 
@@ -56,7 +57,9 @@ test('it attempts import when siteNewlyMade is true', function () {
 
 test('it generates import command without phpVersion', function () {
 
-    $service = configureMockService();
+    $service = configureMockService([
+        'dbImportSeed' => true,
+    ]);
     $service->siteNewlyMade = true;
 
     $pipe = new ImportDatabaseFromSeeder();
@@ -67,7 +70,9 @@ test('it generates import command without phpVersion', function () {
 
 test('it generates import command with phpVersion', function () {
 
-    $service = configureMockService([], [
+    $service = configureMockService([
+        'dbImportSeed' => true,
+    ], [
         'phpVersion' => 'php81',
     ]);
     $service->siteNewlyMade = true;
@@ -78,9 +83,36 @@ test('it generates import command with phpVersion', function () {
         ->toBe('php81 artisan db:seed');
 });
 
+test('it generates import command with custom seeder on provision', function () {
+
+    $service = configureMockService([
+        'dbImportSeed' => 'FooSeeder',
+    ]);
+    $service->siteNewlyMade = true;
+
+    $pipe = new ImportDatabaseFromSeeder();
+
+    expect($pipe->buildImportCommandContent($service))
+        ->toBe('php artisan db:seed --class=FooSeeder');
+});
+
+test('it generates import command with custom seeder on deployment', function () {
+
+    $service = configureMockService([
+        'dbImportSeed' => 'FooSeeder',
+    ]);
+    $service->siteNewlyMade = false;
+
+    $pipe = new ImportDatabaseFromSeeder();
+
+    expect($pipe->buildImportCommandContent($service))
+        ->toBe('php artisan migrate:fresh --seed --seeder=FooSeeder');
+});
+
 test('it executes import command with finished response', function () {
 
     $service = configureMockService([
+        'dbImportSeed' => true,
         'server' => 1,
     ], [
         'id'     => 2,
@@ -109,6 +141,7 @@ test('it executes import command with finished response', function () {
 test('it executes import command with failure status', function () {
 
     $service = configureMockService([
+        'dbImportSeed' => true,
         'server' => 1,
     ]);
 
@@ -134,6 +167,7 @@ test('it executes import command with failure status', function () {
 test('it executes import command with missing status', function () {
 
     $service = configureMockService([
+        'dbImportSeed' => true,
         'server' => 1,
     ]);
 

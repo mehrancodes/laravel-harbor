@@ -23,15 +23,15 @@ class ImportDatabaseFromSeeder
 
     public function __invoke(ForgeService $service, Closure $next)
     {
+        if (!($seeder = $service->setting->dbImportSeed)) {
+            return $next($service);
+        }
+
         if (!$service->siteNewlyMade && !$service->setting->dbImportOnDeployment) {
             return $next($service);
         }
 
-        if (!$service->setting->dbImportSeed) {
-            return $next($service);
-        }
-
-        return $this->attemptSeed($service, $next);
+        return $this->attemptSeed($service, $next, $seeder);
     }
 
     public function attemptSeed(ForgeService $service, Closure $next)
@@ -64,10 +64,23 @@ class ImportDatabaseFromSeeder
 
     public function buildImportCommandContent(ForgeService $service): string
     {
-        return sprintf(
-            '%s artisan %s',
+
+        $seeder = '';
+        if (is_string($service->setting->dbImportSeed)) {
+            $seeder = sprintf(
+                '--%s=%s',
+                $service->siteNewlyMade
+                    ? 'class'
+                    : 'seeder',
+                $service->setting->dbImportSeed
+            );
+        }
+
+        return trim(sprintf(
+            '%s artisan %s %s',
             $service->site->phpVersion ?? 'php',
-            $service->siteNewlyMade ? 'db:seed' : 'migrate:fresh --seed'
-        );
+            $service->siteNewlyMade ? 'db:seed' : 'migrate:fresh --seed',
+            $seeder
+        ));
     }
 }
