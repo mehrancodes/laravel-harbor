@@ -77,8 +77,7 @@ class ImportDatabaseFromSql
             '-u',
             $service->database['DB_USERNAME'],
             "-p{$service->database['DB_PASSWORD']}",
-            '-P',
-            $service->database['DB_PORT'],
+            isset($service->database['DB_PORT']) ? '-P ' . $service->database['DB_PORT'] : '',
             isset($service->database['DB_HOST']) ? '-h ' . $service->database['DB_HOST'] : '',
             $service->getFormattedDatabaseName(),
         ])
