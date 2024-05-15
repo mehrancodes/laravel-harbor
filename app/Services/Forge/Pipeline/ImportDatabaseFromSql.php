@@ -49,15 +49,15 @@ class ImportDatabaseFromSql
         );
 
         if ($site_command->status === 'failed') {
-            $this->fail(sprintf('---> Database import command failed with message: %s', $site_command->output));
+            $this->fail(sprintf('---> Database import failed with message: %s', $site_command->output));
             return $next;
 
         } elseif ($site_command->status !== 'finished') {
-            $this->fail('---> Database import command did not finish in time.');
+            $this->fail('---> Database import did not finish in time.');
             return $next;
         }
 
-        $this->information('---> Database import command finished successfully.');
+        $this->information('---> Database import finished successfully.');
 
         return $next($service);
     }

@@ -7,24 +7,6 @@ use Laravel\Forge\Forge;
 use Laravel\Forge\Resources\Site;
 use Laravel\Forge\Resources\SiteCommand;
 
-function configureMockService(array $settings = [], array $site_attributes = []): ForgeService
-{
-    $setting = Mockery::mock(ForgeSetting::class);
-    $setting->timeoutSeconds = 0;
-    foreach ($settings as $name => $value) {
-        $setting->{$name} = $value;
-    }
-
-    $forge = Mockery::mock(Forge::class);
-    $forge->shouldReceive('setTimeout')
-        ->with($setting->timeoutSeconds);
-
-    $service = Mockery::mock(ForgeService::class, [$setting, $forge])->makePartial();
-    $service->site = new Site($site_attributes);
-
-    return $service;
-}
-
 test('it skips import when dbImportOnDeployment is false', function () {
 
     $service = configureMockService([

@@ -23,6 +23,7 @@ use App\Services\Forge\Pipeline\EnsureJobScheduled;
 use App\Services\Forge\Pipeline\FindServer;
 use App\Services\Forge\Pipeline\FindSite;
 use App\Services\Forge\Pipeline\ImportDatabaseFromSql;
+use App\Services\Forge\Pipeline\ImportDatabaseFromSeeder;
 use App\Services\Forge\Pipeline\InstallGitRepository;
 use App\Services\Forge\Pipeline\NginxTemplateSearchReplace;
 use App\Services\Forge\Pipeline\ObtainLetsEncryptCertification;
@@ -59,6 +60,7 @@ class ProvisionCommand extends Command
                 UpdateDeployScript::class,
                 ImportDatabaseFromSql::class,
                 DeploySite::class,
+                ImportDatabaseFromSeeder::class,
                 RunOptionalCommands::class,
                 EnsureJobScheduled::class,
                 PutCommentOnPullRequest::class,
