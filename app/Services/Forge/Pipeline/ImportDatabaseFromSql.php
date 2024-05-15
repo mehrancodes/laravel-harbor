@@ -57,8 +57,6 @@ class ImportDatabaseFromSql
             return $next;
         }
 
-        $this->information('---> Database import finished successfully.');
-
         return $next($service);
     }
 

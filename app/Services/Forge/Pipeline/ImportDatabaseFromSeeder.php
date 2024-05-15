@@ -57,8 +57,6 @@ class ImportDatabaseFromSeeder
             return $next;
         }
 
-        $this->information('---> Database seeded successfully.');
-
         return $next($service);
     }
 
