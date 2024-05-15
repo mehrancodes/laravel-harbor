@@ -29,8 +29,6 @@ test('it skips import when dbImportOnDeployment is false', function () {
 
     $service = configureMockService([
         'dbImportOnDeployment' => false,
-    ], [
-        'siteNewlyMade' => false
     ]);
 
     $pipe = Mockery::mock(ImportDatabaseFromSql::class)
@@ -38,7 +36,7 @@ test('it skips import when dbImportOnDeployment is false', function () {
     $pipe->shouldReceive('attemptImport')
         ->never();
 
-    $next = fn() => true;
+    $next = fn () => true;
     expect($pipe($service, $next))->toBe(true);
 });
 
@@ -47,16 +45,16 @@ test('it skips import when siteNewlyMade is true and file is not present', funct
     $service = configureMockService([
         'dbImportOnDeployment' => false,
         'dbImportSql' => null,
-    ], [
-        'siteNewlyMade' => true
     ]);
+
+    $service->siteNewlyMade = true;
 
     $pipe = Mockery::mock(ImportDatabaseFromSql::class)
         ->makePartial();
     $pipe->shouldReceive('attemptImport')
         ->never();
 
-    $next = fn() => true;
+    $next = fn () => true;
     expect($pipe($service, $next))->toBe(true);
 });
 
@@ -65,17 +63,15 @@ test('it attempts import when siteNewlyMade is false, dbImportOnDeployment is tr
     $service = configureMockService([
         'dbImportOnDeployment' => true,
         'dbImportSql' => 'xyz.sql',
-    ], [
-        'siteNewlyMade' => false,
     ]);
 
-    $next = fn() => true;
+    $next = fn () => true;
     $pipe = Mockery::mock(ImportDatabaseFromSql::class)
         ->makePartial();
     $pipe->shouldReceive('attemptImport')
         ->once()
         ->andReturn($next());
-    
+
     expect($pipe($service, $next))->toBe(true);
 });
 
@@ -84,11 +80,10 @@ test('it attempts import when siteNewlyMade is true and file is present', functi
     $service = configureMockService([
         'dbImportOnDeployment' => false,
         'dbImportSql' => 'xyz.sql',
-    ], [
-        'siteNewlyMade' => true
     ]);
+    $service->siteNewlyMade = true;
 
-    $next = fn() => true;
+    $next = fn () => true;
     $pipe = Mockery::mock(ImportDatabaseFromSql::class)
         ->makePartial();
     $pipe->shouldReceive('attemptImport')
@@ -110,7 +105,7 @@ test('it generates import command for file with .gz extension', function () {
         'DB_PORT' => 1234,
     ]);
 
-    $pipe = new ImportDatabaseFromSql;
+    $pipe = new ImportDatabaseFromSql();
 
     expect($pipe->buildImportCommandContent($service, '/path/to/db.sql.gz'))
         ->toBe('gunzip < /path/to/db.sql.gz | mysql -u foo -pbar -P 1234 -h 1.2.3.4 my_db');
@@ -128,7 +123,7 @@ test('it generates import command for file with .zip extension', function () {
         'DB_PORT' => 1234,
     ]);
 
-    $pipe = new ImportDatabaseFromSql;
+    $pipe = new ImportDatabaseFromSql();
 
     expect($pipe->buildImportCommandContent($service, '/path/to/db.sql.zip'))
         ->toBe('unzip -p /path/to/db.sql.zip | mysql -u foo -pbar -P 1234 -h 1.2.3.4 my_db');
@@ -146,13 +141,13 @@ test('it generates import command for file with .sql extension', function () {
         'DB_PORT' => 1234,
     ]);
 
-    $pipe = new ImportDatabaseFromSql;
+    $pipe = new ImportDatabaseFromSql();
 
     expect($pipe->buildImportCommandContent($service, '/path/to/db.sql'))
         ->toBe('cat /path/to/db.sql | mysql -u foo -pbar -P 1234 -h 1.2.3.4 my_db');
 });
 
-test('it executes import command with finished response', function() {
+test('it executes import command with finished response', function () {
 
     $service = configureMockService([
         'dbName' => 'my_db',
@@ -175,9 +170,9 @@ test('it executes import command with finished response', function() {
         ->once()
         ->andReturn($site_command);
 
-    $next = fn() => true;
+    $next = fn () => true;
 
-    $pipe = new ImportDatabaseFromSql;
+    $pipe = new ImportDatabaseFromSql();
     $result = $pipe->attemptImport(
         $service,
         $next,
@@ -187,7 +182,7 @@ test('it executes import command with finished response', function() {
     expect($result)->toBe(true);
 });
 
-test('it executes import command with failure status', function() {
+test('it executes import command with failure status', function () {
 
     $service = configureMockService([
         'dbName' => 'my_db',
@@ -204,9 +199,9 @@ test('it executes import command with failure status', function() {
         ->once()
         ->andReturn($site_command);
 
-    $next = fn() => true;
+    $next = fn () => true;
 
-    $pipe = new ImportDatabaseFromSql;
+    $pipe = new ImportDatabaseFromSql();
     $result = $pipe->attemptImport(
         $service,
         $next,
@@ -216,7 +211,7 @@ test('it executes import command with failure status', function() {
     expect($result)->toBe($next);
 });
 
-test('it executes import command with missing status', function() {
+test('it executes import command with missing status', function () {
 
     $service = configureMockService([
         'dbName' => 'my_db',
@@ -235,9 +230,9 @@ test('it executes import command with missing status', function() {
         ->with($site_command)
         ->andReturn($site_command);
 
-    $next = fn() => true;
+    $next = fn () => true;
 
-    $pipe = new ImportDatabaseFromSql;
+    $pipe = new ImportDatabaseFromSql();
     $result = $pipe->attemptImport(
         $service,
         $next,

@@ -23,7 +23,7 @@ class ImportDatabaseFromSql
 
     public function __invoke(ForgeService $service, Closure $next)
     {
-        if (!$service->site->siteNewlyMade && !$service->setting->dbImportOnDeployment) {
+        if (!$service->siteNewlyMade && !$service->setting->dbImportOnDeployment) {
             return $next($service);
         }
 
@@ -39,7 +39,7 @@ class ImportDatabaseFromSql
         $this->information(sprintf('Importing database from %s.', $file));
 
         $content = $this->buildImportCommandContent($service, $file);
-        
+
         $site_command = $service->waitForSiteCommand(
             $service->forge->executeSiteCommand(
                 $service->setting->server,
@@ -52,7 +52,7 @@ class ImportDatabaseFromSql
             $this->fail(sprintf('---> Database import command failed with message: %s', $site_command->output));
             return $next;
 
-        } else if ($site_command->status !== 'finished') {
+        } elseif ($site_command->status !== 'finished') {
             $this->fail('---> Database import command did not finish in time.');
             return $next;
         }
