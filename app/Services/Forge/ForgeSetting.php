@@ -242,7 +242,7 @@ class ForgeSetting
             'db_creation_required' => ['boolean'],
             'db_name' => ['nullable', 'string'],
             'db_import_sql' => ['nullable', 'string'],
-            'db_import_seed' => ['boolean'],
+            'db_import_seed' => ['nullable'],
             'db_import_on_deployment' => ['boolean'],
             'auto_source_required' => ['boolean'],
             'ssl_required' => ['boolean'],
