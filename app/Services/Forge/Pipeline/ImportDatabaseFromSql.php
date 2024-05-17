@@ -68,18 +68,39 @@ class ImportDatabaseFromSql
             default => "cat {$file}"
         };
 
-        return collect([
+        return implode(' ', [
             $extract,
             '|',
-            'mysql',
-            '-u',
+            $this->buildDatabaseConnection($service)
+        ]);
+    }
+
+    protected function buildDatabaseConnection(ForgeService $service): string
+    {
+        if (str_contains($service->server->databaseType, 'postgres')) {
+            return sprintf(
+                'pgsql postgres://%s:%s%s/%s',
+                $service->database['DB_USERNAME'],
+                $service->database['DB_PASSWORD'],
+                isset($service->database['DB_HOST'])
+                    ? sprintf(
+                        '@%s:%s',
+                        $service->database['DB_HOST'],
+                        $service->database['DB_PORT'] ?? '5432',
+                    )
+                    : '',
+                $service->getFormattedDatabaseName(),
+            );
+        }
+
+        return sprintf(
+            '%s -u %s -p%s %s %s %s',
+            str_contains($service->server->databaseType, 'mariadb') ? 'mariadb' : 'mysql',
             $service->database['DB_USERNAME'],
-            "-p{$service->database['DB_PASSWORD']}",
-            isset($service->database['DB_PORT']) ? '-P ' . $service->database['DB_PORT'] : '',
+            $service->database['DB_PASSWORD'],
             isset($service->database['DB_HOST']) ? '-h ' . $service->database['DB_HOST'] : '',
+            isset($service->database['DB_PORT']) ? '-P ' . $service->database['DB_PORT'] : '',
             $service->getFormattedDatabaseName(),
-        ])
-            ->filter()
-            ->implode(' ');
+        );
     }
 }

@@ -74,9 +74,14 @@ test('it attempts import when siteNewlyMade is true and file is present', functi
 
 test('it generates import command for file with .gz extension', function () {
 
-    $service = configureMockService([
-        'dbName' => 'my_db',
-    ]);
+    $service = configureMockService(
+        settings: [
+            'dbName' => 'my_db',
+        ],
+        server_attributes: [
+            'databaseType' => 'mysql'
+        ]
+    );
     $service->setDatabase([
         'DB_USERNAME' => 'foo',
         'DB_PASSWORD' => 'bar',
@@ -87,14 +92,19 @@ test('it generates import command for file with .gz extension', function () {
     $pipe = new ImportDatabaseFromSql();
 
     expect($pipe->buildImportCommandContent($service, '/path/to/db.sql.gz'))
-        ->toBe('gunzip < /path/to/db.sql.gz | mysql -u foo -pbar -P 1234 -h 1.2.3.4 my_db');
+        ->toBe('gunzip < /path/to/db.sql.gz | mysql -u foo -pbar -h 1.2.3.4 -P 1234 my_db');
 });
 
 test('it generates import command for file with .zip extension', function () {
 
-    $service = configureMockService([
-        'dbName' => 'my_db',
-    ]);
+    $service = configureMockService(
+        settings: [
+            'dbName' => 'my_db',
+        ],
+        server_attributes: [
+            'databaseType' => 'mysql'
+        ]
+    );
     $service->setDatabase([
         'DB_USERNAME' => 'foo',
         'DB_PASSWORD' => 'bar',
@@ -105,14 +115,19 @@ test('it generates import command for file with .zip extension', function () {
     $pipe = new ImportDatabaseFromSql();
 
     expect($pipe->buildImportCommandContent($service, '/path/to/db.sql.zip'))
-        ->toBe('unzip -p /path/to/db.sql.zip | mysql -u foo -pbar -P 1234 -h 1.2.3.4 my_db');
+        ->toBe('unzip -p /path/to/db.sql.zip | mysql -u foo -pbar -h 1.2.3.4 -P 1234 my_db');
 });
 
 test('it generates import command for file with .sql extension', function () {
 
-    $service = configureMockService([
-        'dbName' => 'my_db',
-    ]);
+    $service = configureMockService(
+        settings: [
+            'dbName' => 'my_db',
+        ],
+        server_attributes: [
+            'databaseType' => 'mysql'
+        ]
+    );
     $service->setDatabase([
         'DB_USERNAME' => 'foo',
         'DB_PASSWORD' => 'bar',
@@ -123,17 +138,23 @@ test('it generates import command for file with .sql extension', function () {
     $pipe = new ImportDatabaseFromSql();
 
     expect($pipe->buildImportCommandContent($service, '/path/to/db.sql'))
-        ->toBe('cat /path/to/db.sql | mysql -u foo -pbar -P 1234 -h 1.2.3.4 my_db');
+        ->toBe('cat /path/to/db.sql | mysql -u foo -pbar -h 1.2.3.4 -P 1234 my_db');
 });
 
 test('it executes import command with finished response', function () {
 
-    $service = configureMockService([
-        'dbName' => 'my_db',
-        'server' => 1,
-    ], [
-        'id'     => 2,
-    ]);
+    $service = configureMockService(
+        settings: [
+            'dbName' => 'my_db',
+            'server' => 1,
+        ],
+        site_attributes: [
+            'id'     => 2,
+        ],
+        server_attributes: [
+            'databaseType' => 'mysql'
+        ]
+    );
     $service->setDatabase([
         'DB_USERNAME' => 'foo',
         'DB_PASSWORD' => 'bar',
@@ -145,7 +166,7 @@ test('it executes import command with finished response', function () {
     $site_command->status = 'finished';
 
     $service->forge->shouldReceive('executeSiteCommand')
-        ->with(1, 2, ['command' => 'cat x.sql | mysql -u foo -pbar -P 1234 -h 1.2.3.4 my_db'])
+        ->with(1, 2, ['command' => 'cat x.sql | mysql -u foo -pbar -h 1.2.3.4 -P 1234 my_db'])
         ->once()
         ->andReturn($site_command);
 
@@ -163,12 +184,18 @@ test('it executes import command with finished response', function () {
 
 test('it executes import command with failure status', function () {
 
-    $service = configureMockService([
-        'dbName' => 'my_db',
-        'server' => 1,
-    ], [
-        'id'     => 2,
-    ]);
+    $service = configureMockService(
+        settings: [
+            'dbName' => 'my_db',
+            'server' => 1,
+        ],
+        site_attributes: [
+            'id'     => 2,
+        ],
+        server_attributes: [
+            'databaseType' => 'mysql'
+        ]
+    );
 
     $site_command = Mockery::mock(SiteCommand::class);
     $site_command->status = 'failed';
@@ -192,12 +219,18 @@ test('it executes import command with failure status', function () {
 
 test('it executes import command with missing status', function () {
 
-    $service = configureMockService([
-        'dbName' => 'my_db',
-        'server' => 1,
-    ], [
-        'id'     => 2,
-    ]);
+    $service = configureMockService(
+        settings: [
+            'dbName' => 'my_db',
+            'server' => 1
+        ],
+        site_attributes: [
+            'id'     => 2,
+        ],
+        server_attributes: [
+            'databaseType' => 'mysql'
+        ]
+    );
 
     $site_command = Mockery::mock(SiteCommand::class);
 

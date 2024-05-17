@@ -3,6 +3,7 @@
 use App\Services\Forge\ForgeService;
 use App\Services\Forge\ForgeSetting;
 use Laravel\Forge\Forge;
+use Laravel\Forge\Resources\Server;
 use Laravel\Forge\Resources\Site;
 
 /*
@@ -44,7 +45,7 @@ expect()->extend('toBeOne', function () {
 |
 */
 
-function configureMockService(array $settings = [], array $site_attributes = []): ForgeService
+function configureMockService(array $settings = [], array $site_attributes = [], array $server_attributes = []): ForgeService
 {
     $setting = Mockery::mock(ForgeSetting::class);
     $setting->timeoutSeconds = 0;
@@ -58,6 +59,7 @@ function configureMockService(array $settings = [], array $site_attributes = [])
 
     $service = Mockery::mock(ForgeService::class, [$setting, $forge])->makePartial();
     $service->site = new Site($site_attributes);
+    $service->server = new Server($server_attributes);
 
     return $service;
 }
