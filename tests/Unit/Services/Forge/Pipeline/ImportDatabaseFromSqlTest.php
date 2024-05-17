@@ -1,15 +1,12 @@
 <?php
 
-use App\Services\Forge\ForgeService;
-use App\Services\Forge\ForgeSetting;
 use App\Services\Forge\Pipeline\ImportDatabaseFromSql;
-use Laravel\Forge\Forge;
-use Laravel\Forge\Resources\Site;
 use Laravel\Forge\Resources\SiteCommand;
 
 test('it skips import when dbImportOnDeployment is false', function () {
 
     $service = configureMockService([
+        'dbImportSql' => true,
         'dbImportOnDeployment' => false,
     ]);
 

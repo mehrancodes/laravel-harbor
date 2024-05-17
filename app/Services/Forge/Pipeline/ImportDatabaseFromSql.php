@@ -23,11 +23,11 @@ class ImportDatabaseFromSql
 
     public function __invoke(ForgeService $service, Closure $next)
     {
-        if (!$service->siteNewlyMade && !$service->setting->dbImportOnDeployment) {
+        if (!($file = $service->setting->dbImportSql)) {
             return $next($service);
         }
 
-        if (!($file = $service->setting->dbImportSql)) {
+        if (!$service->siteNewlyMade && !$service->setting->dbImportOnDeployment) {
             return $next($service);
         }
 

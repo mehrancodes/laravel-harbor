@@ -1,6 +1,5 @@
 <?php
 
-
 use App\Services\Forge\Pipeline\ImportDatabaseFromSeeder;
 use Laravel\Forge\Resources\SiteCommand;
 
