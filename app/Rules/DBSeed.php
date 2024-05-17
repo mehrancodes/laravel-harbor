@@ -5,7 +5,7 @@ namespace App\Rules;
 use Closure;
 use Illuminate\Contracts\Validation\ValidationRule;
 
-class DBImportSeed implements ValidationRule
+class DBSeed implements ValidationRule
 {
     public function validate(string $attribute, mixed $value, Closure $fail): void
     {

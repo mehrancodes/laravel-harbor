@@ -17,17 +17,17 @@ use App\Services\Forge\ForgeService;
 use App\Traits\Outputifier;
 use Closure;
 
-class ImportDatabaseFromSeeder
+class SeedDatabase
 {
     use Outputifier;
 
     public function __invoke(ForgeService $service, Closure $next)
     {
-        if (!($seeder = $service->setting->dbImportSeed)) {
+        if (!($seeder = $service->setting->dbSeed)) {
             return $next($service);
         }
 
-        if (!$service->siteNewlyMade && !$service->setting->dbImportOnDeployment) {
+        if (!$service->siteNewlyMade) {
             return $next($service);
         }
 
@@ -63,13 +63,13 @@ class ImportDatabaseFromSeeder
     public function buildImportCommandContent(ForgeService $service): string
     {
         $seeder = '';
-        if (is_string($service->setting->dbImportSeed)) {
+        if (is_string($service->setting->dbSeed)) {
             $seeder = sprintf(
                 '--%s=%s',
                 $service->siteNewlyMade
                     ? 'class'
                     : 'seeder',
-                $service->setting->dbImportSeed
+                $service->setting->dbSeed
             );
         }
 

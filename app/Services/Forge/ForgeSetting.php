@@ -14,7 +14,7 @@ declare(strict_types=1);
 namespace App\Services\Forge;
 
 use App\Rules\BranchNameRegex;
-use App\Rules\DBImportSeed;
+use App\Rules\DBSeed;
 use App\Traits\Outputifier;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
@@ -243,7 +243,7 @@ class ForgeSetting
             'db_creation_required' => ['boolean'],
             'db_name' => ['nullable', 'string'],
             'db_import_sql' => ['nullable', 'string'],
-            'db_import_seed' => [new DBImportSeed()],
+            'db_import_seed' => [new DBSeed()],
             'db_import_on_deployment' => ['boolean'],
             'auto_source_required' => ['boolean'],
             'ssl_required' => ['boolean'],

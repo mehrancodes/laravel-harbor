@@ -61,8 +61,8 @@ return [
     // Import the database via a SQL file (default: null).
     'db_import_sql' => env('FORGE_DB_IMPORT_SQL', null),
 
-    // Import the database via seeding (default: false).
-    'db_import_seed' => env('FORGE_DB_IMPORT_SEED', false),
+    // Seed the database (default: false).
+    'db_seed' => env('FORGE_DB_SEED', false),
 
     // Flag to perform database import on deployment (default: false).
     'db_import_on_deployment' => env('FORGE_DB_IMPORT_ON_DEPLOYMENT', false),
