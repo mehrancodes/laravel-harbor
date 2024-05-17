@@ -125,12 +125,12 @@ class ForgeSetting
     public ?string $dbName;
 
     /**
-     * Flag to importing database via seeding.
+     * Flag / seeder to seed database.
      */
-    public string|bool $dbImportSeed;
+    public bool|string $dbSeed;
 
     /**
-     * Flag to importing database via SQL file.
+     * Path of file to import into database.
      */
     public ?string $dbImportSql;
 
