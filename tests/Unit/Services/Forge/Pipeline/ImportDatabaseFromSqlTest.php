@@ -72,14 +72,14 @@ test('it attempts import when siteNewlyMade is true and file is present', functi
     expect($pipe($service, $next))->toBe(true);
 });
 
-test('it generates import command for file with .gz extension', function () {
+test('it generates import command', function (string $databaseType, string $file, string $expected) {
 
     $service = configureMockService(
         settings: [
             'dbName' => 'my_db',
         ],
         server_attributes: [
-            'databaseType' => 'mysql'
+            'databaseType' => $databaseType
         ]
     );
     $service->setDatabase([
@@ -91,55 +91,21 @@ test('it generates import command for file with .gz extension', function () {
 
     $pipe = new ImportDatabaseFromSql();
 
-    expect($pipe->buildImportCommandContent($service, '/path/to/db.sql.gz'))
-        ->toBe('gunzip < /path/to/db.sql.gz | mysql -u foo -pbar -h 1.2.3.4 -P 1234 my_db');
-});
+    expect($pipe->buildImportCommandContent($service, '/path/to/' . $file))
+        ->toBe($expected);
+})->with([
+    'mysql with .gz extension' => ['mysql', 'db.sql.gz', 'gunzip < /path/to/db.sql.gz | mysql -u foo -pbar -h 1.2.3.4 -P 1234 my_db'],
+    'mysql with .zip extension' => ['mysql', 'db.sql.zip', 'unzip -p /path/to/db.sql.zip | mysql -u foo -pbar -h 1.2.3.4 -P 1234 my_db'],
+    'mysql with .sql extension' => ['mysql', 'db.sql', 'cat /path/to/db.sql | mysql -u foo -pbar -h 1.2.3.4 -P 1234 my_db'],
 
-test('it generates import command for file with .zip extension', function () {
+    'mariadb with .gz extension' => ['mariadb', 'db.sql.gz', 'gunzip < /path/to/db.sql.gz | mariadb -u foo -pbar -h 1.2.3.4 -P 1234 my_db'],
+    'mariadb with .zip extension' => ['mariadb', 'db.sql.zip', 'unzip -p /path/to/db.sql.zip | mariadb -u foo -pbar -h 1.2.3.4 -P 1234 my_db'],
+    'mariadb with .sql extension' => ['mariadb', 'db.sql', 'cat /path/to/db.sql | mariadb -u foo -pbar -h 1.2.3.4 -P 1234 my_db'],
 
-    $service = configureMockService(
-        settings: [
-            'dbName' => 'my_db',
-        ],
-        server_attributes: [
-            'databaseType' => 'mysql'
-        ]
-    );
-    $service->setDatabase([
-        'DB_USERNAME' => 'foo',
-        'DB_PASSWORD' => 'bar',
-        'DB_HOST' => '1.2.3.4',
-        'DB_PORT' => 1234,
-    ]);
-
-    $pipe = new ImportDatabaseFromSql();
-
-    expect($pipe->buildImportCommandContent($service, '/path/to/db.sql.zip'))
-        ->toBe('unzip -p /path/to/db.sql.zip | mysql -u foo -pbar -h 1.2.3.4 -P 1234 my_db');
-});
-
-test('it generates import command for file with .sql extension', function () {
-
-    $service = configureMockService(
-        settings: [
-            'dbName' => 'my_db',
-        ],
-        server_attributes: [
-            'databaseType' => 'mysql'
-        ]
-    );
-    $service->setDatabase([
-        'DB_USERNAME' => 'foo',
-        'DB_PASSWORD' => 'bar',
-        'DB_HOST' => '1.2.3.4',
-        'DB_PORT' => 1234,
-    ]);
-
-    $pipe = new ImportDatabaseFromSql();
-
-    expect($pipe->buildImportCommandContent($service, '/path/to/db.sql'))
-        ->toBe('cat /path/to/db.sql | mysql -u foo -pbar -h 1.2.3.4 -P 1234 my_db');
-});
+    'postgres with .gz extension' => ['postgres', 'db.sql.gz', 'gunzip < /path/to/db.sql.gz | pgsql postgres://foo:bar@1.2.3.4:1234/my_db'],
+    'postgres with .zip extension' => ['postgres', 'db.sql.zip', 'unzip -p /path/to/db.sql.zip | pgsql postgres://foo:bar@1.2.3.4:1234/my_db'],
+    'postgres with .sql extension' => ['postgres', 'db.sql', 'cat /path/to/db.sql | pgsql postgres://foo:bar@1.2.3.4:1234/my_db'],
+]);
 
 test('it executes import command with finished response', function () {
 
