@@ -65,18 +65,14 @@ class SeedDatabase
         $seeder = '';
         if (is_string($service->setting->dbSeed)) {
             $seeder = sprintf(
-                '--%s=%s',
-                $service->siteNewlyMade
-                    ? 'class'
-                    : 'seeder',
+                '--class=%s',
                 $service->setting->dbSeed
             );
         }
 
         return trim(sprintf(
-            '%s artisan %s %s',
+            '%s artisan db:seed %s',
             $this->phpExecutable($service->site->phpVersion ?? 'php'),
-            $service->siteNewlyMade ? 'db:seed' : 'migrate:fresh --seed',
             $seeder
         ));
     }

@@ -51,11 +51,14 @@ test('it generates import command without phpVersion', function () {
 
 test('it generates import command with phpVersion', function () {
 
-    $service = configureMockService([
-        'dbSeed' => true,
-    ], [
-        'phpVersion' => 'php81',
-    ]);
+    $service = configureMockService(
+        settings: [
+            'dbSeed' => true,
+        ],
+        site_attributes: [
+            'phpVersion' => 'php81',
+        ]
+    );
     $service->siteNewlyMade = true;
 
     $pipe = new SeedDatabase();
@@ -64,7 +67,7 @@ test('it generates import command with phpVersion', function () {
         ->toBe('php8.1 artisan db:seed');
 });
 
-test('it generates import command with custom seeder on provision', function () {
+test('it generates import command with custom seeder', function () {
 
     $service = configureMockService([
         'dbSeed' => 'FooSeeder',
@@ -77,27 +80,17 @@ test('it generates import command with custom seeder on provision', function () 
         ->toBe('php artisan db:seed --class=FooSeeder');
 });
 
-test('it generates import command with custom seeder on deployment', function () {
-
-    $service = configureMockService([
-        'dbSeed' => 'FooSeeder',
-    ]);
-    $service->siteNewlyMade = false;
-
-    $pipe = new SeedDatabase();
-
-    expect($pipe->buildImportCommandContent($service))
-        ->toBe('php artisan migrate:fresh --seed --seeder=FooSeeder');
-});
-
 test('it executes import command with finished response', function () {
 
-    $service = configureMockService([
-        'dbSeed' => true,
-        'server' => 1,
-    ], [
-        'id'     => 2,
-    ]);
+    $service = configureMockService(
+        settings: [
+            'dbSeed' => true,
+            'server' => 1,
+        ],
+        site_attributes: [
+            'id'     => 2,
+        ]
+    );
     $service->siteNewlyMade = true;
 
     $site_command = Mockery::mock(SiteCommand::class);
