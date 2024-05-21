@@ -20,6 +20,7 @@ use Illuminate\Support\Str;
 use Laravel\Forge\Forge;
 use Laravel\Forge\Resources\Server;
 use Laravel\Forge\Resources\Site;
+use Laravel\Forge\Resources\SiteCommand;
 
 class ForgeService
 {
@@ -148,5 +149,11 @@ class ForgeService
     public function siteDirectory(): string
     {
         return sprintf('/home/%s/%s', $this->site->username, $this->site->name);
+    }
+
+    public function waitForSiteCommand(SiteCommand $site_command): SiteCommand
+    {
+        $waiter = app()->makeWith(ForgeSiteCommandWaiter::class, ['forge' => $this->forge]);
+        return $waiter->waitFor($site_command);
     }
 }
