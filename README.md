@@ -37,7 +37,7 @@ We welcome contributions! Please see our [CONTRIBUTING.md](https://github.com/me
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE.md](https://github.com/mehrancodes/laravel-harbor/blob/main/LICENSE.md) file for details.
+This project is licensed under the MIT License - see the [LICENSE](https://github.com/mehrancodes/laravel-harbor/blob/main/LICENSE) file for details.
 
 ## Roadmap
 
