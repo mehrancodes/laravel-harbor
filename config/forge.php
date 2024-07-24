@@ -19,6 +19,9 @@ return [
     // Git branch name.
     'branch' => env('FORGE_GIT_BRANCH'),
 
+    // Creates a deploy key on github
+    'github_create_deploy_key' => env('FORGE_GITHUB_DEPLOY_KEY', false),
+
     // Pattern for subdomains.
     'subdomain_pattern' => env('FORGE_SUBDOMAIN_PATTERN'),
 

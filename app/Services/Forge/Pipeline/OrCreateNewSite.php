@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace App\Services\Forge\Pipeline;
 
 use App\Services\Forge\ForgeService;
+use App\Services\Github\GithubService;
 use App\Traits\Outputifier;
 use Closure;
 
@@ -21,7 +22,7 @@ class OrCreateNewSite
 {
     use Outputifier;
 
-    public function __invoke(ForgeService $service, Closure $next)
+    public function __invoke(ForgeService $service, GithubService $githubService, Closure $next)
     {
         if (is_null($service->site)) {
             $this->information('Creating a new site.');
@@ -30,6 +31,17 @@ class OrCreateNewSite
                 $service->setting->server,
                 $this->gatherSiteData($service)
             );
+
+            if ($service->setting->githubCreateDeployKey) {
+                $this->information('---> Creating GitHub deploy key.');
+
+                $data = $service->site->createDeployKey();
+
+                $githubService->createDeployKey(
+                    sprintf('Preview deploy key %s', $service->getFormattedDomainName()),
+                    $data['key']
+                );
+            }
         }
 
         return $next($service);

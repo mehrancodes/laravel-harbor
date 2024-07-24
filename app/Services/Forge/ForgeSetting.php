@@ -188,6 +188,11 @@ class ForgeSetting
      */
     public bool $inertiaSsrEnabled;
 
+    /**
+     * Enable github deploy key creation
+     */
+    public bool $githubCreateDeployKey;
+
     public function __construct()
     {
         $this->init(config('forge'));
