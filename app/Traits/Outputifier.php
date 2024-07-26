@@ -20,7 +20,7 @@ trait Outputifier
         return 0;
     }
 
-    protected function fail(string $message): int
+    protected function error(string $message): int
     {
         render(sprintf(<<<'html'
             <div class="font-bold">
