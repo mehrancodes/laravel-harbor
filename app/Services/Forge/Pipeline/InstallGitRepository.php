@@ -14,12 +14,18 @@ declare(strict_types=1);
 namespace App\Services\Forge\Pipeline;
 
 use App\Services\Forge\ForgeService;
+use App\Services\Github\GithubService;
 use App\Traits\Outputifier;
 use Closure;
 
 class InstallGitRepository
 {
     use Outputifier;
+
+    public function __construct(public GithubService $githubService)
+    {
+        //
+    }
 
     public function __invoke(ForgeService $service, Closure $next)
     {
@@ -28,6 +34,19 @@ class InstallGitRepository
         }
 
         $this->information('Installing the git repository.');
+
+        if (true || $service->setting->githubCreateDeployKey) {
+            $this->information('---> Creating deploy key on Forge.');
+
+            $data = $service->site->createDeployKey();
+
+            $this->information('Adding deploy key to GitHub repository.');
+
+            $this->githubService->createDeployKey(
+                sprintf('Preview deploy key %s', $service->getFormattedDomainName()),
+                $data['key']
+            );
+        }
 
         $service->setSite(
             $service->site->installGitRepository([
