@@ -16,6 +16,9 @@ return [
     // Git repository name.
     'repository' => env('FORGE_GIT_REPOSITORY'),
 
+    // Git repository URL, used when git_provider is 'custom'
+    'repository_url' => env('FORGE_GIT_REPOSITORY_URL'),
+
     // Git branch name.
     'branch' => env('FORGE_GIT_BRANCH'),
 
