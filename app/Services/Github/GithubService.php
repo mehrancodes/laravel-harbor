@@ -65,7 +65,7 @@ class GithubService
             'readonly' => $readonly,
         ]);
 
-        throw_if($result->failed(), ValidationException::class, [$result->body()]);
+        throw_if($result->failed() && $result->json('message') !== 'key is already in use', ValidationException::class, [$result->body()]);
 
         return json_decode($result->body(), true);
     }
