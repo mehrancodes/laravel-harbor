@@ -16,6 +16,7 @@ namespace App\Services\Forge;
 use App\Rules\BranchNameRegex;
 use App\Traits\Outputifier;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Fluent;
 use Illuminate\Support\Str;
 use Laravel\Forge\Exceptions\ValidationException;
 
@@ -252,6 +253,8 @@ class ForgeSetting
             'slack_channel' => ['exclude_if:slack_announcement_enabled,false', 'required', 'string'],
             'inertia_ssr_enabled' => ['required', 'boolean'],
             'github_create_deploy_key' => ['required', 'boolean'],
-        ]);
+        ])->sometimes('git_provider', 'in:custom', function (Fluent $input) {
+            return $input->github_create_deploy_key === true;
+        });
     }
 }
