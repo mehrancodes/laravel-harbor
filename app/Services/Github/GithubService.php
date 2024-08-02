@@ -59,11 +59,11 @@ class GithubService
             'accepts' => self::API_ACCEPT,
             'X-GitHub-Api-Version' => self::API_VERSION,
             'Authorization' => sprintf('Bearer %s', $this->setting->gitToken),
-        ])->post($uri, ['body' => json_encode([
+        ])->post($uri, [
             'title' => $title,
             'key' => $key,
             'readonly' => $readonly,
-        ])]);
+        ]);
 
         throw_if($result->failed(), ValidationException::class, [$result->body()]);
 
