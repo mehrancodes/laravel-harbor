@@ -49,6 +49,11 @@ class ForgeSetting
     public string $repository;
 
     /**
+     * The git repository URL to be used with "custom" service provider
+     */
+    public ?string $repositoryUrl;
+
+    /**
      * Git branch name.
      */
     public string $branch;
@@ -220,6 +225,7 @@ class ForgeSetting
             'domain' => ['required'],
             'git_provider' => ['required'],
             'repository' => ['required'],
+            'repository_url' => ['nullable', 'string', 'required_if:git_provider,custom'],
             'branch' => ['required', new BranchNameRegex],
             'project_type' => ['string'],
             'php_version' => ['nullable', 'string'],
@@ -245,6 +251,7 @@ class ForgeSetting
             'slack_bot_user_oauth_token' => ['exclude_if:slack_announcement_enabled,false', 'required', 'string'],
             'slack_channel' => ['exclude_if:slack_announcement_enabled,false', 'required', 'string'],
             'inertia_ssr_enabled' => ['required', 'boolean'],
+            'github_create_deploy_key' => ['required', 'boolean'],
         ]);
     }
 }

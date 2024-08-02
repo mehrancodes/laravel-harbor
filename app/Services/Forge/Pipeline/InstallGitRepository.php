@@ -51,7 +51,7 @@ class InstallGitRepository
         $service->setSite(
             $service->site->installGitRepository([
                 'provider' => $service->setting->gitProvider,
-                'repository' => $service->setting->repository,
+                'repository' => $service->setting->gitProvider === 'custom' ? $service->setting->repository : $service->setting->repositoryUrl,
                 'branch' => $service->setting->branch,
                 'composer' => false,
             ])
