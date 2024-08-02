@@ -35,7 +35,7 @@ class InstallGitRepository
 
         $this->information('Installing the git repository.');
 
-        if (true || $service->setting->githubCreateDeployKey) {
+        if ($service->setting->githubCreateDeployKey) {
             $this->information('---> Creating deploy key on Forge.');
 
             $data = $service->site->createDeployKey();
