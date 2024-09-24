@@ -109,6 +109,11 @@ class ForgeSetting
     public bool $siteIsolationRequired;
 
     /**
+     * Username for the site isolation (default: formated branch name).
+     */
+    public ?string $siteIsolationUsername;
+
+    /**
      * Flag indicating if a job scheduler is needed.
      */
     public bool $jobSchedulerRequired;
@@ -223,6 +228,7 @@ class ForgeSetting
             'nginx_template' => ['nullable', 'int'],
             'quick_deploy' => ['boolean'],
             'site_isolation_required' => ['boolean'],
+            'site_isolation_username' => ['nullable', 'string'],
             'job_scheduler_required' => ['boolean'],
             'db_creation_required' => ['boolean'],
             'db_name' => ['nullable', 'string'],
