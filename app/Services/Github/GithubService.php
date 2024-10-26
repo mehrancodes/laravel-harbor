@@ -47,4 +47,26 @@ class GithubService
 
         return json_decode($result->body(), true);
     }
+
+    public function createDeployKey(string $title, string $key, bool $readonly = true): array
+    {
+        $uri = sprintf(
+            self::API_BASE_URL.'/repos/%s/keys',
+            $this->setting->repository
+        );
+
+        $result = Http::withHeaders([
+            'accepts' => self::API_ACCEPT,
+            'X-GitHub-Api-Version' => self::API_VERSION,
+            'Authorization' => sprintf('Bearer %s', $this->setting->gitToken),
+        ])->post($uri, [
+            'title' => $title,
+            'key' => $key,
+            'readonly' => $readonly,
+        ]);
+
+        throw_if($result->failed() && ! in_array('key is already in use', $result->json('errors.*.message', [])), ValidationException::class, [$result->body()]);
+
+        return json_decode($result->body(), true);
+    }
 }

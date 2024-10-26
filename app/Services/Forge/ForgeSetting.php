@@ -16,6 +16,7 @@ namespace App\Services\Forge;
 use App\Rules\BranchNameRegex;
 use App\Traits\Outputifier;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Fluent;
 use Illuminate\Support\Str;
 use Laravel\Forge\Exceptions\ValidationException;
 
@@ -47,6 +48,11 @@ class ForgeSetting
      * Git repository URL or name.
      */
     public string $repository;
+
+    /**
+     * The git repository URL to be used with "custom" service provider
+     */
+    public ?string $repositoryUrl;
 
     /**
      * Git branch name.
@@ -193,6 +199,11 @@ class ForgeSetting
      */
     public bool $inertiaSsrEnabled;
 
+    /**
+     * Enable github deploy key creation
+     */
+    public bool $githubCreateDeployKey;
+
     public function __construct()
     {
         $this->init(config('forge'));
@@ -220,6 +231,7 @@ class ForgeSetting
             'domain' => ['required'],
             'git_provider' => ['required'],
             'repository' => ['required'],
+            'repository_url' => ['nullable', 'string', 'required_if:git_provider,custom'],
             'branch' => ['required', new BranchNameRegex],
             'project_type' => ['string'],
             'php_version' => ['nullable', 'string'],
@@ -246,6 +258,9 @@ class ForgeSetting
             'slack_bot_user_oauth_token' => ['exclude_if:slack_announcement_enabled,false', 'required', 'string'],
             'slack_channel' => ['exclude_if:slack_announcement_enabled,false', 'required', 'string'],
             'inertia_ssr_enabled' => ['required', 'boolean'],
-        ]);
+            'github_create_deploy_key' => ['required', 'boolean'],
+        ])->sometimes('git_provider', 'in:custom', function (Fluent $input) {
+            return $input->github_create_deploy_key === true;
+        });
     }
 }

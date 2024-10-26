@@ -38,7 +38,7 @@ class ObtainLetsEncryptCertification
                 $service->setting->waitOnSsl
             );
         } catch (Throwable $e) {
-            $this->fail("---> Something's wrong with SSL certification. Check your Forge site Log for more info.");
+            $this->failCommand("---> Something's wrong with SSL certification. Check your Forge site Log for more info.");
         }
 
         return $next($service);
