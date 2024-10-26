@@ -15,7 +15,6 @@ namespace App\Exceptions;
 
 use App\Traits\Outputifier;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
-use Illuminate\Support\Str;
 use Laravel\Forge\Exceptions\ValidationException;
 
 class Handler extends ExceptionHandler
