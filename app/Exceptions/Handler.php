@@ -15,6 +15,7 @@ namespace App\Exceptions;
 
 use App\Traits\Outputifier;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Support\Str;
 use Laravel\Forge\Exceptions\ValidationException;
 
 class Handler extends ExceptionHandler
@@ -26,10 +27,12 @@ class Handler extends ExceptionHandler
     public function register(): void
     {
         $this->reportable(function (ValidationException $e) {
-            foreach ($e->errors() as $error) {
-                $this->fail(
-                    sprintf('---> %s', is_array($error) ? current($error) : $error)
-                );
+            foreach ($e->errors() as $messages) {
+                foreach ($messages as $message) {
+                    $this->fail(
+                        sprintf('---> %s', $message)
+                    );
+                }
             }
 
             return false;
