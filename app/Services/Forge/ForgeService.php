@@ -83,6 +83,10 @@ class ForgeService
 
     public function getSiteIsolationUsername(): string
     {
+        if (!empty($this->setting->siteIsolationUsername)) {
+            return $this->setting->siteIsolationUsername;
+        }
+
         return GenerateStandardizedBranchName::run(
             $this->getFormattedBranchName()
         );

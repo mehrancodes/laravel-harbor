@@ -43,6 +43,9 @@ return [
     // Flag indicating if site isolation is needed (default: false).
     'site_isolation_required' => env('FORGE_SITE_ISOLATION', false),
 
+    // Username for the site isolation (default: formated branch name).
+    'site_isolation_username' => env('FORGE_SITE_ISOLATION_USERNAME', null),
+
     // Flag indicating if a job scheduler is needed (default: false).
     'job_scheduler_required' => env('FORGE_JOB_SCHEDULER', false),
 
