@@ -15,6 +15,7 @@ namespace App\Services\Github;
 
 use App\Services\Forge\ForgeSetting;
 use Illuminate\Http\Client\Response;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
@@ -98,7 +99,7 @@ class GithubService
         $existingDeployKey = [];
 
         foreach ($keys as $key) {
-            if (Str::contains($title, $key['title'])) {
+            if (Str::contains($title, Arr::get($key, 'title'))) {
                 $existingDeployKey = $key;
             }
         }
