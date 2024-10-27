@@ -123,7 +123,7 @@ class GithubService
                 $keyTitle
             )
         );
-        $this->information(sprintf('Deploy Keys found for delete: #%s', $gitProvider));
+        $this->information(sprintf('Deploy Keys found for delete: #%s', count($deployKeys)));
 
         foreach ($deployKeys as $deployKey) {
             if (! $deployKeyId = Arr::get($deployKey, 'id')) {
