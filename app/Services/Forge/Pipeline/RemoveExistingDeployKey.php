@@ -17,7 +17,6 @@ use App\Services\Forge\ForgeService;
 use App\Services\Github\GithubService;
 use App\Traits\Outputifier;
 use Closure;
-use Illuminate\Support\Arr;
 
 class RemoveExistingDeployKey
 {
@@ -31,7 +30,7 @@ class RemoveExistingDeployKey
     public function __invoke(ForgeService $service, Closure $next)
     {
         if ($service->setting->githubCreateDeployKey) {
-            $this->information('---> Removing deploy key on GitHub repository.');
+            $this->information('---> Removing existing deploy keys on GitHub repository.');
 
             $this->githubService->deleteAllKeys($service->getDeployKeyTitle());
 

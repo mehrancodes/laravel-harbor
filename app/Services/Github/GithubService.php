@@ -113,17 +113,26 @@ class GithubService
 
     public function deleteAllKeys(string $keyTitle): bool
     {
-        foreach ($this->getDeployKeysByTitle($keyTitle) as $deployKey) {
-            if (! Arr::has($deployKey, 'id')) {
+        $gitProvider = $this->setting->gitProvider;
+        $deployKeys = $this->getDeployKeysByTitle($keyTitle);
+
+        $this->information(
+            sprintf('---> Deploy keys to delete from %s by given title: %s', $gitProvider, $keyTitle)
+        );
+        $this->information(sprintf('Deploy Keys found for delete: #%s', $gitProvider));
+
+        foreach ($deployKeys as $deployKey) {
+            if (! $deployKeyId = Arr::get($deployKey, 'id')) {
                 $this->warning("---> Whoops! No GitHub ID found for the deploy key named: ".$keyTitle);
 
                 continue;
             }
 
-
-            $this->deleteDeployKey(
-                Arr::get($deployKey, 'id')
-            );
+            if ($this->deleteDeployKey($deployKeyId)) {
+                $this->success(
+                    sprintf("---> Removed deploy key #%s from GitHub.", $deployKeyId)
+                );
+            }
         }
 
         return true;
