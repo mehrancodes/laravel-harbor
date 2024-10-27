@@ -117,7 +117,11 @@ class GithubService
         $deployKeys = $this->getDeployKeysByTitle($keyTitle);
 
         $this->information(
-            sprintf('---> Deploy keys to delete from %s by given title: %s', $gitProvider, $keyTitle)
+            sprintf(
+                '---> Getting deploy keys to delete from %s by given title: %s',
+                Str::ucfirst($gitProvider),
+                $keyTitle
+            )
         );
         $this->information(sprintf('Deploy Keys found for delete: #%s', $gitProvider));
 
