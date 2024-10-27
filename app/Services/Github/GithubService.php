@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace App\Services\Github;
 
 use App\Services\Forge\ForgeSetting;
+use App\Traits\Outputifier;
 use Illuminate\Http\Client\Response;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Http;
@@ -22,6 +23,8 @@ use Illuminate\Validation\ValidationException;
 
 class GithubService
 {
+    use Outputifier;
+
     private const API_ACCEPT = 'application/vnd.github+json';
 
     private const API_VERSION = '2022-11-28';
@@ -77,7 +80,7 @@ class GithubService
         return json_decode($result->body(), true);
     }
 
-    public function listDeployKeys(): array
+    public function getDeployKeys(): array
     {
         $uri = sprintf(
             self::API_BASE_URL.'/repos/%s/keys',
@@ -93,18 +96,37 @@ class GithubService
         return json_decode($result->body(), true);
     }
 
-    public function getDeployKey(string $title): array
+    public function getDeployKeysByTitle(string $title): array
     {
-        $keys = $this->listDeployKeys();
-        $existingDeployKey = [];
+        $keys = $this->getDeployKeys();
+
+        $existingDeployKeys = [];
 
         foreach ($keys as $key) {
             if (Str::contains($title, Arr::get($key, 'title'))) {
-                $existingDeployKey = $key;
+                $existingDeployKeys[] = $key;
             }
         }
 
-        return $existingDeployKey;
+        return $existingDeployKeys;
+    }
+
+    public function deleteAllKeys(string $keyTitle): bool
+    {
+        foreach ($this->getDeployKeysByTitle($keyTitle) as $deployKey) {
+            if (! Arr::has($deployKey, 'id')) {
+                $this->warning("---> Whoops! No GitHub ID found for the deploy key named: ".$keyTitle);
+
+                continue;
+            }
+
+
+            $this->deleteDeployKey(
+                Arr::get($deployKey, 'id')
+            );
+        }
+
+        return true;
     }
 
 

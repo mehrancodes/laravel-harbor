@@ -33,15 +33,7 @@ class RemoveExistingDeployKey
         if ($service->setting->githubCreateDeployKey) {
             $this->information('---> Removing deploy key on GitHub repository.');
 
-            $gitHubDeployKey = $this->githubService->getDeployKey($service->getDeployKeyTitle());
-
-            if (! Arr::get($gitHubDeployKey, 'id')) {
-                $this->information('---> No deploy key found.');
-
-                return $next($service);
-            }
-
-            $this->githubService->deleteDeployKey($gitHubDeployKey['id']);
+            $this->githubService->deleteAllKeys($service->getDeployKeyTitle());
 
             $service->site->destroyDeployKey();
         }
