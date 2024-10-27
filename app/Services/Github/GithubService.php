@@ -14,8 +14,9 @@ declare(strict_types=1);
 namespace App\Services\Github;
 
 use App\Services\Forge\ForgeSetting;
+use Illuminate\Http\Client\Response;
 use Illuminate\Support\Facades\Http;
-use Laravel\Forge\Exceptions\ValidationException;
+use Illuminate\Validation\ValidationException;
 
 class GithubService
 {
@@ -43,7 +44,9 @@ class GithubService
             'Authorization' => sprintf('Bearer %s', $this->setting->gitToken),
         ])->post($uri, ['body' => $body]);
 
-        throw_if($result->failed(), ValidationException::class, [$result->body()]);
+        if ($result->failed()) {
+            $this->handleApiErrors($result, 'Comment');
+        }
 
         return json_decode($result->body(), true);
     }
@@ -65,8 +68,41 @@ class GithubService
             'readonly' => $readonly,
         ]);
 
-        throw_if($result->failed() && ! in_array('key is already in use', $result->json('errors.*.message', [])), ValidationException::class, [$result->body()]);
+        if ($result->failed()) {
+            $this->handleApiErrors($result, 'Deploy key');
+        }
 
         return json_decode($result->body(), true);
+    }
+
+    protected function handleApiErrors(Response $response, $apiName): void
+    {
+        // Extract all error messages from the response
+        $errorMessages = $response->json('errors.*.message', []);
+
+        // Check if the specific error 'key is already in use' exists, used when creating a deploy key
+        $isDeployKeyInUse = in_array('key is already in use', $errorMessages);
+
+        if ($isDeployKeyInUse) {
+            throw ValidationException::withMessages([
+                'forbidden' => ['The deploy key is already in use.'],
+            ]);
+        }
+
+        // Handle other specific status codes if needed
+        throw match ($response->status()) {
+            404 => ValidationException::withMessages([
+                'not_found' => ["{$apiName} could not be found."],
+            ]),
+            401 => ValidationException::withMessages([
+                'authorization' => ['Unauthorized. Please check your GitHub token.'],
+            ]),
+            403 => ValidationException::withMessages([
+                'forbidden' => ['Forbidden. You might not have the necessary permissions.'],
+            ]),
+            default => ValidationException::withMessages([
+                'api_error' => ['An unexpected error occurred: ' . $response->body()],
+            ]),
+        };
     }
 }
