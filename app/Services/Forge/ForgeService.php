@@ -103,6 +103,11 @@ class ForgeService
         return Str::replace('-', '_', $dbName);
     }
 
+    public function getDeployKeyTitle(): string
+    {
+        return sprintf('Preview deploy key %s', $this->getFormattedDomainName());
+    }
+
     public function siteNginxTemplate(): string
     {
         return $this->forge->siteNginxFile($this->setting->server, $this->site->id);

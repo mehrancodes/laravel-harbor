@@ -28,7 +28,7 @@ class FindSiteOrFail
         $site = $service->findSite($service->setting->server);
 
         if (is_null($site)) {
-            $this->fail('---> Site not found.');
+            $this->failCommand('---> Site not found.');
 
             return $next;
         }
