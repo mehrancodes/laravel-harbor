@@ -18,6 +18,7 @@ use App\Services\Forge\Pipeline\DestroySite;
 use App\Services\Forge\Pipeline\FindServer;
 use App\Services\Forge\Pipeline\FindSiteOrFail;
 use App\Services\Forge\Pipeline\RemoveDatabaseUser;
+use App\Services\Forge\Pipeline\RemoveExistingDeployKey;
 use App\Services\Forge\Pipeline\RemoveInertiaSupport;
 use App\Services\Forge\Pipeline\RemoveTaskScheduler;
 use App\Services\Forge\Pipeline\RunOptionalCommands;
@@ -43,6 +44,7 @@ class TearDownCommand extends Command
                 RunOptionalCommands::class,
                 RemoveTaskScheduler::class,
                 RemoveDatabaseUser::class,
+                RemoveExistingDeployKey::class,
                 DestroySite::class,
             ])
             ->then(fn () => $this->success('Environment teardown successful! All provisioned resources have been removed.'));

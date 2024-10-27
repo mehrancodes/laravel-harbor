@@ -16,6 +16,7 @@ namespace App\Services\Github;
 use App\Services\Forge\ForgeSetting;
 use Illuminate\Http\Client\Response;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
 
 class GithubService
@@ -73,6 +74,59 @@ class GithubService
         }
 
         return json_decode($result->body(), true);
+    }
+
+    public function listDeployKeys(): array
+    {
+        $uri = sprintf(
+            self::API_BASE_URL.'/repos/%s/keys',
+            $this->setting->repository
+        );
+
+        $result = Http::withHeaders([
+            'accepts' => self::API_ACCEPT,
+            'X-GitHub-Api-Version' => self::API_VERSION,
+            'Authorization' => sprintf('Bearer %s', $this->setting->gitToken),
+        ])->get($uri);
+
+        return json_decode($result->body(), true);
+    }
+
+    public function getDeployKey(string $title): array
+    {
+        $keys = $this->listDeployKeys();
+        $existingDeployKey = [];
+
+        foreach ($keys as $key) {
+            if (Str::contains($title, $key['title'])) {
+                $existingDeployKey = $key;
+            }
+        }
+
+        return $existingDeployKey;
+    }
+
+
+    public function deleteDeployKey(int $keyId): bool
+    {
+        $uri = sprintf(
+            self::API_BASE_URL.'/repos/%s/keys/%s',
+            $this->setting->repository,
+            $keyId
+        );
+
+        $result = Http::withHeaders([
+            'accepts' => self::API_ACCEPT,
+            'X-GitHub-Api-Version' => self::API_VERSION,
+            'Authorization' => sprintf('Bearer %s', $this->setting->gitToken),
+        ])->delete($uri);
+
+
+        if ($result->failed()) {
+            $this->handleApiErrors($result, 'Deploy key');
+        }
+
+        return true;
     }
 
     protected function handleApiErrors(Response $response, $apiName): void
