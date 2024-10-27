@@ -43,7 +43,7 @@ class InstallGitRepository
             $this->information('---> Adding deploy key to GitHub repository.');
 
             $this->githubService->createDeployKey(
-                sprintf('Preview deploy key %s', $service->getFormattedDomainName()),
+                $service->getDeployKeyTitle(),
                 $data['key']
             );
         }
