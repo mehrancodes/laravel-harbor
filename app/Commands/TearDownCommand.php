@@ -20,7 +20,6 @@ use App\Services\Forge\Pipeline\FindSiteOrFail;
 use App\Services\Forge\Pipeline\RemoveDatabaseUser;
 use App\Services\Forge\Pipeline\RemoveExistingDeployKey;
 use App\Services\Forge\Pipeline\RemoveInertiaSupport;
-use App\Services\Forge\Pipeline\RemoveTaskScheduler;
 use App\Services\Forge\Pipeline\RunOptionalCommands;
 use App\Traits\Outputifier;
 use Illuminate\Support\Facades\Pipeline;
@@ -42,7 +41,6 @@ class TearDownCommand extends Command
                 FindSiteOrFail::class,
                 RemoveInertiaSupport::class,
                 RunOptionalCommands::class,
-                RemoveTaskScheduler::class,
                 RemoveDatabaseUser::class,
                 RemoveExistingDeployKey::class,
                 DestroySite::class,
