@@ -105,4 +105,7 @@ return [
 
     // Used to create a Forge daemon to start inertia ssr.
     'inertia_ssr_enabled' => env('INERTIA_SSR_ENABLED', false),
+
+    // The webhook URL to be added to the Forge site.
+    'webhook_url' => env('FORGE_WEBHOOK_URL'),
 ];
