@@ -17,6 +17,14 @@ class MarkdownBuilder
 {
     public function prepareBody(array $rows): string
     {
+        $environmentUrl = '';
+        foreach ($rows as $row) {
+            if ($row['name'] === 'Environment Url') {
+                $environmentUrl = $row['content'];
+                break;
+            }
+        }
+
         $body = [];
 
         foreach ($rows as $row) {
@@ -28,13 +36,8 @@ class MarkdownBuilder
             $body[] = "| **{$row['name']}** | $content |";
         }
 
-        return $this->getGitPrMarkdown($body);
-    }
-
-    private function getGitPrMarkdown(array $body): string
-    {
         return "# Harbor Preview Environment Details
-Hello! Here are the details of the preview environment for this pull request:
+Hello! Here are the details of the [PR preview]($environmentUrl) environment:
 
 | Service     | Location                |
 |-------------|-------------------------|\n"
