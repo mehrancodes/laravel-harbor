@@ -36,6 +36,12 @@ class MarkdownBuilder
             $body[] = "| **{$row['name']}** | $content |";
         }
 
+        return $this->getGitPrMarkdown($body);
+    }
+
+    private function getGitPrMarkdown(array $body): string
+    {
+
         return "# Harbor Preview Environment Details
 Hello! Here are the details of the [PR preview]($environmentUrl) environment:
 
