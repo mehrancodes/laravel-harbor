@@ -13,20 +13,20 @@ class ParseQueueCommands
     use AsAction,
         Outputifier;
 
-    private string $signature = '{connection : The name of the queue connection to work}
-                                {--queue= : The names of the queues to work}
-                                {--timeout= : Maximum seconds a job can run}
-                                {--sleep=3 : Number of seconds to sleep when no job is available}
-                                {--delay= : The number of seconds to delay failed jobs}
-                                {--tries= : Number of times to attempt a job before logging it failed}
-                                {--php_version=php : PHP version to use}
-                                {--environment= : Environment to run the queue worker in}
-                                {--memory= : The memory limit in megabytes}
-                                {--directory= : Working directory}
-                                {--numprocs= : Number of workers to run}
-                                {--stopwaitsecs= : Graceful shutdown seconds allowed for the worker}
-                                {--daemon : Run worker using queue:work instead of queue:listen}
-                                {--force : Force the worker to run even in maintenance mode}';
+    protected string $signature = '{connection : The name of the queue connection to work}
+                                   {--queue= : The names of the queues to work}
+                                   {--timeout= : Maximum seconds a job can run}
+                                   {--sleep=3 : Number of seconds to sleep when no job is available}
+                                   {--delay= : The number of seconds to delay failed jobs}
+                                   {--tries= : Number of times to attempt a job before logging it failed}
+                                   {--php_version=php : PHP version to use}
+                                   {--environment= : Environment to run the queue worker in}
+                                   {--memory= : The memory limit in megabytes}
+                                   {--directory= : Working directory}
+                                   {--numprocs= : Number of workers to run}
+                                   {--stopwaitsecs= : Graceful shutdown seconds allowed for the worker}
+                                   {--daemon : Run worker using queue:work instead of queue:listen}
+                                   {--force : Force the worker to run even in maintenance mode}';
 
     public function handle(array $commands): array
     {
@@ -49,7 +49,7 @@ class ParseQueueCommands
         }, $commands);
     }
 
-    public function definition(): InputDefinition
+    protected function definition(): InputDefinition
     {
         [, $arguments, $options] = Parser::parse($this->signature);
 

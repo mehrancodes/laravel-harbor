@@ -212,7 +212,7 @@ class ForgeSetting
     /**
      * The queue workers to create on new site installation
      */
-    public string $queueWorkers;
+    public ?string $queueWorkers;
 
     public function __construct()
     {
