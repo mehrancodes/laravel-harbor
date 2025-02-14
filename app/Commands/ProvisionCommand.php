@@ -16,6 +16,7 @@ namespace App\Commands;
 use App\Services\Forge\ForgeService;
 use App\Services\Forge\Pipeline\AnnounceSiteOnSlack;
 use App\Services\Forge\Pipeline\CreateDatabase;
+use App\Services\Forge\Pipeline\CreateQueueWorkers;
 use App\Services\Forge\Pipeline\CreateWebhook;
 use App\Services\Forge\Pipeline\DeploySite;
 use App\Services\Forge\Pipeline\EnableInertiaSupport;
@@ -61,6 +62,7 @@ class ProvisionCommand extends Command
                 CreateWebhook::class,
                 RunOptionalCommands::class,
                 EnsureJobScheduled::class,
+                CreateQueueWorkers::class,
                 PutCommentOnPullRequest::class,
                 AnnounceSiteOnSlack::class,
                 EnableInertiaSupport::class,

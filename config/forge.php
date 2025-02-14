@@ -108,4 +108,7 @@ return [
 
     // The webhook URL to be added to the Forge site.
     'webhook_url' => env('FORGE_WEBHOOK_URL'),
+
+    // The queue workers to be added to Forge site
+    'queue_workers' => env('FORGE_QUEUE_WORKERS'),
 ];
