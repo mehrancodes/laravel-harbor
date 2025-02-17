@@ -46,7 +46,7 @@ class EnsureJobScheduled
         $service->forge->createJob($service->server->id, [
             'command' => $command,
             'frequency' => 'minutely',
-            'user' => 'forge',
+            'user' => $service->site->username,
         ]);
     }
 

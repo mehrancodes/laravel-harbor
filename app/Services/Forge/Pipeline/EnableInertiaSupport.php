@@ -44,7 +44,7 @@ class EnableInertiaSupport
 
         $service->forge->createDaemon($service->server->id, [
             'command' => 'php artisan inertia:start-ssr',
-            'user' => 'forge',
+            'user' => $service->site->username,
             'directory' => $service->siteDirectory(),
         ]);
     }
