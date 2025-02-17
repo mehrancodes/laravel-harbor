@@ -111,4 +111,7 @@ return [
 
     // The queue workers to be added to Forge site
     'queue_workers' => env('FORGE_QUEUE_WORKERS'),
+
+    // The daemons to create on a Forge server
+    'daemons' => env('FORGE_DAEMONS'),
 ];

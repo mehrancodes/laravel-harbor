@@ -2,16 +2,16 @@
 
 namespace App\Actions;
 
+use App\Services\Syntax\CommandParser;
+use App\Traits\CommandSyntax;
 use App\Traits\Outputifier;
-use Illuminate\Console\Parser;
 use Lorisleiva\Actions\Concerns\AsAction;
-use Symfony\Component\Console\Input\InputDefinition;
-use Symfony\Component\Console\Input\StringInput;
 
 class ParseQueueCommands
 {
     use AsAction,
-        Outputifier;
+        Outputifier,
+        CommandSyntax;
 
     protected string $signature = '{connection : The name of the queue connection to work}
                                    {--queue= : The names of the queues to work}
@@ -30,11 +30,10 @@ class ParseQueueCommands
 
     public function handle(array $commands): array
     {
-        $definition = $this->definition();
+        $definition = $this->definition($this->signature);
 
-        return array_map(function ($command) use ($definition) {
-            $input = new StringInput($command);
-            $input->bind($definition);
+        return array_map(function (string $command) use ($definition) {
+            $input = $this->input($command, $definition);
 
             if (blank($input->getArgument('connection'))) {
                 $this->failCommand("No queue connection was specified for command: {$command}");
@@ -47,16 +46,5 @@ class ParseQueueCommands
                 ...$input->getOptions(),
             ], fn ($value) => ! is_null($value));
         }, $commands);
-    }
-
-    protected function definition(): InputDefinition
-    {
-        [, $arguments, $options] = Parser::parse($this->signature);
-
-        $definition = new InputDefinition();
-        $definition->setArguments($arguments);
-        $definition->setOptions($options);
-
-        return $definition;
     }
 }

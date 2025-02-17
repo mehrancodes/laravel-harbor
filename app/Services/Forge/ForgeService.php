@@ -156,6 +156,9 @@ class ForgeService
 
     public function siteDirectory(): string
     {
-        return sprintf('/home/%s/%s', $this->site->username, $this->site->name);
+        return Str::chopEnd(
+            subject: $this->site->attributes['web_directory'],
+            needle: $this->site->directory // usually only contains /public
+        );
     }
 }
