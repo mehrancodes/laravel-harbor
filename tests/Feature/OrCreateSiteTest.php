@@ -11,6 +11,7 @@ test('it fails on incorrect payload', function ($site, $expectedErrors) {
     $setting->server = '111111';
     $setting->projectType = 'php';
     $setting->phpVersion = 'php82';
+    $setting->directory = '/public';
     $setting->gitProvider = 'github';
     $setting->repository = 'acme/example';
     $setting->repositoryUrl = null;
