@@ -70,6 +70,11 @@ class ForgeSetting
     public ?string $phpVersion = null;
 
     /**
+     * The directory to deploy the site to.
+     */
+    public ?string $directory = null;
+
+    /**
      * Pattern for subdomains.
      */
     public ?string $subdomainPattern = null;
@@ -245,6 +250,7 @@ class ForgeSetting
             'branch' => ['required', new BranchNameRegex],
             'project_type' => ['string'],
             'php_version' => ['nullable', 'string'],
+            'directory' => ['nullable', 'string'],
             'subdomain_pattern' => ['nullable', 'string'],
             'command' => ['nullable', 'string'],
             'nginx_template' => ['nullable', 'int'],
