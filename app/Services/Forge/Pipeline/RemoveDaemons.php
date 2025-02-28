@@ -60,10 +60,13 @@ class RemoveDaemons
             LineBreaksToArray::run($setting->daemons),
         );
 
-        return collect($configuredDaemons)->contains(
-            fn (array $configuredDaemon) => $configuredDaemon['command'] === $daemon->command
-                && $configuredDaemon['user'] === $daemon->user
-                && $configuredDaemon['directory'] === $daemon->directory
-        );
+        return collect($configuredDaemons)
+            ->whereNotNull('user')
+            ->whereNotNull('directory')
+            ->contains(
+                fn (array $configuredDaemon) => $configuredDaemon['command'] === $daemon->command
+                    && $configuredDaemon['user'] === $daemon->user
+                    && $configuredDaemon['directory'] === $daemon->directory
+            );
     }
 }
