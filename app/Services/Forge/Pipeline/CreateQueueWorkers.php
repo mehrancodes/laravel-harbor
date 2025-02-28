@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\Services\Forge\Pipeline;
 
+use App\Actions\LineBreaksToArray;
 use App\Actions\ParseQueueCommands;
 use App\Services\Forge\ForgeService;
 use App\Traits\Outputifier;
 use Closure;
-use Illuminate\Support\Str;
 
 class CreateQueueWorkers
 {
@@ -21,12 +21,7 @@ class CreateQueueWorkers
         }
 
         $workers = ParseQueueCommands::run(
-            str($service->setting->queueWorkers)
-                ->explode("\n")
-                ->map(Str::squish(...))
-                ->filter()
-                ->values()
-                ->all()
+            LineBreaksToArray::run($service->setting->queueWorkers),
         );
 
         $this->information('Creating queue workers.');

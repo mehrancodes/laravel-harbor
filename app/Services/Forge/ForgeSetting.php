@@ -214,6 +214,11 @@ class ForgeSetting
      */
     public ?string $queueWorkers;
 
+    /**
+     * The daemons to create on new site installation
+     */
+    public ?string $daemons;
+
     public function __construct()
     {
         $this->init(config('forge'));
@@ -271,6 +276,7 @@ class ForgeSetting
             'inertia_ssr_enabled' => ['required', 'boolean'],
             'github_create_deploy_key' => ['required', 'boolean'],
             'queue_workers' => ['nullable', 'string'],
+            'daemons' => ['nullable', 'string'],
         ])->sometimes('git_provider', 'in:custom', function (Fluent $input) {
             return $input->github_create_deploy_key === true;
         });
