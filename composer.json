@@ -52,5 +52,5 @@
     },
     "minimum-stability": "stable",
     "prefer-stable": true,
-    "bin": ["harbor"]
+    "bin": ["harbor2"]
 }
