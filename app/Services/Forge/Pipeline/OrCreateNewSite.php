@@ -41,7 +41,7 @@ class OrCreateNewSite
             'domain' => $service->getFormattedDomainName(),
             'project_type' => $service->setting->projectType,
             'php_version' => $service->setting->phpVersion,
-            'directory' => '/public',
+            'directory' => $service->setting->directory ?? '/public',
         ];
 
         if ($nginxTemplate = $service->setting->nginxTemplate) {
