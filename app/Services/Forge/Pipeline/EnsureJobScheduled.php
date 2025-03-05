@@ -32,7 +32,7 @@ class EnsureJobScheduled
 
     private function setupJobIfRequired(ForgeService $service): void
     {
-        $command = $this->buildScheduledJobCommand($service->site->name);
+        $command = $this->buildScheduledJobCommand($service->site->username, $service->site->name);
 
         foreach ($service->forge->jobs($service->server->id) as $job) {
             if ($job->command === $command) {
@@ -50,8 +50,8 @@ class EnsureJobScheduled
         ]);
     }
 
-    protected function buildScheduledJobCommand(string $domain): string
+    protected function buildScheduledJobCommand(string $username, string $domain): string
     {
-        return sprintf('php /home/forge/%s/artisan schedule:run', $domain);
+        return sprintf('php /home/%s/%s/artisan schedule:run', $username, $domain);
     }
 }

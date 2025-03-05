@@ -17,15 +17,22 @@ use App\Services\Forge\ForgeService;
 use App\Traits\Outputifier;
 use Closure;
 
-class DestroySite
+class RemoveTaskScheduler
 {
     use Outputifier;
 
     public function __invoke(ForgeService $service, Closure $next)
     {
-        $this->information('Processing site deletion.');
+        foreach ($service->forge->jobs($service->setting->server) as $job) {
+            if ($job->command === sprintf('php /home/%s/%s/artisan schedule:run', $service->site->username, $service->site->name)) {
+                $this->information('Removing scheduled command.');
 
-        $service->site->delete();
+                $job->delete();
+            }
+        }
+
+        // Wait a few seconds to make sure the scheduler is fully removed before kicking off the next task
+        sleep(10);
 
         return $next($service);
     }
