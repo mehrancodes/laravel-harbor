@@ -39,6 +39,7 @@ class OrCreateNewSite
     {
         $data = [
             'domain' => $service->getFormattedDomainName(),
+            'aliases' => $service->getFormattedAliases(),
             'project_type' => $service->setting->projectType,
             'php_version' => $service->setting->phpVersion,
             'directory' => '/public',
