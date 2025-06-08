@@ -43,7 +43,7 @@ class TearDownCommand extends Command
                 FindSiteOrFail::class,
                 RemoveInertiaSupport::class,
                 RunOptionalCommands::class,
-                RemoveDatabaseUser::class,
+//                RemoveDatabaseUser::class,
                 RemoveExistingDeployKey::class,
                 RemoveDaemons::class,
                 RemoveTaskScheduler::class,
