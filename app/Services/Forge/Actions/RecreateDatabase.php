@@ -22,7 +22,7 @@ class RecreateDatabase
 
     /**
      * Handle database recreation and creation process
-     * 
+     *
      * @param ForgeService $service The forge service
      * @param string $dbName The database name
      * @param string $dbPassword Password for database creation
@@ -43,9 +43,9 @@ class RecreateDatabase
             return true; // Still need to update env vars even if we don't create DB
         }
 
-        $this->information('Force deleting existing matched database and user if found.');
-
         if (isset($databaseId)) {
+            $this->information('Force deleting existing matched database.');
+
             $service->forge->deleteDatabase($service->server->id, $databaseId);
             $this->information('---> Existing database deleted: ' . $dbName);
         }
@@ -61,7 +61,7 @@ class RecreateDatabase
             $this->information('---> Waiting for the database deletion to complete...');
             $this->waitForDatabaseDeletion();
         }
-        
+
         // Create the database with the provided password
         $this->information('Creating database.');
         $this->createDatabase($service, $dbName, $dbPassword);
@@ -76,7 +76,7 @@ class RecreateDatabase
     {
         sleep(6);
     }
-    
+
     /**
      * Create a new database on the server
      */
@@ -87,7 +87,7 @@ class RecreateDatabase
             'user' => $dbName,
             'password' => $dbPassword,
         ]);
-        
+
         $this->information('Database created: ' . $dbName);
     }
 }
