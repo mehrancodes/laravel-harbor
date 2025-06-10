@@ -61,9 +61,6 @@ return [
     // Flag indicating if a database should be created (default: false).
     'db_creation_required' => env('FORGE_DB_CREATION_REQUIRED', false),
 
-    // Flag indicating if Harbor should remove the existing old database (default: false).
-    'force_delete_old_database' => env('FORCE_DELETE_OLD_DATABASE', false),
-
     // Flag to enable Quick Deploy (default: true).
     'quick_deploy' => env('FORGE_QUICK_DEPLOY', false),
 
