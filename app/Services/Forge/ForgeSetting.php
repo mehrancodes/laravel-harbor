@@ -130,11 +130,6 @@ class ForgeSetting
     public bool $dbCreationRequired;
 
     /**
-     * Flag indicating if Harbor should remove the existing old database.
-     */
-    public bool $forceDeleteOldDatabase;
-
-    /**
      * The name of the database to be created
      */
     public ?string $dbName;
@@ -263,7 +258,6 @@ class ForgeSetting
             'site_isolation_username' => ['nullable', 'string'],
             'job_scheduler_required' => ['boolean'],
             'db_creation_required' => ['boolean'],
-            'force_delete_old_database' => ['boolean'],
             'db_name' => ['nullable', 'string'],
             'auto_source_required' => ['boolean'],
             'ssl_required' => ['boolean'],
