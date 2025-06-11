@@ -46,6 +46,9 @@ return [
     // Type of the project (default: 'php').
     'project_type' => env('FORGE_PROJECT_TYPE', 'php'),
 
+    // The directory to deploy the site to (default: '/public').
+    'directory' => env('FORGE_DIRECTORY', '/public'),
+
     // Flag indicating if site isolation is needed (default: false).
     'site_isolation_required' => env('FORGE_SITE_ISOLATION', false),
 
