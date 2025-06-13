@@ -42,7 +42,7 @@ class ForgeSetting
     /**
      * Website's aliases.
      */
-    public string $aliases;
+    public ?string $aliases;
 
     /**
      * Git service provider (e.g., github, gitlab).
