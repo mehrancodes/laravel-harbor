@@ -65,3 +65,17 @@ test('it gets the site aliases from settings', function () {
             'test-domain.alias3.se',
         ]);
 });
+
+test('it handles empty aliases string correctly', function () {
+    $setting = Mockery::mock(ForgeSetting::class);
+    $setting->subdomainName = 'test-domain';
+    $setting->aliases = '';
+    $setting->timeoutSeconds = 0;
+
+    $service = new ForgeService($setting, new Forge);
+
+    expect($service->getFormattedAliases())
+        ->toBeArray()
+        ->toHaveCount(1)
+        ->toBe(['test-domain.']);
+});
