@@ -47,3 +47,35 @@ test('it gets the site link using HTTP when SSL is not required', function () {
 
     expect($service->getSiteLink())->toBe('http://foo.bar');
 });
+
+test('it gets the site aliases from settings', function () {
+
+    $setting = Mockery::mock(ForgeSetting::class);
+    $setting->subdomainName = 'test-domain';
+    $setting->aliases = 'alias1.com, alias2.de, alias3.se';
+    $setting->timeoutSeconds = 0;
+
+    $service = new ForgeService($setting,  new Forge);
+
+    expect($service->getFormattedAliases())
+        ->toBeArray()
+        ->toBe([
+            'test-domain.alias1.com',
+            'test-domain.alias2.de',
+            'test-domain.alias3.se',
+        ]);
+});
+
+test('it handles empty aliases string correctly', function () {
+    $setting = Mockery::mock(ForgeSetting::class);
+    $setting->subdomainName = 'test-domain';
+    $setting->aliases = '';
+    $setting->timeoutSeconds = 0;
+
+    $service = new ForgeService($setting, new Forge);
+
+    expect($service->getFormattedAliases())
+        ->toBeArray()
+        ->toHaveCount(1)
+        ->toBe(['test-domain.']);
+});

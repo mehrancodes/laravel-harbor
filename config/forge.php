@@ -10,6 +10,9 @@ return [
     // Website's domain name.
     'domain' => env('FORGE_DOMAIN'),
 
+    // Website's aliases
+    'aliases' => env('FORGE_ALIASES'),
+
     // Git service provider (default: 'github').
     'git_provider' => env('FORGE_GIT_PROVIDER', 'github'),
 

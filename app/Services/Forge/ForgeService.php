@@ -81,6 +81,15 @@ class ForgeService
         );
     }
 
+    public function getFormattedAliases(): array
+    {
+        $subdomain = $this->setting->subdomainName ?? $this->getFormattedBranchName();
+
+        return collect(explode(',', $this->setting->aliases) ?? [])
+            ->map(fn($alias) => GenerateDomainName::run(trim($alias), $subdomain))
+            ->toArray();
+    }
+
     public function getSiteIsolationUsername(): string
     {
         if (!empty($this->setting->siteIsolationUsername)) {
@@ -151,7 +160,7 @@ class ForgeService
             return $this->setting->environmentUrl;
         }
 
-        return ($this->setting->sslRequired ? 'https://' : 'http://').$this->site->name;
+        return ($this->setting->sslRequired ? 'https://' : 'http://') . $this->site->name;
     }
 
     public function siteDirectory(): string
