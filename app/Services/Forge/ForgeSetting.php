@@ -40,6 +40,11 @@ class ForgeSetting
     public string $domain;
 
     /**
+     * Website's aliases.
+     */
+    public ?string $aliases;
+
+    /**
      * Git service provider (e.g., github, gitlab).
      */
     public string $gitProvider;
@@ -249,6 +254,7 @@ class ForgeSetting
             'token' => ['required'],
             'server' => ['required'],
             'domain' => ['required'],
+            'aliases' => ['nullable', 'string'],
             'git_provider' => ['required'],
             'repository' => ['required'],
             'repository_url' => ['nullable', 'string', 'required_if:git_provider,custom'],

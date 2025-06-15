@@ -57,6 +57,10 @@ class OrCreateNewSite
             $data['username'] = $service->getSiteIsolationUsername();
         }
 
+        if ($aliases = $service->getFormattedAliases()) {
+            $data['aliases'] = $aliases;
+        }
+
         return $data;
     }
 }
