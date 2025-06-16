@@ -83,9 +83,13 @@ class ForgeService
 
     public function getFormattedAliases(): array
     {
-        $subdomain = $this->setting->subdomainName ?? $this->getFormattedBranchName();
+        if ($this->setting->aliases === null) {
+            return [];
+        }
 
-        return collect(explode(',', $this->setting->aliases) ?? [])
+        $subdomain = $this->setting->subdomainName ?? $this->getFormattedBranchName();
+        
+        return collect(explode(',', $this->setting->aliases))
             ->map(fn($alias) => GenerateDomainName::run(trim($alias), $subdomain))
             ->toArray();
     }
