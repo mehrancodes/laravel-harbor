@@ -13,8 +13,7 @@ declare(strict_types=1);
 
 namespace App\Services\Forge\Pipeline;
 
-use App\Actions\MergeEnvironmentVariables;
-use App\Actions\TextToArray;
+use App\Actions\Forge\UpdateForgeEnvironmentVariables;
 use App\Services\Forge\ForgeService;
 use App\Traits\Outputifier;
 use Closure;
@@ -25,25 +24,12 @@ class UpdateEnvironmentVariables
 
     public function __invoke(ForgeService $service, Closure $next)
     {
-        $newKeys = array_merge(TextToArray::run($service->setting->envKeys), $service->database);
+        $updated = resolve(UpdateForgeEnvironmentVariables::class)->handle($service);
 
-        if (! empty($newKeys)) {
-            $this->information('Processing update of environment variables.');
-
-            $service->forge->updateSiteEnvironmentFile(
-                $service->server->id,
-                $service->site->id,
-                $this->getBothEnvsMerged($service, $newKeys)
-            );
+        if ($updated) {
+            $this->information('Environment variables have been updated successfully.');
         }
 
         return $next($service);
-    }
-
-    protected function getBothEnvsMerged(ForgeService $service, array $newKeys): string
-    {
-        $source = $service->forge->siteEnvironmentFile($service->server->id, $service->site->id);
-
-        return MergeEnvironmentVariables::run($source, $newKeys);
     }
 }
