@@ -73,6 +73,9 @@ return [
     // Override default database and database username, if needed. Defaults to the site name.
     'db_name' => env('FORGE_DB_NAME', null),
 
+    // Default database password. Defaults to a random 16 character string.
+    'default_db_password' => env('FORGE_DEFAULT_DB_PASSWORD', null),
+
     // Flag to enable SSL certification (default: false).
     'ssl_required' => env('FORGE_SSL_REQUIRED', false),
 

@@ -22,14 +22,14 @@ use Illuminate\Support\Str;
 class CreateDatabase
 {
     use Outputifier;
-    
+
     private RecreateDatabase $recreateDatabase;
 
-    public function __construct(RecreateDatabase $recreateDatabase = null)
+    public function __construct(?RecreateDatabase $recreateDatabase = null)
     {
-        $this->recreateDatabase = $recreateDatabase ?? new RecreateDatabase();
+        $this->recreateDatabase = $recreateDatabase ?? new RecreateDatabase;
     }
-    
+
     public function __invoke(ForgeService $service, Closure $next)
     {
         if (! $service->setting->dbCreationRequired || ! $service->siteNewlyMade) {
@@ -37,8 +37,8 @@ class CreateDatabase
         }
 
         $dbName = $service->getFormattedDatabaseName();
-        $dbPassword = Str::random(16);
-        
+        $dbPassword = $service->setting->defaultDbPassword ?? Str::random(16);
+
         // Handle DB recreation and creation in one call
         $this->recreateDatabase->handle($service, $dbName, $dbPassword);
 
@@ -50,8 +50,4 @@ class CreateDatabase
 
         return $next($service);
     }
-
-
-
-
 }

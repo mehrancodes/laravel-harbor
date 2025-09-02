@@ -145,6 +145,11 @@ class ForgeSetting
     public ?string $dbName;
 
     /**
+     * Default db password
+     */
+    public ?string $defaultDbPassword;
+
+    /**
      * Flag to auto-source environment variables in deployment.
      */
     public bool $autoSourceRequired;
@@ -271,6 +276,7 @@ class ForgeSetting
             'db_creation_required' => ['boolean'],
             'force_delete_old_database' => ['boolean'],
             'db_name' => ['nullable', 'string'],
+            'default_db_password' => ['nullable', 'string'],
             'auto_source_required' => ['boolean'],
             'ssl_required' => ['boolean'],
             'wait_on_ssl' => ['boolean'],
