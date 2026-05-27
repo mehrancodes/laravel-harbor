@@ -14,7 +14,7 @@ class ForgeRequest extends Request
     public function __construct(
         Method $method,
         protected string $endpoint,
-        protected array $query = [],
+        protected array $queryParams = [],
     ) {
         $this->method = $method;
     }
@@ -26,6 +26,6 @@ class ForgeRequest extends Request
 
     protected function defaultQuery(): array
     {
-        return $this->query;
+        return $this->queryParams;
     }
 }

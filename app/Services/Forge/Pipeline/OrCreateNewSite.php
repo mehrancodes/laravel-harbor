@@ -42,7 +42,10 @@ class OrCreateNewSite
     {
         $data = [
             'type' => $service->setting->projectType,
+            'domain_mode' => 'custom',
             'name' => $service->getFormattedDomainName(),
+            'www_redirect_type' => 'none',
+            'allow_wildcard_subdomains' => false,
             'php_version' => $service->setting->phpVersion,
             'web_directory' => '/public',
             'source_control_provider' => $service->setting->gitProvider,

@@ -28,10 +28,7 @@ class ForgeApiResponse
     protected static function throwFrom(Response $response): never
     {
         $payload = $response->json();
-        $errors = collect($payload['errors'] ?? [])
-            ->map(fn (array $error): string => $error['detail'] ?? $error['title'] ?? 'Unknown API error')
-            ->values()
-            ->all();
+        $errors = static::extractErrors($payload);
 
         $message = $errors !== [] ? implode(PHP_EOL, $errors) : (string) ($payload['message'] ?? 'Forge API request failed.');
 
@@ -40,5 +37,37 @@ class ForgeApiResponse
         }
 
         throw new ForgeApiException($message, $response->status(), $errors);
+    }
+
+    protected static function extractErrors(array $payload): array
+    {
+        $errors = $payload['errors'] ?? [];
+
+        if (! is_array($errors) || $errors === []) {
+            return [];
+        }
+
+        // JSON:API format: errors: [{ detail, title, ... }]
+        if (array_is_list($errors)) {
+            return collect($errors)
+                ->map(function (mixed $error): string {
+                    if (! is_array($error)) {
+                        return 'Unknown API error';
+                    }
+
+                    return (string) ($error['detail'] ?? $error['title'] ?? 'Unknown API error');
+                })
+                ->filter()
+                ->values()
+                ->all();
+        }
+
+        // Laravel validation format: errors: { field: [messages...] }
+        return collect($errors)
+            ->flatMap(fn (mixed $messages, string $field) => collect((array) $messages)
+                ->map(fn (mixed $message) => sprintf('%s: %s', $field, (string) $message)))
+            ->filter()
+            ->values()
+            ->all();
     }
 }

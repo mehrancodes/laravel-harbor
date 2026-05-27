@@ -28,6 +28,7 @@ class ForgeSiteData
         $attributes = JsonApiData::attributes($resource);
         $webDirectory = $attributes['web_directory'] ?? null;
         $rootDirectory = $attributes['root_directory'] ?? null;
+        $repository = $attributes['repository'] ?? null;
 
         $directory = null;
 
@@ -40,11 +41,26 @@ class ForgeSiteData
             name: (string) ($attributes['name'] ?? ''),
             status: $attributes['status'] ?? null,
             username: (string) ($attributes['user'] ?? ''),
-            repository: $attributes['repository'] ?? null,
+            repository: self::resolveRepository($repository),
             webDirectory: $webDirectory,
             rootDirectory: $rootDirectory,
             directory: $directory,
             deploymentUrl: $attributes['deployment_url'] ?? null,
         );
+    }
+
+    private static function resolveRepository(mixed $repository): ?string
+    {
+        if (is_string($repository)) {
+            return $repository;
+        }
+
+        if (is_array($repository)) {
+            $url = $repository['url'] ?? null;
+
+            return is_string($url) ? $url : null;
+        }
+
+        return null;
     }
 }

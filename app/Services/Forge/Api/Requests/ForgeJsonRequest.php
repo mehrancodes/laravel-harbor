@@ -4,11 +4,12 @@ declare(strict_types=1);
 
 namespace App\Services\Forge\Api\Requests;
 
+use Saloon\Contracts\Body\HasBody;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
 use Saloon\Traits\Body\HasJsonBody;
 
-class ForgeJsonRequest extends Request
+class ForgeJsonRequest extends Request implements HasBody
 {
     use HasJsonBody;
 
@@ -17,8 +18,8 @@ class ForgeJsonRequest extends Request
     public function __construct(
         Method $method,
         protected string $endpoint,
-        protected array $body = [],
-        protected array $query = [],
+        protected array $bodyPayload = [],
+        protected array $queryParams = [],
     ) {
         $this->method = $method;
     }
@@ -30,11 +31,11 @@ class ForgeJsonRequest extends Request
 
     protected function defaultBody(): array
     {
-        return $this->body;
+        return $this->bodyPayload;
     }
 
     protected function defaultQuery(): array
     {
-        return $this->query;
+        return $this->queryParams;
     }
 }
