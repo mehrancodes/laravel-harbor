@@ -16,9 +16,15 @@ class JsonApiData
         return $resource['attributes'] ?? [];
     }
 
-    public static function id(array $resource): string|int|null
+    public static function id(array $resource): string|int
     {
-        return $resource['id'] ?? null;
+        $id = $resource['id'] ?? null;
+
+        if (! is_string($id) && ! is_int($id)) {
+            throw new \UnexpectedValueException('Invalid Forge API resource: missing id.');
+        }
+
+        return $id;
     }
 
     public static function relationshipIds(array $resource, string $relationship): array
