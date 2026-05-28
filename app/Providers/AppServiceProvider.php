@@ -19,8 +19,10 @@ class AppServiceProvider extends ServiceProvider
 
     public function register(): void
     {
+        $this->app->singleton(ForgeSetting::class, fn () => new ForgeSetting());
+
         $this->app->singleton(ForgeClient::class, function () {
-            $setting = new ForgeSetting();
+            $setting = app(ForgeSetting::class);
 
             return new SaloonForgeClient(
                 connector: new ForgeConnector($setting->token, (int) $setting->timeoutSeconds),
@@ -30,10 +32,8 @@ class AppServiceProvider extends ServiceProvider
         });
 
         $this->app->singleton(ForgeService::class, function () {
-            $setting = new ForgeSetting();
-
             return new ForgeService(
-                $setting,
+                app(ForgeSetting::class),
                 app(ForgeClient::class)
             );
         });
