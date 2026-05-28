@@ -14,18 +14,12 @@ declare(strict_types=1);
 namespace App\Services\Forge\Pipeline;
 
 use App\Services\Forge\ForgeService;
-use App\Services\Github\GithubService;
 use App\Traits\Outputifier;
 use Closure;
 
 class InstallGitRepository
 {
     use Outputifier;
-
-    public function __construct(public GithubService $githubService)
-    {
-        //
-    }
 
     public function __invoke(ForgeService $service, Closure $next)
     {
