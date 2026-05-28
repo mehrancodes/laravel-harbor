@@ -89,6 +89,5 @@ test('it handles empty aliases string correctly', function () {
 
     expect($service->getFormattedAliases())
         ->toBeArray()
-        ->toHaveCount(1)
-        ->toBe(['test-domain.']);
+        ->toBe([]);
 });

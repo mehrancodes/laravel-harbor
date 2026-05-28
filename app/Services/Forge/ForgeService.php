@@ -86,7 +86,7 @@ class ForgeService
 
     public function getFormattedAliases(): array
     {
-        if ($this->setting->aliases === null) {
+        if ($this->setting->aliases === null || $this->setting->aliases === '') {
             return [];
         }
 
