@@ -25,7 +25,7 @@ class DeploySite
     {
         $this->information('Start deploying the site.');
 
-        $service->deploySite();
+        $service->deploySite($service->setting->waitOnDeploy);
 
         return $next($service);
     }

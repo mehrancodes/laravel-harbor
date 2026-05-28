@@ -198,9 +198,13 @@ class ForgeService
         $this->client->deleteSite($this->setting->server, $this->site->id);
     }
 
-    public function deploySite(): void
+    public function deploySite(bool $waitOnDeploy = false): void
     {
         $this->client->deploySite($this->setting->server, $this->site->id);
+
+        if ($waitOnDeploy) {
+            $this->waitUntilDeployCompletes();
+        }
     }
 
     public function enableQuickDeploy(): void
@@ -342,6 +346,31 @@ class ForgeService
 
             $this->client->enableLetsEncrypt($this->setting->server, $this->site->id, $domain->id);
         }
+    }
+
+    protected function waitUntilDeployCompletes(): void
+    {
+        $startedAt = time();
+        $timeoutAt = $startedAt + (int) $this->setting->timeoutSeconds;
+        $readyStates = ['deployed', 'installed', 'never-deployed'];
+        $failedStates = ['failed', 'removing', 'uninstalling'];
+
+        while (time() <= $timeoutAt) {
+            $latestSite = $this->client->getSite($this->setting->server, $this->site->id);
+            $this->setSite($latestSite);
+
+            if (in_array($latestSite->status, $readyStates, true)) {
+                return;
+            }
+
+            if (in_array($latestSite->status, $failedStates, true)) {
+                throw new RuntimeException("Site deployment failed with status [{$latestSite->status}].");
+            }
+
+            sleep(5);
+        }
+
+        throw new RuntimeException('Timed out while waiting for site deployment to complete.');
     }
 
     protected function waitUntilSiteIsInstalled(ForgeSiteData $site): ForgeSiteData
