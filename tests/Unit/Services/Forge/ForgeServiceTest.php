@@ -5,7 +5,7 @@ use App\Services\Forge\Api\ForgeClient;
 use App\Services\Forge\Data\ForgeSiteData;
 use App\Services\Forge\ForgeSetting;
 
-test('it gets the site link using the environment URL when explicity provided', function () {
+test('it gets the site link using the environment URL when explicitly provided', function () {
 
     $setting = Mockery::mock(ForgeSetting::class);
     $setting->environmentUrl = 'https://foo.bar';
