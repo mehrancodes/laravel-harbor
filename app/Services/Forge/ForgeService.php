@@ -363,7 +363,7 @@ class ForgeService
             }
 
             sleep(5);
-            $latestSite = $this->client->getSite($site->id);
+            $latestSite = $this->client->getSite($this->setting->server, $site->id);
         }
 
         throw new RuntimeException('Timed out while waiting for site provisioning to complete.');

@@ -42,9 +42,9 @@ class SaloonForgeClient implements ForgeClient
         return array_map(static fn (array $resource) => ForgeSiteData::fromResource($resource), $resources);
     }
 
-    public function getSite(string|int $siteId): ForgeSiteData
+    public function getSite(string|int $serverId, string|int $siteId): ForgeSiteData
     {
-        $payload = $this->sendRequest(Method::GET, $this->endpoint("/sites/{$siteId}"));
+        $payload = $this->sendRequest(Method::GET, $this->endpoint("/servers/{$serverId}/sites/{$siteId}"));
 
         return ForgeSiteData::fromResource(JsonApiData::data($payload));
     }

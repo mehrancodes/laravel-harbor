@@ -21,7 +21,7 @@ interface ForgeClient
      */
     public function listSites(string|int $serverId): array;
 
-    public function getSite(string|int $siteId): ForgeSiteData;
+    public function getSite(string|int $serverId, string|int $siteId): ForgeSiteData;
 
     public function createSite(string|int $serverId, array $payload): ForgeSiteData;
 
