@@ -5,7 +5,7 @@ return [
     'token' => env('FORGE_TOKEN'),
 
     // Forge organization slug.
-    'organization' => env('FORGE_ORGANIZATION', 'default'),
+    'organization' => env('FORGE_ORGANIZATION'),
 
     // Forge Identifier for the server.
     'server' => env('FORGE_SERVER'),
