@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace App\Exceptions;
 
-use App\Services\Forge\Api\Exceptions\ForgeValidationException as ForgeApiValidationException;
+use App\Services\Forge\Api\Exceptions\ForgeApiException;
 use App\Services\Forge\Exceptions\ValidationException as ForgeSettingValidationException;
 use App\Traits\Outputifier;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
@@ -40,8 +40,8 @@ class Handler extends ExceptionHandler
             return $render($e->errors());
         });
 
-        $this->reportable(function (ForgeApiValidationException $e) use ($render) {
-            return $render($e->errors());
+        $this->reportable(function (ForgeApiException $e) use ($render) {
+            return $render($e->errors() !== [] ? $e->errors() : [$e->getMessage()]);
         });
 
         $this->reportable(function (\Illuminate\Validation\ValidationException $e) use ($render) {
