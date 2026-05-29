@@ -44,7 +44,7 @@ class SaloonForgeClient implements ForgeClient
 
     public function getSite(string|int $serverId, string|int $siteId): ForgeSiteData
     {
-        $payload = $this->sendRequest(Method::GET, $this->endpoint("/servers/{$serverId}/sites/{$siteId}"));
+        $payload = $this->sendRequest(Method::GET, $this->endpoint("/sites/{$siteId}"));
 
         return ForgeSiteData::fromResource(JsonApiData::data($payload));
     }
