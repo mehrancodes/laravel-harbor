@@ -11,7 +11,6 @@ use App\Services\Forge\ForgeSetting;
 use App\Traits\Outputifier;
 use Closure;
 use Illuminate\Support\Str;
-use Laravel\Forge\Resources\Daemon;
 
 class RemoveDaemons
 {
@@ -19,22 +18,22 @@ class RemoveDaemons
 
     public function __invoke(ForgeService $service, Closure $next)
     {
-        $daemons = $service->forge->daemons($service->server->id);
+        $daemons = $service->daemons();
 
         $this->information('Deleting daemons');
 
         foreach ($daemons as $daemon) {
             // If the daemon is running under the same user as the site in user isolation mode.
             if ($service->setting->siteIsolationRequired && $daemon->user === $service->site->username) {
-                $service->forge->deleteDaemon($service->server->id, $daemon->id);
+                $service->deleteDaemon($daemon->id);
                 $this->information("--> Deleted daemon under user: {$daemon->command}");
 
                 continue;
             }
 
             // If the daemon is running from the same directory as the site.
-            if (Str::contains(haystack: $daemon->directory, needles: $service->siteDirectory())) {
-                $service->forge->deleteDaemon($service->server->id, $daemon->id);
+            if (! empty($daemon->directory) && Str::contains(haystack: $daemon->directory, needles: $service->siteDirectory())) {
+                $service->deleteDaemon($daemon->id);
                 $this->information("--> Deleted daemon under directory: {$daemon->command}");
 
                 continue;
@@ -42,7 +41,7 @@ class RemoveDaemons
 
             // If a daemon can be detected as being one that was configured by us.
             if ($this->daemonWasAddedForThisSite($daemon, $service->setting)) {
-                $service->forge->deleteDaemon($service->server->id, $daemon->id);
+                $service->deleteDaemon($daemon->id);
                 $this->information("--> Deleted daemon created with site: {$daemon->command}");
             }
         }
@@ -50,7 +49,7 @@ class RemoveDaemons
         return $next($service);
     }
 
-    protected function daemonWasAddedForThisSite(Daemon $daemon, ForgeSetting $setting): bool
+    protected function daemonWasAddedForThisSite(object $daemon, ForgeSetting $setting): bool
     {
         if (empty($setting->daemons)) {
             return false;

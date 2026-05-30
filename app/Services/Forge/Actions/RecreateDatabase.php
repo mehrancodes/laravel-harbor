@@ -31,7 +31,7 @@ class RecreateDatabase
     public function handle(ForgeService $service, string $dbName, string $dbPassword): bool
     {
         $databaseId = null;
-        foreach ($service->forge->databases($service->server->id) as $database) {
+        foreach ($service->databases() as $database) {
             if (isset($database->name) && $database->name === $dbName) {
                 $databaseId = $database->id;
             }
@@ -46,13 +46,13 @@ class RecreateDatabase
         if (isset($databaseId)) {
             $this->information('Force deleting existing matched database.');
 
-            $service->forge->deleteDatabase($service->server->id, $databaseId);
+            $service->deleteDatabase($databaseId);
             $this->information('---> Existing database deleted: ' . $dbName);
         }
 
-        foreach ($service->forge->databaseUsers($service->server->id) as $user) {
+        foreach ($service->databaseUsers() as $user) {
             if (isset($user->name) && $user->name === $dbName) {
-                $service->forge->deleteDatabaseUser($service->server->id, $user->id);
+                $service->deleteDatabaseUser($user->id);
                 $this->information('---> Existing database user found and deleted: ' . $dbName);
             }
         }
@@ -82,7 +82,7 @@ class RecreateDatabase
      */
     public function createDatabase(ForgeService $service, string $dbName, string $dbPassword): void
     {
-        $service->forge->createDatabase($service->server->id, [
+        $service->createDatabase([
             'name' => $dbName,
             'user' => $dbName,
             'password' => $dbPassword,

@@ -26,9 +26,7 @@ class RunOptionalCommands
         if ($content = $service->setting->command) {
             $this->information('Executing site command(s).');
 
-            $service->forge->executeSiteCommand($service->setting->server, $service->site->id, [
-                'command' => $content,
-            ]);
+            $service->executeSiteCommand($content);
         }
 
         return $next($service);

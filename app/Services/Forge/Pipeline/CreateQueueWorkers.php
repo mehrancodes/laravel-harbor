@@ -27,13 +27,39 @@ class CreateQueueWorkers
         $this->information('Creating queue workers.');
 
         foreach ($workers as $worker) {
-            $service->forge->createWorker(
-                serverId: $service->server->id,
-                siteId: $service->site->id,
-                data: $worker
-            );
+            $service->createDaemon([
+                'name' => sprintf('Queue worker (%s)', $worker['connection'] ?? 'default'),
+                'command' => $this->buildQueueWorkerCommand($worker),
+                'user' => $service->site->username,
+                'directory' => $worker['directory'] ?? $service->siteDirectory(),
+                'processes' => (int) ($worker['numprocs'] ?? 1),
+                'startsecs' => 0,
+                'stopwaitsecs' => (int) ($worker['stopwaitsecs'] ?? 10),
+                'stopsignal' => 'SIGTERM',
+            ]);
         }
 
         return $next($service);
+    }
+
+    protected function buildQueueWorkerCommand(array $worker): string
+    {
+        $binary = $worker['php_version'] ?? 'php';
+        $verb = ! empty($worker['daemon']) ? 'queue:work' : 'queue:listen';
+        $command = [$binary, 'artisan', $verb, $worker['connection']];
+
+        foreach (['queue', 'timeout', 'sleep', 'delay', 'tries', 'environment', 'memory'] as $option) {
+            if (! isset($worker[$option])) {
+                continue;
+            }
+
+            $command[] = sprintf('--%s=%s', $option, $worker[$option]);
+        }
+
+        if (! empty($worker['force'])) {
+            $command[] = '--force';
+        }
+
+        return implode(' ', $command);
     }
 }

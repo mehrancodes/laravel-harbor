@@ -26,10 +26,13 @@ class OrCreateNewSite
         if (is_null($service->site)) {
             $this->information('Creating a new site.');
 
-            $service->createSite(
+            $site = $service->createSite(
                 $service->setting->server,
                 $this->gatherSiteData($service)
             );
+
+            $service->setSite($site);
+            $this->addAliases($service);
         }
 
         return $next($service);
@@ -38,29 +41,41 @@ class OrCreateNewSite
     private function gatherSiteData(ForgeService $service): array
     {
         $data = [
-            'domain' => $service->getFormattedDomainName(),
-            'project_type' => $service->setting->projectType,
+            'type' => $service->setting->projectType,
+            'domain_mode' => 'custom',
+            'name' => $service->getFormattedDomainName(),
+            'www_redirect_type' => 'none',
+            'allow_wildcard_subdomains' => false,
             'php_version' => $service->setting->phpVersion,
-            'directory' => '/public',
+            'web_directory' => '/public',
+            'source_control_provider' => $service->setting->gitProvider,
+            'repository' => $service->setting->gitProvider !== 'custom' ? $service->setting->repository : $service->setting->repositoryUrl,
+            'branch' => $service->setting->branch,
+            'push_to_deploy' => $service->setting->quickDeploy,
+            'generate_deploy_key' => $service->setting->githubCreateDeployKey,
         ];
 
         if ($nginxTemplate = $service->setting->nginxTemplate) {
             $this->information('---> Use the specified Nginx template.');
 
-            $data['nginx_template'] = $nginxTemplate;
+            $data['nginx_template_id'] = (int) $nginxTemplate;
         }
 
         if ($service->setting->siteIsolationRequired) {
             $this->information('---> Enabling site isolation.');
 
-            $data['isolated'] = true;
-            $data['username'] = $service->getSiteIsolationUsername();
+            $data['is_isolated'] = true;
+            $data['isolated_user'] = $service->getSiteIsolationUsername();
         }
 
-        if ($aliases = $service->getFormattedAliases()) {
-            $data['aliases'] = $aliases;
-        }
+        return array_filter($data, static fn ($value) => $value !== null && $value !== '');
+    }
 
-        return $data;
+    protected function addAliases(ForgeService $service): void
+    {
+        foreach ($service->getFormattedAliases() as $alias) {
+            $this->information(sprintf('---> Adding alias domain: %s', $alias));
+            $service->createDomain($alias);
+        }
     }
 }

@@ -23,15 +23,17 @@ class RemoveDatabaseUser
 
     public function __invoke(ForgeService $service, Closure $next)
     {
-        foreach ($service->forge->databaseUsers($service->setting->server) as $databaseUser) {
+        foreach ($service->databaseUsers() as $databaseUser) {
             if ($databaseUser->name === $service->getFormattedDatabaseName()) {
                 $this->information('Removing database with user.');
 
-                foreach ($databaseUser->databases as $database) {
-                    $service->forge->deleteDatabase($service->setting->server, $database);
+                foreach ($service->databases() as $database) {
+                    if ($database->name === $service->getFormattedDatabaseName()) {
+                        $service->deleteDatabase($database->id);
+                    }
                 }
 
-                $databaseUser->delete();
+                $service->deleteDatabaseUser($databaseUser->id);
             }
         }
 

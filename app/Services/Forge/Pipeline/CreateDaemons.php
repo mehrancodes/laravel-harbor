@@ -27,9 +27,8 @@ class CreateDaemons
         $this->information('Creating daemons.');
 
         foreach ($daemons as $daemon) {
-            $service->forge->createDaemon(
-                serverId: $service->server->id,
-                data: array_merge(
+            $service->createDaemon(
+                array_merge(
                     [
                         // Defaults a daemon to run under the same user and directory as the current site.
                         'user' => $service->site->username,

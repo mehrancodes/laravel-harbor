@@ -14,7 +14,6 @@ declare(strict_types=1);
 namespace App\Services\Forge\Pipeline;
 
 use App\Services\Forge\ForgeService;
-use App\Services\Github\GithubService;
 use App\Traits\Outputifier;
 use Closure;
 
@@ -22,40 +21,25 @@ class InstallGitRepository
 {
     use Outputifier;
 
-    public function __construct(public GithubService $githubService)
-    {
-        //
-    }
-
     public function __invoke(ForgeService $service, Closure $next)
     {
         if (! $service->siteNewlyMade && ! is_null($service->site->repository)) {
             return $next($service);
         }
 
+        if (! $service->siteNewlyMade) {
+            $this->warning('Site has no repository configured. Automatic repository installation for existing sites is not available on the new Forge API yet.');
+
+            return $next($service);
+        }
+
         $this->information('Installing the git repository.');
 
         if ($service->setting->githubCreateDeployKey) {
-            $this->information('---> Creating deploy key on Forge.');
-
-            $data = $service->site->createDeployKey();
-
-            $this->information('---> Adding deploy key to GitHub repository.');
-
-            $this->githubService->createDeployKey(
-                $service->getDeployKeyTitle(),
-                $data['key']
+            $this->warning(
+                '---> Forge now creates deploy keys during site creation. Please add the generated key from Forge UI to your repository if deployment access fails.'
             );
         }
-
-        $service->setSite(
-            $service->site->installGitRepository([
-                'provider' => $service->setting->gitProvider,
-                'repository' => $service->setting->gitProvider !== 'custom' ? $service->setting->repository : $service->setting->repositoryUrl,
-                'branch' => $service->setting->branch,
-                'composer' => false,
-            ])
-        );
 
         return $next($service);
     }

@@ -13,9 +13,10 @@ declare(strict_types=1);
 
 namespace App\Exceptions;
 
+use App\Services\Forge\Api\Exceptions\ForgeApiException;
+use App\Services\Forge\Exceptions\ValidationException as ForgeSettingValidationException;
 use App\Traits\Outputifier;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
-use Laravel\Forge\Exceptions\ValidationException;
 
 class Handler extends ExceptionHandler
 {
@@ -25,14 +26,28 @@ class Handler extends ExceptionHandler
 
     public function register(): void
     {
-        $this->reportable(function (ValidationException $e) {
-            foreach ($e->errors() as $error) {
+        $render = function (array $errors): bool {
+            foreach ($errors as $error) {
                 $this->failCommand(
                     sprintf('---> %s', is_array($error) ? current($error) : $error)
                 );
             }
 
             return false;
+        };
+
+        $this->reportable(function (ForgeSettingValidationException $e) use ($render) {
+            return $render($e->errors());
+        });
+
+        $this->reportable(function (ForgeApiException $e) use ($render) {
+            return $render($e->errors() !== [] ? $e->errors() : [$e->getMessage()]);
+        });
+
+        $this->reportable(function (\Illuminate\Validation\ValidationException $e) use ($render) {
+            $errors = collect($e->errors())->flatten()->values()->all();
+
+            return $render($errors);
         });
     }
 }

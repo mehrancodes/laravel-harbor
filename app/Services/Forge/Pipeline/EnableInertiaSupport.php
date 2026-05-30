@@ -42,25 +42,23 @@ class EnableInertiaSupport
     {
         $this->information('Create a daemon for Inertia.js SSR.');
 
-        $service->forge->createDaemon($service->server->id, [
+        $service->createDaemon([
             'command' => 'php artisan inertia:start-ssr',
             'user' => $service->site->username,
             'directory' => $service->siteDirectory(),
+            'name' => 'Inertia SSR',
+            'processes' => 1,
         ]);
     }
 
     protected function addCommandToStopInertiaOnReDeploy(ForgeService $service): void
     {
-        $script = $service->forge->siteDeploymentScript($service->server->id, $service->site->id);
+        $script = $service->siteDeploymentScript();
 
         if (! str_contains($script, $command = 'php artisan inertia:stop-ssr')) {
             $this->information('Including stop command for Inertia SSR in deploy script.');
 
-            $service->forge->updateSiteDeploymentScript(
-                $service->server->id,
-                $service->site->id,
-                $script."\n\n$command"
-            );
+            $service->updateSiteDeploymentScript($script."\n\n$command");
         }
     }
 }

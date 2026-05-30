@@ -13,12 +13,12 @@ declare(strict_types=1);
 
 namespace App\Services\Forge;
 
+use App\Services\Forge\Exceptions\ValidationException;
 use App\Rules\BranchNameRegex;
 use App\Traits\Outputifier;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Fluent;
 use Illuminate\Support\Str;
-use Laravel\Forge\Exceptions\ValidationException;
 
 class ForgeSetting
 {
@@ -28,6 +28,11 @@ class ForgeSetting
      * Forge API authentication token.
      */
     public string $token;
+
+    /**
+     * Forge organization slug.
+     */
+    public string $organization;
 
     /**
      * Forge Identifier for the server.
@@ -238,7 +243,9 @@ class ForgeSetting
     {
         $validator = $this->validate($configurations);
 
-        throw_if($validator->fails(), ValidationException::class, $validator->errors()->all());
+        if ($validator->fails()) {
+            throw new ValidationException($validator->errors()->all());
+        }
 
         // If validation passes, set properties
         foreach ($configurations as $key => $value) {
@@ -252,6 +259,7 @@ class ForgeSetting
     {
         return Validator::make($configurations, [
             'token' => ['required'],
+            'organization' => ['required', 'string'],
             'server' => ['required'],
             'domain' => ['required'],
             'aliases' => ['nullable', 'string'],

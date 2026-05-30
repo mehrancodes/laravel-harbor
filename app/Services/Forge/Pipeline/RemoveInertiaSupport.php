@@ -17,7 +17,6 @@ use App\Services\Forge\ForgeService;
 use App\Traits\Outputifier;
 use Closure;
 use Illuminate\Support\Arr;
-use Laravel\Forge\Resources\Daemon;
 
 class RemoveInertiaSupport
 {
@@ -32,15 +31,15 @@ class RemoveInertiaSupport
         if ($daemon = $this->getInertiaDaemon($service)) {
             $this->information('Removing the daemon for Inertia.js SSR command.');
 
-            $service->forge->deleteDaemon($service->server->id, $daemon->id);
+            $service->deleteDaemon($daemon->id);
         }
 
         return $next($service);
     }
 
-    protected function getInertiaDaemon(ForgeService $service): ?Daemon
+    protected function getInertiaDaemon(ForgeService $service): ?object
     {
-        $daemons = $service->forge->daemons($service->server->id);
+        $daemons = $service->daemons();
         $command = 'php artisan inertia:start-ssr';
 
         return Arr::first(

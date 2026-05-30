@@ -33,8 +33,6 @@ class RemoveExistingDeployKey
             $this->information('---> Removing existing deploy keys on GitHub repository.');
 
             $this->githubService->deleteAllKeys($service->getDeployKeyTitle());
-
-            $service->site->destroyDeployKey();
         }
 
         return $next($service);

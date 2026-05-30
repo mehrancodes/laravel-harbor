@@ -13,10 +13,10 @@ declare(strict_types=1);
 
 namespace App\Services\Forge\Pipeline;
 
+use App\Services\Forge\Api\Exceptions\ForgeValidationException;
 use App\Services\Forge\ForgeService;
 use App\Traits\Outputifier;
 use Closure;
-use Laravel\Forge\Exceptions\ValidationException;
 
 /**
  * Creates a webhook for the Forge site.
@@ -38,12 +38,8 @@ class CreateWebhook
         $this->information('Creating webhook for the site.');
 
         try {
-            $service->forge->createWebhook(
-                $service->server->id,
-                $service->site->id,
-                ['url' => $service->setting->webhookUrl]
-            );
-        } catch (ValidationException $e) {
+            $service->createWebhook($service->setting->webhookUrl);
+        } catch (ForgeValidationException $e) {
             $this->warning(sprintf('Failed to create webhook: %s', $e->getMessage()));
         }
 

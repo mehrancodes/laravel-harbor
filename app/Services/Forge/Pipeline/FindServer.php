@@ -26,9 +26,7 @@ class FindServer
         $this->information('Start finding the server.');
 
         $service->setServer(
-            $service->forge->server(
-                $service->setting->server
-            )
+            $service->server($service->setting->server)
         );
 
         return $next($service);

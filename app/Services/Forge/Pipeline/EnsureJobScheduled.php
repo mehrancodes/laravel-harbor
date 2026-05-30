@@ -34,7 +34,7 @@ class EnsureJobScheduled
     {
         $command = $this->buildScheduledJobCommand($service->site->username, $service->site->name);
 
-        foreach ($service->forge->jobs($service->server->id) as $job) {
+        foreach ($service->jobs() as $job) {
             if ($job->command === $command) {
                 $this->information('Scheduler job is already in place.');
 
@@ -43,7 +43,8 @@ class EnsureJobScheduled
         }
 
         $this->information('Creating a new scheduler job.');
-        $service->forge->createJob($service->server->id, [
+        $service->createJob([
+            'name' => 'Harbor scheduler',
             'command' => $command,
             'frequency' => 'minutely',
             'user' => $service->site->username,

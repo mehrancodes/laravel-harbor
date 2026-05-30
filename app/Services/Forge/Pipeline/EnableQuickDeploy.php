@@ -29,7 +29,7 @@ class EnableQuickDeploy
 
         $this->information('Enabling the quick deploy.');
 
-        $service->site->enableQuickDeploy();
+        $service->enableQuickDeploy();
 
         return $next($service);
     }

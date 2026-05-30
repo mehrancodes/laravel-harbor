@@ -25,7 +25,7 @@ class DestroySite
     {
         $this->information('Processing site deletion.');
 
-        $service->site->delete();
+        $service->deleteSite();
 
         return $next($service);
     }

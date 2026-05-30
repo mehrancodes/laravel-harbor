@@ -29,9 +29,7 @@ class UpdateDeployScript
 
         $this->information('Updating deployment script.');
 
-        $service->forge->updateSiteDeploymentScript(
-            $service->server->id,
-            $service->site->id,
+        $service->updateSiteDeploymentScript(
             $service->setting->deployScript,
             $service->setting->autoSourceRequired
         );
