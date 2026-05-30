@@ -297,6 +297,8 @@ class ForgeSetting
             'github_create_deploy_key' => ['required', 'boolean'],
             'queue_workers' => ['nullable', 'string'],
             'daemons' => ['nullable', 'string'],
+        ], [
+            'organization.required' => 'Forge Organization ID is required for Harbor v2. Please add it to your Harbor workflow configuration, or use Harbor v1. See: http://laravel-harbor.com/docs/upgrade-to-v2',
         ])->sometimes('git_provider', 'in:custom', function (Fluent $input) {
             return $input->github_create_deploy_key === true;
         });
