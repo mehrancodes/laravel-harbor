@@ -3,8 +3,8 @@
 use App\Rules\BranchNameRegex;
 use Illuminate\Support\Facades\Validator;
 
-test('it validates the subdomain pattern matches the branch name', function ($data, $failed) {
-    $validator = Validator::make($data, [
+test('it validates the subdomain pattern matches the branch name', function ($actual, $failed) {
+    $validator = Validator::make($actual, [
         'branch' => ['required', new BranchNameRegex],
         'subdomain_pattern' => ['string'],
     ]);

@@ -17,20 +17,20 @@
     ],
     "require": {
         "php": "^8.2",
-        "guzzlehttp/guzzle": "^7.8.1",
-        "illuminate/http": "^11.5.0",
-        "illuminate/log": "^11.5.0",
-        "illuminate/validation": "^11.5.0",
-        "laravel-zero/framework": "^11.0.1",
+        "guzzlehttp/guzzle": "^7.10",
+        "illuminate/http": "^12.40",
+        "illuminate/log": "^12.40",
+        "illuminate/validation": "^12.40",
+        "laravel-zero/framework": "^12.1",
         "laravel/slack-notification-channel": "^3.2",
-        "lorisleiva/laravel-actions": "^2.7",
+        "lorisleiva/laravel-actions": "^2.10",
         "nunomaduro/termwind": "^2.0",
         "saloonphp/saloon": "^4.0"
     },
     "require-dev": {
-        "laravel/pint": "^1.8",
-        "mockery/mockery": "^1.5.1",
-        "pestphp/pest": "^2.5"
+        "laravel/pint": "^1.25",
+        "mockery/mockery": "^1.6",
+        "pestphp/pest": "^3.8"
     },
     "autoload": {
         "psr-4": {
@@ -46,6 +46,9 @@
         "preferred-install": "dist",
         "sort-packages": true,
         "optimize-autoloader": true,
+        "platform": {
+            "php": "8.3.0"
+        },
         "allow-plugins": {
             "pestphp/pest-plugin": true
         }
