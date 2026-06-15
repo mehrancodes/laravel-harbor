@@ -20,6 +20,7 @@ use Closure;
 class EnsureJobScheduled
 {
     use Outputifier;
+    protected const SCHEDULER_JOB_NAME = 'Harbor scheduler';
 
     public function __invoke(ForgeService $service, Closure $next)
     {
@@ -35,7 +36,7 @@ class EnsureJobScheduled
         $command = $this->buildScheduledJobCommand($service->site->username, $service->site->name);
 
         foreach ($service->jobs() as $job) {
-            if ($job->command === $command) {
+            if ($job->name === self::SCHEDULER_JOB_NAME && $job->command === $command) {
                 $this->information('Scheduler job is already in place.');
 
                 return;
@@ -44,7 +45,7 @@ class EnsureJobScheduled
 
         $this->information('Creating a new scheduler job.');
         $service->createJob([
-            'name' => 'Harbor scheduler',
+            'name' => self::SCHEDULER_JOB_NAME,
             'command' => $command,
             'frequency' => 'minutely',
             'user' => $service->site->username,

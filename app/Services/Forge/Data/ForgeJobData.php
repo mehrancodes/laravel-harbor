@@ -10,6 +10,7 @@ class ForgeJobData
 {
     public function __construct(
         public int|string $id,
+        public string $name,
         public string $command,
         public ?string $user,
     ) {
@@ -22,6 +23,7 @@ class ForgeJobData
 
         return new self(
             id: JsonApiData::id($resource),
+            name: (string) ($attributes['name'] ?? ''),
             command: (string) ($attributes['command'] ?? ''),
             user: $attributes['user'] ?? null,
         );
