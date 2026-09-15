@@ -19,6 +19,7 @@ class ForgeSiteData
         public ?string $rootDirectory,
         public ?string $directory,
         public ?string $deploymentUrl,
+        public ?string $phpVersion = null,
     ) {
         //
     }
@@ -46,6 +47,7 @@ class ForgeSiteData
             rootDirectory: $rootDirectory,
             directory: $directory,
             deploymentUrl: $attributes['deployment_url'] ?? null,
+            phpVersion: $attributes['php_version'] ?? null,
         );
     }
 

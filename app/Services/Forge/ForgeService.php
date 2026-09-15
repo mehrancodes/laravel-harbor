@@ -23,6 +23,7 @@ use App\Services\Forge\Data\ForgeDatabaseUserData;
 use App\Services\Forge\Data\ForgeDomainData;
 use App\Services\Forge\Data\ForgeJobData;
 use App\Services\Forge\Data\ForgeServerData;
+use App\Services\Forge\Data\ForgeSiteCommandData;
 use App\Services\Forge\Data\ForgeSiteData;
 use Illuminate\Support\Str;
 use RuntimeException;
@@ -215,6 +216,13 @@ class ForgeService
     public function executeSiteCommand(string $command): void
     {
         $this->client->runSiteCommand($this->setting->server, $this->site->id, $command);
+    }
+
+    public function waitForSiteCommand(ForgeSiteCommandData $siteCommand): ForgeSiteCommandData
+    {
+        $waiter = app()->makeWith(ForgeSiteCommandWaiter::class, ['client' => $this->client]);
+
+        return $waiter->waitFor($siteCommand);
     }
 
     public function siteEnvironmentFile(): string

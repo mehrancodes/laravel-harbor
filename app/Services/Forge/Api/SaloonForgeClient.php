@@ -15,6 +15,7 @@ use App\Services\Forge\Data\ForgeDatabaseUserData;
 use App\Services\Forge\Data\ForgeDomainData;
 use App\Services\Forge\Data\ForgeJobData;
 use App\Services\Forge\Data\ForgeServerData;
+use App\Services\Forge\Data\ForgeSiteCommandData;
 use App\Services\Forge\Data\ForgeSiteData;
 use Saloon\Enums\Method;
 
@@ -124,11 +125,35 @@ class SaloonForgeClient implements ForgeClient
         $this->sendRequest(Method::DELETE, $this->endpoint("/servers/{$serverId}/sites/{$siteId}/deployments/push-to-deploy"));
     }
 
-    public function runSiteCommand(string|int $serverId, string|int $siteId, string $command): void
+    public function runSiteCommand(string|int $serverId, string|int $siteId, string $command): ForgeSiteCommandData
     {
-        $this->sendRequest(Method::POST, $this->endpoint("/servers/{$serverId}/sites/{$siteId}/commands"), [
+        $payload = $this->sendRequest(Method::POST, $this->endpoint("/servers/{$serverId}/sites/{$siteId}/commands"), [
             'command' => $command,
         ]);
+
+        return ForgeSiteCommandData::fromResource(JsonApiData::data($payload), $serverId, $siteId);
+    }
+
+    public function getSiteCommand(string|int $serverId, string|int $siteId, string|int $commandId): ForgeSiteCommandData
+    {
+        $payload = $this->sendRequest(Method::GET, $this->endpoint("/servers/{$serverId}/sites/{$siteId}/commands/{$commandId}"));
+
+        return ForgeSiteCommandData::fromResource(JsonApiData::data($payload), $serverId, $siteId);
+    }
+
+    public function getSiteCommandOutput(string|int $serverId, string|int $siteId, string|int $commandId): string
+    {
+        $payload = $this->sendRequest(Method::GET, $this->endpoint("/servers/{$serverId}/sites/{$siteId}/commands/{$commandId}/output"));
+
+        $data = JsonApiData::data($payload);
+
+        if (is_string($data)) {
+            return $data;
+        }
+
+        $attributes = JsonApiData::attributes(is_array($data) ? $data : $payload);
+
+        return (string) ($attributes['output'] ?? $attributes['content'] ?? $payload['output'] ?? '');
     }
 
     public function createWebhook(string|int $serverId, string|int $siteId, string $url): void
