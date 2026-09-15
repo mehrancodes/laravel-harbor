@@ -47,7 +47,7 @@ class OrCreateNewSite
             'www_redirect_type' => 'none',
             'allow_wildcard_subdomains' => false,
             'php_version' => $service->setting->phpVersion,
-            'web_directory' => '/public',
+            'web_directory' => $service->setting->directory,
             'source_control_provider' => $service->setting->gitProvider,
             'repository' => $service->setting->gitProvider !== 'custom' ? $service->setting->repository : $service->setting->repositoryUrl,
             'branch' => $service->setting->branch,
