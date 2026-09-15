@@ -19,6 +19,7 @@ Please update your references and links accordingly.
 ## Table of Contents
 
 - [Introduction](#introduction)
+- [Local Orca worktrees](#local-orca-worktrees)
 - [Forge Server Requirements (Harbor)](#forge-server-requirements-harbor)
 - [Forge Deployment Alert Reference](#forge-deployment-alert-reference)
 - [Contributing](#contributing)
@@ -35,6 +36,25 @@ In today's fast-paced software development world, the ability to quickly and eff
 Website: [https://laravel-harbor.com](https://laravel-harbor.com)
 
 See the [documentation](https://laravel-harbor.com/docs/introduction/) for detailed installation and usage instructions.
+
+## Local Orca worktrees
+
+Point `HARBOR_LOCAL_ENV` at a machine-local source `.env` (never commit worktree `.env` files).
+
+**Orca setup hook** (Settings → Repository → Hooks):
+
+```bash
+HARBOR_LOCAL_ENV=/path/to/.env ./scripts/bootstrap-local-worktree.sh
+```
+
+That syncs Forge env into the worktree and runs `composer install`. Refresh secrets later with:
+
+```bash
+HARBOR_LOCAL_ENV=/path/to/.env ./scripts/sync-local-env.sh
+# or: HARBOR_LOCAL_ENV=/path/to/.env ./scripts/sync-local-env.sh --force
+```
+
+Also available as `HARBOR_LOCAL_ENV=/path/to/.env composer setup:orca`.
 
 ## Forge Server Requirements (Harbor)
 

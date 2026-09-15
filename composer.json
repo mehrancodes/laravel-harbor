@@ -55,5 +55,11 @@
     },
     "minimum-stability": "stable",
     "prefer-stable": true,
-    "bin": ["harbor"]
+    "bin": ["harbor"],
+    "scripts": {
+        "setup:orca": [
+            "@php -r \"echo 'Running Orca worktree bootstrap…'.PHP_EOL;\"",
+            "bash scripts/bootstrap-local-worktree.sh"
+        ]
+    }
 }
