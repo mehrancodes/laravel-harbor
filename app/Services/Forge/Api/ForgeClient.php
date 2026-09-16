@@ -41,6 +41,13 @@ interface ForgeClient
 
     public function deploySite(string|int $serverId, string|int $siteId): void;
 
+    /**
+     * Ask Forge to generate a deploy key for the site and return its public key.
+     */
+    public function createSiteDeployKey(string|int $serverId, string|int $siteId): string;
+
+    public function deleteSiteDeployKey(string|int $serverId, string|int $siteId): void;
+
     public function enableQuickDeploy(string|int $serverId, string|int $siteId): void;
 
     public function disableQuickDeploy(string|int $serverId, string|int $siteId): void;

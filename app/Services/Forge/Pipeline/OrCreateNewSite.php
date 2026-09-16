@@ -52,8 +52,13 @@ class OrCreateNewSite
             'repository' => $service->setting->gitProvider !== 'custom' ? $service->setting->repository : $service->setting->repositoryUrl,
             'branch' => $service->setting->branch,
             'push_to_deploy' => $service->setting->quickDeploy,
-            'generate_deploy_key' => $service->setting->githubCreateDeployKey,
         ];
+
+        // Forge requires the keypair at create-time; generate_deploy_key alone is rejected.
+        if ($service->setting->deployKeyPublic && $service->setting->deployKeyPrivate) {
+            $data['public_deploy_key'] = $service->setting->deployKeyPublic;
+            $data['private_deploy_key'] = $service->setting->deployKeyPrivate;
+        }
 
         if ($nginxTemplate = $service->setting->nginxTemplate) {
             $this->information('---> Use the specified Nginx template.');

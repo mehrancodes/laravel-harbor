@@ -16,8 +16,16 @@ return [
     // Website's aliases
     'aliases' => env('FORGE_ALIASES'),
 
-    // Git service provider (default: 'github').
+    // Git service provider used by Forge to clone the repository.
+    // One of: github, gitlab, gitlab-custom, bitbucket, custom.
     'git_provider' => env('FORGE_GIT_PROVIDER', 'github'),
+
+    // API provider Harbor uses for deploy keys and comments.
+    // Defaults to git_provider when omitted.
+    'git_api_provider' => env('FORGE_GIT_API_PROVIDER'),
+
+    // Optional API base URL, useful for self-hosted GitHub/GitLab.
+    'git_api_url' => env('GIT_API_URL'),
 
     // Git repository name.
     'repository' => env('FORGE_GIT_REPOSITORY'),
@@ -28,8 +36,13 @@ return [
     // Git branch name.
     'branch' => env('FORGE_GIT_BRANCH'),
 
-    // Creates a deploy key on github
-    'github_create_deploy_key' => env('FORGE_GITHUB_DEPLOY_KEY', false),
+    // Creates and registers a deploy key for the site.
+    // FORGE_GITHUB_DEPLOY_KEY is deprecated but still supported.
+    'deploy_key' => env('FORGE_DEPLOY_KEY', env('FORGE_GITHUB_DEPLOY_KEY', false)),
+
+    // Optional BYO deploy key pair for custom/self-hosted setups.
+    'deploy_key_public' => env('FORGE_DEPLOY_KEY_PUBLIC'),
+    'deploy_key_private' => env('FORGE_DEPLOY_KEY_PRIVATE'),
 
     // Pattern for subdomains.
     'subdomain_pattern' => env('FORGE_SUBDOMAIN_PATTERN'),

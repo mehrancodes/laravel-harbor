@@ -212,6 +212,16 @@ class ForgeService
         $this->client->enableQuickDeploy($this->setting->server, $this->site->id);
     }
 
+    public function createDeployKey(): string
+    {
+        return $this->client->createSiteDeployKey($this->setting->server, $this->site->id);
+    }
+
+    public function deleteDeployKey(): void
+    {
+        $this->client->deleteSiteDeployKey($this->setting->server, $this->site->id);
+    }
+
     public function executeSiteCommand(string $command): void
     {
         $this->client->runSiteCommand($this->setting->server, $this->site->id, $command);

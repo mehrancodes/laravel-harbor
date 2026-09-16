@@ -15,7 +15,7 @@ namespace App\Services\Forge\Pipeline;
 
 use App\Services\Comments\CommentService;
 use App\Services\Forge\ForgeService;
-use App\Services\Github\GithubService;
+use App\Services\Git\Contracts\GitProvider;
 use App\Traits\Outputifier;
 use Closure;
 
@@ -23,7 +23,7 @@ class PutCommentOnPullRequest
 {
     use Outputifier;
 
-    public function __construct(public GithubService $githubService, public CommentService $commentService)
+    public function __construct(public GitProvider $gitProvider, public CommentService $commentService)
     {
     }
 
@@ -33,7 +33,7 @@ class PutCommentOnPullRequest
 
             $this->information('Including the site information to the pull request.');
 
-            $this->githubService->putCommentOnGithubPullRequest($this->getTable($service));
+            $this->gitProvider->comment($service->setting->gitIssueNumber, $this->getTable($service));
         }
 
         return $next($service);

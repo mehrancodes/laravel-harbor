@@ -8,6 +8,8 @@ use App\Services\Forge\Api\SaloonForgeClient;
 use App\Services\Forge\Api\Support\CursorPaginator;
 use App\Services\Forge\ForgeService;
 use App\Services\Forge\ForgeSetting;
+use App\Services\Git\Contracts\GitProvider;
+use App\Services\Git\GitProviderFactory;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -20,6 +22,7 @@ class AppServiceProvider extends ServiceProvider
     public function register(): void
     {
         $this->app->singleton(ForgeSetting::class, fn () => new ForgeSetting());
+        $this->app->singleton(GitProvider::class, fn () => GitProviderFactory::make(app(ForgeSetting::class)));
 
         $this->app->singleton(ForgeClient::class, function () {
             $setting = app(ForgeSetting::class);

@@ -29,6 +29,7 @@ use App\Services\Forge\Pipeline\InstallGitRepository;
 use App\Services\Forge\Pipeline\NginxTemplateSearchReplace;
 use App\Services\Forge\Pipeline\ObtainLetsEncryptCertification;
 use App\Services\Forge\Pipeline\OrCreateNewSite;
+use App\Services\Forge\Pipeline\PrepareDeployKey;
 use App\Services\Forge\Pipeline\PutCommentOnPullRequest;
 use App\Services\Forge\Pipeline\RunOptionalCommands;
 use App\Services\Forge\Pipeline\UpdateDeployScript;
@@ -51,6 +52,7 @@ class ProvisionCommand extends Command
             ->through([
                 FindServer::class,
                 FindSite::class,
+                PrepareDeployKey::class,
                 OrCreateNewSite::class,
                 NginxTemplateSearchReplace::class,
                 CreateDatabase::class,
