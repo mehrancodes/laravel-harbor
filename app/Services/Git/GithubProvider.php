@@ -95,7 +95,7 @@ class GithubProvider implements GitProvider
      */
     protected function deployKeysByTitle(string $title): array
     {
-        $response = $this->request()->get($this->uri('/repos/%s/keys', $this->setting->repository));
+        $response = $this->request()->get($this->uri('/repos/%s/keys', $this->setting->repository), ['per_page' => 100]);
 
         if ($response->failed()) {
             $this->handleApiErrors($response, 'Deploy key');
@@ -141,7 +141,9 @@ class GithubProvider implements GitProvider
                 'authorization' => ['Unauthorized. Please check your GitHub token.'],
             ]),
             403 => ValidationException::withMessages([
-                'forbidden' => ['Forbidden. You might not have the necessary permissions.'],
+                'forbidden' => [$apiName === 'Deploy key'
+                    ? 'Forbidden. GIT_TOKEN cannot manage deploy keys on this repository. GitHub Apps need "Administration: Read and write"; personal access tokens need the "repo" scope.'
+                    : 'Forbidden. GIT_TOKEN cannot comment on this pull request. GitHub Apps need "Pull requests: Read and write".'],
             ]),
             default => ValidationException::withMessages([
                 'api_error' => ['An unexpected error occurred: '.$response->body()],

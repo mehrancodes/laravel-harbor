@@ -33,7 +33,6 @@ class RemoveExistingDeployKey
             $this->information(sprintf('---> Removing existing deploy keys on %s repository.', $this->gitProvider->name()));
 
             $this->gitProvider->deleteDeployKeysByTitle($service->getDeployKeyTitle());
-            $service->deleteDeployKey();
         }
 
         return $next($service);

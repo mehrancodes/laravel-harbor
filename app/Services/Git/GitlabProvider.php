@@ -91,7 +91,7 @@ class GitlabProvider implements GitProvider
      */
     protected function deployKeysByTitle(string $title): array
     {
-        $response = $this->request()->get($this->uri('/projects/%s/deploy_keys'));
+        $response = $this->request()->get($this->uri('/projects/%s/deploy_keys'), ['per_page' => 100]);
 
         if ($response->failed()) {
             $this->handleApiErrors($response, 'Deploy key');

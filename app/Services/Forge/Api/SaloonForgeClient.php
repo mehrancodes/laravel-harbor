@@ -114,18 +114,6 @@ class SaloonForgeClient implements ForgeClient
         $this->sendRequest(Method::POST, $this->endpoint("/servers/{$serverId}/sites/{$siteId}/deployments"));
     }
 
-    public function createSiteDeployKey(string|int $serverId, string|int $siteId): string
-    {
-        $payload = $this->sendRequest(Method::POST, $this->endpoint("/servers/{$serverId}/sites/{$siteId}/deploy-key"));
-
-        return (string) (JsonApiData::attributes(JsonApiData::data($payload))['key'] ?? '');
-    }
-
-    public function deleteSiteDeployKey(string|int $serverId, string|int $siteId): void
-    {
-        $this->sendRequest(Method::DELETE, $this->endpoint("/servers/{$serverId}/sites/{$siteId}/deploy-key"));
-    }
-
     public function enableQuickDeploy(string|int $serverId, string|int $siteId): void
     {
         $this->sendRequest(Method::POST, $this->endpoint("/servers/{$serverId}/sites/{$siteId}/deployments/push-to-deploy"));
