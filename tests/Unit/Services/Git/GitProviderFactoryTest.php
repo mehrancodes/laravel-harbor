@@ -33,6 +33,32 @@ test('it resolves gitlab provider when custom forge provider uses gitlab api ove
     expect(GitProviderFactory::make($setting))->toBeInstanceOf(GitlabProvider::class);
 });
 
+test('it infers the api provider from a custom repository url', function (string $url, string $expected) {
+    $setting = forgeSettingStub();
+    $setting->gitProvider = 'custom';
+    $setting->gitApiProvider = null;
+    $setting->repositoryUrl = $url;
+    $setting->gitToken = 'token';
+
+    expect(GitProviderFactory::make($setting))->toBeInstanceOf($expected);
+})->with([
+    'github scp-style' => ['git@github.com:owner/repo.git', GithubProvider::class],
+    'github ssh scheme' => ['ssh://git@github.com/owner/repo.git', GithubProvider::class],
+    'github https' => ['https://github.com/owner/repo.git', GithubProvider::class],
+    'gitlab scp-style' => ['git@gitlab.com:group/project.git', GitlabProvider::class],
+    'unknown host' => ['git@git.example.com:group/project.git', ManualProvider::class],
+]);
+
+test('it prefers the explicit api provider over the custom repository url', function () {
+    $setting = forgeSettingStub();
+    $setting->gitProvider = 'custom';
+    $setting->gitApiProvider = 'gitlab';
+    $setting->repositoryUrl = 'git@github.com:owner/repo.git';
+    $setting->gitToken = 'token';
+
+    expect(GitProviderFactory::make($setting))->toBeInstanceOf(GitlabProvider::class);
+});
+
 test('it falls back to manual provider when git token is missing', function () {
     $setting = forgeSettingStub();
     $setting->gitProvider = 'github';

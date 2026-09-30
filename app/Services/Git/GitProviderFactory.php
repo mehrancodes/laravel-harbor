@@ -29,9 +29,17 @@ class GitProviderFactory
         'gitlab-custom' => GitlabProvider::class,
     ];
 
+    /**
+     * Public hosts whose API can be inferred from a custom repository URL.
+     */
+    private const HOST_MAP = [
+        'github.com' => 'github',
+        'gitlab.com' => 'gitlab',
+    ];
+
     public static function make(ForgeSetting $setting): GitProvider
     {
-        $provider = $setting->gitApiProvider ?: $setting->gitProvider;
+        $provider = $setting->gitApiProvider ?: self::inferProvider($setting);
 
         $implementation = self::PROVIDER_MAP[$provider] ?? null;
 
@@ -40,5 +48,19 @@ class GitProviderFactory
         }
 
         return new $implementation($setting);
+    }
+
+    private static function inferProvider(ForgeSetting $setting): string
+    {
+        if ($setting->gitProvider !== 'custom' || blank($setting->repositoryUrl)) {
+            return $setting->gitProvider;
+        }
+
+        // Matches git@host:path, ssh://git@host/path and https://host/path.
+        if (! preg_match('~^(?:[a-z+]+://)?(?:[^@/]+@)?([^:/]+)~i', $setting->repositoryUrl, $matches)) {
+            return $setting->gitProvider;
+        }
+
+        return self::HOST_MAP[strtolower($matches[1])] ?? $setting->gitProvider;
     }
 }
