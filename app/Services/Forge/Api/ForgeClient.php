@@ -10,6 +10,7 @@ use App\Services\Forge\Data\ForgeDatabaseUserData;
 use App\Services\Forge\Data\ForgeDomainData;
 use App\Services\Forge\Data\ForgeJobData;
 use App\Services\Forge\Data\ForgeServerData;
+use App\Services\Forge\Data\ForgeSiteCommandData;
 use App\Services\Forge\Data\ForgeSiteData;
 
 interface ForgeClient
@@ -45,7 +46,11 @@ interface ForgeClient
 
     public function disableQuickDeploy(string|int $serverId, string|int $siteId): void;
 
-    public function runSiteCommand(string|int $serverId, string|int $siteId, string $command): void;
+    public function runSiteCommand(string|int $serverId, string|int $siteId, string $command): ForgeSiteCommandData;
+
+    public function getSiteCommand(string|int $serverId, string|int $siteId, string|int $commandId): ForgeSiteCommandData;
+
+    public function getSiteCommandOutput(string|int $serverId, string|int $siteId, string|int $commandId): string;
 
     public function createWebhook(string|int $serverId, string|int $siteId, string $url): void;
 

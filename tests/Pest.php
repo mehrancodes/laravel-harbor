@@ -1,5 +1,11 @@
 <?php
 
+use App\Services\Forge\Api\ForgeClient;
+use App\Services\Forge\Data\ForgeServerData;
+use App\Services\Forge\Data\ForgeSiteData;
+use App\Services\Forge\ForgeService;
+use App\Services\Forge\ForgeSetting;
+
 /*
 |--------------------------------------------------------------------------
 | Test Case
@@ -39,7 +45,38 @@ expect()->extend('toBeOne', function () {
 |
 */
 
-function something(): void
+function configureMockService(array $settings = [], array $siteAttributes = [], array $serverAttributes = []): ForgeService
 {
-    // ..
+    $setting = Mockery::mock(ForgeSetting::class);
+    $setting->timeoutSeconds = 0;
+    $setting->phpVersion = null;
+
+    foreach ($settings as $name => $value) {
+        $setting->{$name} = $value;
+    }
+
+    $client = Mockery::mock(ForgeClient::class);
+
+    $service = Mockery::mock(ForgeService::class, [$setting, $client])->makePartial();
+    $service->shouldAllowMockingProtectedMethods();
+    $service->site = new ForgeSiteData(
+        id: $siteAttributes['id'] ?? 1,
+        name: $siteAttributes['name'] ?? 'example.test',
+        status: $siteAttributes['status'] ?? null,
+        username: $siteAttributes['username'] ?? 'forge',
+        repository: $siteAttributes['repository'] ?? null,
+        webDirectory: $siteAttributes['webDirectory'] ?? null,
+        rootDirectory: $siteAttributes['rootDirectory'] ?? null,
+        directory: $siteAttributes['directory'] ?? null,
+        deploymentUrl: $siteAttributes['deploymentUrl'] ?? null,
+        phpVersion: $siteAttributes['phpVersion'] ?? null,
+    );
+    $service->server = new ForgeServerData(
+        id: $serverAttributes['id'] ?? 1,
+        name: $serverAttributes['name'] ?? 'server',
+        ipAddress: $serverAttributes['ipAddress'] ?? null,
+        databaseType: $serverAttributes['databaseType'] ?? null,
+    );
+
+    return $service;
 }

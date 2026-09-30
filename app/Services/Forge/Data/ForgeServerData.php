@@ -12,6 +12,7 @@ class ForgeServerData
         public int|string $id,
         public ?string $name,
         public ?string $ipAddress,
+        public ?string $databaseType = null,
     ) {
         //
     }
@@ -24,6 +25,7 @@ class ForgeServerData
             id: JsonApiData::id($resource),
             name: $attributes['name'] ?? null,
             ipAddress: $attributes['ip_address'] ?? null,
+            databaseType: $attributes['database_type'] ?? null,
         );
     }
 }

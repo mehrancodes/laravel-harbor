@@ -13,8 +13,9 @@ declare(strict_types=1);
 
 namespace App\Services\Forge;
 
-use App\Services\Forge\Exceptions\ValidationException;
 use App\Rules\BranchNameRegex;
+use App\Rules\DBSeed;
+use App\Services\Forge\Exceptions\ValidationException;
 use App\Traits\Outputifier;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
@@ -164,6 +165,21 @@ class ForgeSetting
     public ?string $dbName;
 
     /**
+     * Flag / seeder class to seed the database after first provision.
+     */
+    public bool|string $dbSeed;
+
+    /**
+     * Path of a SQL file on the server to import into the database.
+     */
+    public ?string $dbImportSql;
+
+    /**
+     * Flag to import the SQL file on every deployment, not only first provision.
+     */
+    public bool $dbImportOnDeployment;
+
+    /**
      * Flag to auto-source environment variables in deployment.
      */
     public bool $autoSourceRequired;
@@ -311,6 +327,9 @@ class ForgeSetting
             'db_creation_required' => ['boolean'],
             'force_delete_old_database' => ['boolean'],
             'db_name' => ['nullable', 'string'],
+            'db_seed' => [new DBSeed],
+            'db_import_sql' => ['nullable', 'string'],
+            'db_import_on_deployment' => ['boolean'],
             'auto_source_required' => ['boolean'],
             'ssl_required' => ['boolean'],
             'wait_on_ssl' => ['boolean'],
