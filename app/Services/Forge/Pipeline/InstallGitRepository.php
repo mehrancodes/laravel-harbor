@@ -17,6 +17,10 @@ use App\Services\Forge\ForgeService;
 use App\Traits\Outputifier;
 use Closure;
 
+/**
+ * On Forge's current API, the repository is installed during site creation.
+ * This step remains for logging and for existing sites that somehow lack a repo.
+ */
 class InstallGitRepository
 {
     use Outputifier;
@@ -33,12 +37,8 @@ class InstallGitRepository
             return $next($service);
         }
 
-        $this->information('Installing the git repository.');
-
-        if ($service->setting->githubCreateDeployKey) {
-            $this->warning(
-                '---> Forge now creates deploy keys during site creation. Please add the generated key from Forge UI to your repository if deployment access fails.'
-            );
+        if ($service->site->repository) {
+            $this->information('Git repository installed during site creation.');
         }
 
         return $next($service);

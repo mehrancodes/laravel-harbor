@@ -14,7 +14,7 @@ declare(strict_types=1);
 namespace App\Services\Forge\Pipeline;
 
 use App\Services\Forge\ForgeService;
-use App\Services\Github\GithubService;
+use App\Services\Git\Contracts\GitProvider;
 use App\Traits\Outputifier;
 use Closure;
 
@@ -22,17 +22,17 @@ class RemoveExistingDeployKey
 {
     use Outputifier;
 
-    public function __construct(public GithubService $githubService)
+    public function __construct(public GitProvider $gitProvider)
     {
         //
     }
 
     public function __invoke(ForgeService $service, Closure $next)
     {
-        if ($service->setting->githubCreateDeployKey) {
-            $this->information('---> Removing existing deploy keys on GitHub repository.');
+        if ($service->setting->deployKey) {
+            $this->information(sprintf('---> Removing existing deploy keys on %s repository.', $this->gitProvider->name()));
 
-            $this->githubService->deleteAllKeys($service->getDeployKeyTitle());
+            $this->gitProvider->deleteDeployKeysByTitle($service->getDeployKeyTitle());
         }
 
         return $next($service);

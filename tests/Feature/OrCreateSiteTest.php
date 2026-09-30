@@ -89,6 +89,39 @@ test('it omits web_directory when directory is null', function () {
         ->toBe($service);
 });
 
+test('it includes custom deploy key pair when provided', function () {
+    $service = mockForgeServiceForSiteCreation(directory: '/public');
+    $createdSite = fakeCreatedSite();
+
+    $service->setting->deployKeyPublic = 'ssh-ed25519 AAAA test';
+    $service->setting->deployKeyPrivate = '-----BEGIN PRIVATE KEY-----';
+
+    $service->shouldReceive('getFormattedDomainName')
+        ->once()
+        ->andReturn('preview.harbor.test');
+
+    $payload = expectedSitePayload('preview.harbor.test', '/public');
+    $payload['public_deploy_key'] = 'ssh-ed25519 AAAA test';
+    $payload['private_deploy_key'] = '-----BEGIN PRIVATE KEY-----';
+
+    $service->shouldReceive('createSite')
+        ->once()
+        ->with('111111', $payload)
+        ->andReturn($createdSite);
+
+    $service->shouldReceive('setSite')
+        ->once()
+        ->with($createdSite);
+
+    $service->shouldReceive('getFormattedAliases')
+        ->once()
+        ->andReturn([]);
+
+    expect(
+        app(OrCreateNewSite::class)($service, fn ($service) => $service)
+    )->toBe($service);
+});
+
 function mockForgeServiceForSiteCreation(?string $directory): ForgeService
 {
     $service = mock(ForgeService::class);
@@ -102,7 +135,9 @@ function mockForgeServiceForSiteCreation(?string $directory): ForgeService
     $setting->repositoryUrl = null;
     $setting->branch = 'main';
     $setting->quickDeploy = false;
-    $setting->githubCreateDeployKey = false;
+    $setting->deployKey = false;
+    $setting->deployKeyPublic = null;
+    $setting->deployKeyPrivate = null;
     $setting->nginxTemplate = null;
     $setting->siteIsolationRequired = false;
     $service->setting = $setting;
@@ -125,7 +160,6 @@ function expectedSitePayload(string $name, string $webDirectory): array
         'repository' => 'acme/example',
         'branch' => 'main',
         'push_to_deploy' => false,
-        'generate_deploy_key' => false,
     ];
 }
 

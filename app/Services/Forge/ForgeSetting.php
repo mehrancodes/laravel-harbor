@@ -17,7 +17,6 @@ use App\Services\Forge\Exceptions\ValidationException;
 use App\Rules\BranchNameRegex;
 use App\Traits\Outputifier;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Fluent;
 use Illuminate\Support\Str;
 
 class ForgeSetting
@@ -58,6 +57,16 @@ class ForgeSetting
      * Git repository URL or name.
      */
     public string $repository;
+
+    /**
+     * The git API provider (e.g., github, gitlab).
+     */
+    public ?string $gitApiProvider;
+
+    /**
+     * Override Git API base URL.
+     */
+    public ?string $gitApiUrl;
 
     /**
      * The git repository URL to be used with "custom" service provider
@@ -220,9 +229,19 @@ class ForgeSetting
     public bool $inertiaSsrEnabled;
 
     /**
-     * Enable github deploy key creation
+     * Enable deploy key creation and registration on the Git provider.
      */
-    public bool $githubCreateDeployKey;
+    public bool $deployKey;
+
+    /**
+     * Optional manually provided public deploy key.
+     */
+    public ?string $deployKeyPublic;
+
+    /**
+     * Optional manually provided private deploy key.
+     */
+    public ?string $deployKeyPrivate;
 
     /**
      * The webhook URL to be added to the Forge site
@@ -246,6 +265,11 @@ class ForgeSetting
 
     private function init(array $configurations): void
     {
+        // Warn only when the deprecated env var is explicitly set and the new one is not.
+        if (getenv('FORGE_GITHUB_DEPLOY_KEY') !== false && getenv('FORGE_DEPLOY_KEY') === false) {
+            $this->warning('---> FORGE_GITHUB_DEPLOY_KEY is deprecated. Please switch to FORGE_DEPLOY_KEY.');
+        }
+
         $validator = $this->validate($configurations);
 
         if ($validator->fails()) {
@@ -268,7 +292,9 @@ class ForgeSetting
             'server' => ['required'],
             'domain' => ['required'],
             'aliases' => ['nullable', 'string'],
-            'git_provider' => ['required'],
+            'git_provider' => ['required', 'in:github,gitlab,gitlab-custom,bitbucket,custom'],
+            'git_api_provider' => ['nullable', 'in:github,gitlab,gitlab-custom'],
+            'git_api_url' => ['nullable', 'url'],
             'repository' => ['required'],
             'repository_url' => ['nullable', 'string', 'required_if:git_provider,custom'],
             'branch' => ['required', new BranchNameRegex],
@@ -300,13 +326,13 @@ class ForgeSetting
             'slack_bot_user_oauth_token' => ['exclude_if:slack_announcement_enabled,false', 'required', 'string'],
             'slack_channel' => ['exclude_if:slack_announcement_enabled,false', 'required', 'string'],
             'inertia_ssr_enabled' => ['required', 'boolean'],
-            'github_create_deploy_key' => ['required', 'boolean'],
+            'deploy_key' => ['required', 'boolean'],
+            'deploy_key_public' => ['nullable', 'string', 'required_with:deploy_key_private'],
+            'deploy_key_private' => ['nullable', 'string', 'required_with:deploy_key_public'],
             'queue_workers' => ['nullable', 'string'],
             'daemons' => ['nullable', 'string'],
         ], [
             'organization.required' => 'Forge Organization ID is required for Harbor v2. Please add it to your Harbor workflow configuration, or use Harbor v1. See: http://laravel-harbor.com/docs/upgrade-to-v2',
-        ])->sometimes('git_provider', 'in:custom', function (Fluent $input) {
-            return $input->github_create_deploy_key === true;
-        });
+        ]);
     }
 }
